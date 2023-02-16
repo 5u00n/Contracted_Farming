@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Contracted Farming</string>
+    <string name="login">Login</string>
+    <string name="enter_your_number_here">Enter Your Number Here</string>
+    <string name="click_on_send_otp_to_login_register">click on send OTP to login / register</string>
+    <string name="app_will_send_otp_to_the_entered_number">App Will Send OTP To the Entered Number</string>
+    <string name="login_register">Login / Register</string>
+    <string name="continue_without_login">Continue Without Login</string>
+</resources>
