@@ -6,4 +6,8 @@
     <string name="app_will_send_otp_to_the_entered_number">App Will Send OTP To the Entered Number</string>
     <string name="login_register">Login / Register</string>
     <string name="continue_without_login">Continue Without Login</string>
+    <string name="enter_the_otp_which_you_received">Enter The OTP Which You Received</string>
+    <string name="enter_the_otp_here">Enter the OTP here....</string>
+    <string name="didn_t_receive_change_your_number">Didn\'t Receive ? Change Your Number</string>
+    <string name="verify_otp">Verify OTP</string>
 </resources>

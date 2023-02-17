@@ -1,9 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Login.SetProfileActivity">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/saveProfile"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/set_profile_radiogroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Save" />
+
+
+    <EditText
+        android:id="@+id/set_profile_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:hint="Enter Your Name Here"
+        android:inputType="textCapWords"
+        android:textAlignment="center" />
+
+
+    <ProgressBar
+        android:id="@+id/progressbarofsetProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/saveProfile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:visibility="invisible" />
+
+    <RadioGroup
+
+        android:id="@+id/set_profile_radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_occupation"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/set_profile_radio_farmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Farmer" />
+
+        <RadioButton
+            android:id="@+id/set_profile_radio_agent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agent" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/text_occupation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/set_profile_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Select What is your line of work?" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/getuserimage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="Set Your Profile"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="30sp"
+        android:textStyle="bold">
+
+    </TextView>
+
+    <androidx.cardview.widget.CardView
+
+        android:id="@+id/getuserimage"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:scaleType="fitXY"
+        android:layout_above="@+id/set_profile_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="130dp">
+
+
+        <ImageView
+            android:padding="15dp"
+            android:src="@drawable/baseline_person_add_alt_1_24"
+            android:id="@+id/set_profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

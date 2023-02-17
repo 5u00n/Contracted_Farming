@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
+        firebaseAuth= FirebaseAuth.getInstance();
 
 
         viewApp= findViewById(R.id.login_gotojustview);
@@ -73,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, AnonymousActivity.class));
-                finish();
+
             }
         });
 
