@@ -1,9 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Login.UserDetailsActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+
+            android:layout_height="?attr/actionBarSize"
+            android:layout_width="match_parent">
+            <androidx.cardview.widget.CardView
+                android:elevation="10dp"
+                app:cardCornerRadius="25dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp">
+                <ImageView
+                    android:id="@+id/user_pofile_title_img"
+                    android:src="@drawable/farmerimg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/user_details_name"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:layout_marginLeft="45dp"
+                android:text="My Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/user_details_utype"
+                android:visibility="gone"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginLeft="45dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical"
+        android:paddingTop="50dp"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_marginBottom="14dp"
+            android:id="@+id/user_details_mob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mobil No">
+
+        </EditText>
+        <EditText
+            android:layout_marginBottom="14dp"
+            android:id="@+id/user_details_adhar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Aadhaar No">
+
+        </EditText>
+        <EditText
+            android:layout_marginBottom="14dp"
+            android:id="@+id/user_details_pan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="PAN Card No.">
+
+        </EditText>
+        <EditText
+            android:layout_marginBottom="14dp"
+            android:id="@+id/user_details_dist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="District">
+
+        </EditText>
+        <EditText
+            android:layout_marginBottom="14dp"
+            android:id="@+id/user_details_taluka"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Taluka">
+
+        </EditText>
+        <EditText
+            android:layout_marginBottom="14dp"
+            android:id="@+id/user_details_vill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Village">
+
+        </EditText>
+        <EditText
+            android:layout_marginBottom="14dp"
+            android:id="@+id/user_details_cir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="circle">
+
+        </EditText>
+
+
+        <EditText
+            android:layout_marginBottom="14dp"
+            android:id="@+id/user_details_pin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Pincode"
+            android:gravity="start|top"
+            />
+
+        <Button
+            android:layout_marginTop="34dp"
+            android:id="@+id/user_details_next"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Save and Next"
+            />
+
+
+    </LinearLayout>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

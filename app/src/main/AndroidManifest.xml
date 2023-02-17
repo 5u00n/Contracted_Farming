@@ -12,6 +12,9 @@
         android:theme="@style/Theme.ContractedFarming.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".NewFarmerUploadActivity"
+            android:exported="false" />
+        <activity
             android:name=".Manager.NewManager.ManagerApprovalWaitActivity"
             android:exported="false" />
         <activity
@@ -24,9 +27,9 @@
             android:name=".Admin.Dashboard.AdminDashboardActivity"
             android:exported="false" />
         <activity
-            android:theme="@style/Theme.ContractedFarming.Login"
             android:name=".Login.SetProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.ContractedFarming.Login" />
         <activity
             android:name=".Anonymous.AnonymousActivity"
             android:exported="false" />
