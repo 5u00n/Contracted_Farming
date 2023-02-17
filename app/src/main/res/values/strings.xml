@@ -11,4 +11,18 @@
     <string name="didn_t_receive_change_your_number">Didn\'t Receive ? Change Your Number</string>
     <string name="verify_otp">Verify OTP</string>
     <string name="welcome">Welcome</string>
+    <string name="select_what_is_your_line_of_work">Select What is your line of work?</string>
+    <string name="set_your_profile">Set Your Profile</string>
+    <string name="farmer">Farmer</string>
+    <string name="enter_your_name_here">Enter Your Name Here</string>
+    <string name="pincode">Pincode</string>
+    <string name="save_and_next">Save and Next</string>
+    <string name="circle">Circle</string>
+    <string name="village">Village</string>
+    <string name="taluka">Taluka</string>
+    <string name="district">District</string>
+    <string name="pan_card_no">PAN Card No.</string>
+    <string name="aadhaar_no">Aadhaar No</string>
+    <string name="mobil_no">Mobil No</string>
+    <string name="my_text">My Text</string>
 </resources>

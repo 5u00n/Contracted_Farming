@@ -139,8 +139,8 @@ public class SetProfileActivity extends AppCompatActivity {
     private void sendDataToRealTimeDatabase() {
         name = mgetusername.getText().toString().trim();
 
-        reference.child("users").child(userType).child(firebaseAuth.getUid()).setValue(new UserModel(userUID,name,mob_no,ImageUriAcessToken,"0"));
-        reference.child("all-users").child(firebaseAuth.getUid()).setValue(new UserModel(firebaseAuth.getUid(), name,mob_no,ImageUriAcessToken,userType,"offline", "0"));
+        reference.child("users").child("new-"+userType).child(firebaseAuth.getUid()).setValue(new UserModel(userUID,name,mob_no,ImageUriAcessToken,"0"));
+        reference.child("all-users").child(firebaseAuth.getUid()).setValue(new UserModel(firebaseAuth.getUid(), name,mob_no,ImageUriAcessToken,"new-"+userType,"offline", "0"));
 
         Intent intent = new Intent(SetProfileActivity.this, UserDetailsActivity.class);
         intent.putExtra("name", name);

@@ -105,9 +105,11 @@ public class MainActivity extends AppCompatActivity {
                         intent[0] = new Intent(MainActivity.this, SetProfileActivity.class);
                     }
 
-                    intent[0].setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent[0]);
-                    finish();
+                    if(intent[0]!=null) {
+                        intent[0].setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent[0]);
+                        finish();
+                    }
                 }
 
                 @Override

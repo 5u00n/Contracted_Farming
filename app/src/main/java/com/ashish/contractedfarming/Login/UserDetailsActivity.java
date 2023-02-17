@@ -50,6 +50,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_details);
 
         database= FirebaseDatabase.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
         userUID=firebaseAuth.getUid();
 
         allrefer= database.getReference("all-users").child(userUID);

@@ -24,8 +24,9 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp">
                 <ImageView
+                    android:scaleType="centerCrop"
                     android:id="@+id/user_pofile_title_img"
-                    android:src="@drawable/farmerimg"
+                    android:src="@drawable/baseline_person_24"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
@@ -36,7 +37,7 @@
                 android:textSize="22sp"
                 android:textColor="@color/white"
                 android:layout_marginLeft="45dp"
-                android:text="My Text"
+                android:text="@string/my_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
@@ -53,78 +54,91 @@
     <LinearLayout
         android:layout_marginTop="?attr/actionBarSize"
         android:orientation="vertical"
-        android:paddingTop="50dp"
+        android:paddingTop="30dp"
         android:paddingRight="30dp"
         android:paddingLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <EditText
+            android:maxLength="10"
             android:layout_marginBottom="14dp"
             android:id="@+id/user_details_mob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Mobil No">
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:hint="@string/mobil_no">
 
         </EditText>
         <EditText
+            android:inputType="number"
+            android:maxLength="12"
             android:layout_marginBottom="14dp"
             android:id="@+id/user_details_adhar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Aadhaar No">
+            android:imeOptions="actionNext"
+            android:hint="@string/aadhaar_no">
 
         </EditText>
         <EditText
+            android:maxLength="10"
             android:layout_marginBottom="14dp"
             android:id="@+id/user_details_pan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="PAN Card No.">
+            android:inputType="textCapCharacters"
+            android:imeOptions="actionNext"
+            android:hint="@string/pan_card_no">
 
         </EditText>
-        <EditText
-            android:layout_marginBottom="14dp"
-            android:id="@+id/user_details_dist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="District">
 
-        </EditText>
         <EditText
-            android:layout_marginBottom="14dp"
-            android:id="@+id/user_details_taluka"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Taluka">
-
-        </EditText>
-        <EditText
+            android:inputType="textCapWords"
             android:layout_marginBottom="14dp"
             android:id="@+id/user_details_vill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Village">
+            android:imeOptions="actionNext"
+            android:hint="@string/village"/>
 
-        </EditText>
         <EditText
+            android:inputType="textCapWords"
             android:layout_marginBottom="14dp"
             android:id="@+id/user_details_cir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="circle">
-
-        </EditText>
-
+            android:imeOptions="actionNext"
+            android:hint="@string/circle"/>
+        <EditText
+            android:inputType="textCapWords"
+            android:layout_marginBottom="14dp"
+            android:id="@+id/user_details_taluka"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:hint="@string/taluka"/>
+        <EditText
+            android:inputType="textCapWords"
+            android:layout_marginBottom="14dp"
+            android:id="@+id/user_details_dist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:hint="@string/district"/>
 
         <EditText
+            android:inputType="number"
             android:layout_marginBottom="14dp"
             android:id="@+id/user_details_pin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Pincode"
+            android:hint="@string/pincode"
+            android:maxLength="6"
             android:gravity="start|top"
+            android:imeOptions="actionDone"
             />
 
         <Button
@@ -133,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:text="Save and Next"
+            android:text="@string/save_and_next"
             />
 
 
