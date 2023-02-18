@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        app:cardCornerRadius="100dp">
+
+        <ImageView
+            android:id="@+id/verify_farmer_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/farmer_img" />
+    </androidx.cardview.widget.CardView>
+
+
+
+
+    <TextView
+        android:id="@+id/verify_farmer_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name Sirname"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/verify_farmer_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="phone"
+        android:text="94203943293"
+        android:textColor="#00838F"
+        android:textSize="15sp" />
+    <View
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/verify_farmer_village"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Village"
+        android:textSize="15dp" />
+
+
+    <TextView
+        android:id="@+id/popup_farmer_taluka"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="taluka"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/verify_farmer_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Circle"
+        android:textSize="15dp" />
+
+
+    <TextView
+        android:id="@+id/verify_farmer_district"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="District"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/verify_farmer_State"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="State"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/verify_farmer_pin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pin"
+        android:textSize="15dp" />
+
+
+
+</LinearLayout>

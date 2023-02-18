@@ -49,15 +49,9 @@
     </style>
 
 
-    <style name="WindowAnimationStyle">
-        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
-        <item name="android:windowExitAnimation">@anim/slide_out_left</item>
-    </style>
 
-    <style name="Theme.ContractedFarming.SpashScreen" parent="Theme.ContractedFarming.NoActionBar">
+    <style name="Theme.ContractedFarming.SplashScreen" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>
-        <item name="colorPrimary">?attr/colorPrimary</item>
-        <item name="android:statusBarColor">?attr/colorSecondary</item>
 
     </style>
 
@@ -65,5 +59,9 @@
 
     <style name="Theme.ContractedFarming.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="MineCustomTabText" parent="Base.Widget.Design.TabLayout">
+        <item name="android:textSize">16sp</item>
+    </style>
 
 </resources>

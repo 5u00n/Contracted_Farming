@@ -3,14 +3,20 @@ package com.ashish.contractedfarming.Login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
+import com.ashish.contractedfarming.MainActivity;
+import com.ashish.contractedfarming.Manager.NewManager.ManagerApprovalWaitActivity;
+import com.ashish.contractedfarming.Manager.NewManager.NewManagerUploadActivity;
 import com.ashish.contractedfarming.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +25,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class OTPAuthenticationActivity extends AppCompatActivity {
     TextView mchangenumber;
@@ -28,12 +39,20 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     ProgressBar mprogressbarofotpauth;
+    Context context;
 
-
+    FirebaseDatabase database ;
+    DatabaseReference databaseReference ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otpauthentication);
+
+
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference();
+
+        context= getBaseContext();
 
         mchangenumber = findViewById(R.id.changenumber);
         mverifyotp = findViewById(R.id.verifyotp);
@@ -78,10 +97,8 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     mprogressbarofotpauth.setVisibility(View.INVISIBLE);
                     Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
+                    goToNextActivity();
 
-                    Intent intent = new Intent(OTPAuthenticationActivity.this, SetProfileActivity.class);
-                    startActivity(intent);
-                    finish();
                 } else {
                     if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                         mprogressbarofotpauth.setVisibility(View.INVISIBLE);
@@ -93,5 +110,92 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
 
     }
 
+    void goToNextActivity() {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            final Intent[] intent = new Intent[1];
+            String uid = FirebaseAuth.getInstance().getUid().toString();
 
+            Log.d("Logig Page uid", uid);
+            databaseReference.child("all-users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists() && (snapshot.child("usertype").exists() && snapshot.child("approved_num").exists())) {
+                        switch (snapshot.child("usertype").getValue().toString()) {
+                            case "farmer":
+                                // intent[0] = new Intent(context, FarmerDashboardActivity.class);
+                                break;
+                            case "rej-farmer":
+                                //intent[0] = new Intent(context, FarmerApprovalWaitActivity.class);
+                                //  intent[0].putExtra("status", "rejected");
+                                break;
+                            case "new-farmer":
+                                switch (snapshot.child("approved_num").getValue().toString()) {
+                                    case "0":
+                                        // intent[0] = new Intent(context, UserDetailsActivity.class);
+                                        break;
+                                    case "1":
+                                        // intent[0] = new Intent(context, FarmerUploadActivity.class);
+                                        break;
+                                    case "2":
+                                        //intent[0] = new Intent(context, FarmerApprovalWaitActivity.class);
+                                        // intent[0].putExtra("status", "Waiting");
+                                        break;
+                                }
+                                break;
+                            case "new-agent":
+                                switch (snapshot.child("approved_num").getValue().toString()) {
+                                    case "0":
+                                        intent[0] = new Intent(context, UserDetailsActivity.class);
+                                        break;
+                                    case "1":
+                                        intent[0] = new Intent(context, NewManagerUploadActivity.class);
+                                        break;
+                                    case "2":
+                                        intent[0] = new Intent(context, ManagerApprovalWaitActivity.class);
+                                        intent[0].putExtra("status", "Waiting");
+                                        break;
+                                }
+
+                                break;
+                            case "agent":
+                                //intent[0] = new Intent(context, AgentDashboardActivity.class);
+                                break;
+                            case "rej-agent":
+                                // intent[0] = new Intent(context, AgentApprovalWaitActivity.class);
+                                //intent[0].putExtra("status", "rejected");
+                                break;
+                            case "admin":
+                                intent[0] = new Intent(context, AdminDashboardActivity.class);
+                                break;
+
+                        }
+
+                    } else {
+                        intent[0] = new Intent(context, SetProfileActivity.class);
+                    }
+
+                    if (intent[0] != null) {
+                        intent[0].setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent[0]);
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+        }
+        else{
+            Intent intent = new Intent(OTPAuthenticationActivity.this, SetProfileActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
+    }
 }

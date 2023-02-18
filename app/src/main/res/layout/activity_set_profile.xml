@@ -54,7 +54,7 @@
             android:id="@+id/set_profile_radio_agent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Agent" />
+            android:text="@string/manager" />
     </RadioGroup>
 
     <TextView

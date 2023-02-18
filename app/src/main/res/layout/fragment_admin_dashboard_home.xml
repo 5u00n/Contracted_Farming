@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/admin_dash_card_farmer"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="18dp"
+        android:layout_marginTop="3dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:elevation="18dp"
+        android:foregroundGravity="bottom|center"
+        android:outlineSpotShadowColor="@color/black"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="11">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Approved Farmers"
+                    android:textSize="26sp"
+                    android:layout_marginBottom="14px"/>
+
+                <TextView
+                    android:id="@+id/admin_dash_card_stat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+            </LinearLayout>
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Registered"
+                        android:layout_marginBottom="14px"/>
+
+                    <TextView
+                        android:id="@+id/admin_dash_reg_farm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Rejected"
+                        android:layout_marginBottom="14px"/>
+
+                    <TextView
+                        android:id="@+id/admin_dash_rej_farm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/admin_dash_card_agent"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="18dp"
+        android:layout_marginTop="3dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:elevation="18dp"
+        android:foregroundGravity="bottom|center"
+        android:outlineSpotShadowColor="@color/black"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/admin_dash_card_farmer">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="11">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Approved Managers"
+                    android:textSize="26sp"
+                    android:layout_marginBottom="14px"/>
+
+                <TextView
+                    android:id="@+id/admin_dash_card_stat_agent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+            </LinearLayout>
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Registered"
+                        android:layout_marginBottom="14px"/>
+
+                    <TextView
+                        android:id="@+id/admin_dash_reg_agent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Rejected"
+                        android:layout_marginBottom="14px"/>
+
+                    <TextView
+                        android:id="@+id/admin_dash_rej_agent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/admin_dash_card_2"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_margin="18dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:elevation="18dp"
+        android:foregroundGravity="bottom|center"
+        android:outlineSpotShadowColor="@color/black"
+        android:text="Status"
+        android:textSize="24sp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/admin_dash_card_agent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="18dp"
+                android:layout_marginTop="24dp"
+                android:text="Status"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+
+            <ListView
+                android:layout_margin="20dp"
+                android:id="@+id/admin_dash_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -4,9 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -28,9 +36,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,6 +83,10 @@ public class SetProfileActivity extends AppCompatActivity {
         reference = database.getReference();
 
 
+        //getting storage read permission
+        getPermission();
+
+
         mob_no=firebaseAuth.getCurrentUser().getPhoneNumber();
         userUID=firebaseAuth.getUid();
 
@@ -105,7 +120,7 @@ public class SetProfileActivity extends AppCompatActivity {
                         userType = "farmer";
                         break;
                     case R.id.set_profile_radio_agent:
-                        userType = "agent";
+                        userType = "manager";
                         break;
                 }
             }
@@ -156,15 +171,22 @@ public class SetProfileActivity extends AppCompatActivity {
 
         //Image compresesion
 
-        Bitmap bitmap = null;
+        Bitmap bitmap = null,newbitmap=null;
         try {
             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imagepath);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        Bitmap imageAfterRotation = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+
+
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 25, byteArrayOutputStream);
+        imageAfterRotation.compress(Bitmap.CompressFormat.JPEG, 25, byteArrayOutputStream);
         byte[] data = byteArrayOutputStream.toByteArray();
 
         ///putting image to storage
@@ -179,6 +201,7 @@ public class SetProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         ImageUriAcessToken = uri.toString();
+                        Picasso.get().load(ImageUriAcessToken).into(mgetuserimageinimageview);
                         sendDataToRealTimeDatabase();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -209,10 +232,41 @@ public class SetProfileActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
             imagepath = data.getData();
             mgetuserimageinimageview.setImageURI(imagepath);
+
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
+    public void getPermission(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
+        else {
+
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //init();
+                }
+                else {
+                    //finish();
+                }
+                break;
+        }
+    }
+
+
+
+
 
 
 }

@@ -14,6 +14,7 @@ import com.ashish.contractedfarming.AppInfo.AppInfoActivity;
 import com.ashish.contractedfarming.Login.LoginActivity;
 import com.ashish.contractedfarming.Login.SetProfileActivity;
 import com.ashish.contractedfarming.Login.UserDetailsActivity;
+import com.ashish.contractedfarming.Manager.NewManager.ManagerApprovalWaitActivity;
 import com.ashish.contractedfarming.Manager.NewManager.NewManagerUploadActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+       // setContentView(R.layout.activity_main);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
 
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                                         intent[0] = new Intent(MainActivity.this, NewManagerUploadActivity.class);
                                         break;
                                     case "2":
-                                        intent[0] = new Intent(MainActivity.this, NewManagerUploadActivity.class);
+                                        intent[0] = new Intent(MainActivity.this, ManagerApprovalWaitActivity.class);
                                         intent[0].putExtra("status", "Waiting");
                                         break;
                                 }

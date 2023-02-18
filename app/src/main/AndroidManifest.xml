@@ -2,17 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.ContractedFarming.NoActionBar"
         tools:targetApi="31">
+
+        <activity android:name=".Admin.Chat.AdminMessageActivity"/>
+        <activity android:name=".Admin.Chat.AdminSpecificChat.AdminSpecificChatActivity"/>
+        <activity android:name=".Admin.Notification.AdminNotificationActivity"/>
+        <activity android:name=".Admin.ManagerProfile.AdminManagerControlActivity"/>
+        <activity android:name=".Admin.FarmerControl.FarmerControlActivity"/>
+        <activity android:name=".Admin.FarmerControl.Profile.FarmerProfileActivity"/>
+
+        <activity android:name=".Admin.ManagerProfile.Profile.ManagerProfileActivity"/>
         <activity
-            android:name=".NewFarmerUploadActivity"
+            android:name=".Manager.Dashboard.ManagerDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Farmer.NewFarmer.NewFarmerUploadActivity"
             android:exported="false" />
         <activity
             android:name=".Manager.NewManager.ManagerApprovalWaitActivity"
@@ -45,6 +62,7 @@
             android:name=".AppInfo.AppInfoActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.ContractedFarming.SplashScreen"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -55,6 +73,6 @@
         </activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
 
 </manifest>
