@@ -132,7 +132,7 @@ public class NewManagerUploadActivity extends AppCompatActivity implements View.
                 Toast.makeText(context, "Agree to term and condition prompt", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(context, ManagerApprovalWaitActivity.class));
 
-                reference.child("users").child("new-agent").child(firebaseAuth.getUid()).child("approved_num").setValue("2");
+                reference.child("users").child("new-manager").child(firebaseAuth.getUid()).child("approved_num").setValue("2");
                 reference.child("all-users").child(firebaseAuth.getUid()).child("approved_num").setValue("2");
                 finish();
             }
@@ -176,7 +176,7 @@ public class NewManagerUploadActivity extends AppCompatActivity implements View.
                 e.printStackTrace();
             }
 
-            StorageReference upRef = storageReference.child("users").child("agent").child(firebaseAuth.getUid()).child(type + ".png");
+            StorageReference upRef = storageReference.child("users").child("manager").child(firebaseAuth.getUid()).child(type + ".png");
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 25, byteArrayOutputStream);
@@ -204,7 +204,7 @@ public class NewManagerUploadActivity extends AppCompatActivity implements View.
                             textView.setVisibility(View.VISIBLE);
                             icon.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_baseline_check_24));
 
-                            reference.child("users").child("new-agent").child(firebaseAuth.getUid()).child("verification").child(type + "_url").setValue(uri2.toString());
+                            reference.child("users").child("new-manager").child(firebaseAuth.getUid()).child("verification").child(type + "_url").setValue(uri2.toString());
 
                             pr.setVisibility(View.INVISIBLE);
 
@@ -223,7 +223,7 @@ public class NewManagerUploadActivity extends AppCompatActivity implements View.
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), type +"Image Not UPdloaded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), type +"Image Not Uploaded", Toast.LENGTH_SHORT).show();
                 }
             });
         }

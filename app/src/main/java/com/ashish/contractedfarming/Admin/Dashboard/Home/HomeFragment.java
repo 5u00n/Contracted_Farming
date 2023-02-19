@@ -82,14 +82,14 @@ public class HomeFragment extends Fragment {
                 reg.setText(String.valueOf(snapshot.child("users").child("new-farmer").getChildrenCount()));
                 rej.setText(String.valueOf(snapshot.child("users").child("rej-farmer").getChildrenCount()));
 
-                mg_stat.setText(String.valueOf(snapshot.child("users").child("agent").getChildrenCount()));
-                mg_reg.setText(String.valueOf(snapshot.child("users").child("new-agent").getChildrenCount()));
-                mg_rej.setText(String.valueOf(snapshot.child("users").child("rej-agent").getChildrenCount()));
+                mg_stat.setText(String.valueOf(snapshot.child("users").child("manager").getChildrenCount()));
+                mg_reg.setText(String.valueOf(snapshot.child("users").child("new-manager").getChildrenCount()));
+                mg_rej.setText(String.valueOf(snapshot.child("users").child("rej-manager").getChildrenCount()));
 
                 listModels.add(new ListModel("News", "" + snapshot.child("news").getChildrenCount(), R.drawable.baseline_newspaper_white_24));
                 listModels.add(new ListModel("Plants", "" + snapshot.child("plants").getChildrenCount(), R.drawable.ic_baseline_grass_24));
                 listModels.add(new ListModel("Farmer", "" + snapshot.child("users").child("farmer").getChildrenCount(), R.drawable.ic_baseline_hiking_24));
-                listModels.add(new ListModel("Agent", "" + snapshot.child("users").child("agent").getChildrenCount(), R.drawable.ic_baseline_support_agent_24));
+                listModels.add(new ListModel("Manager", "" + snapshot.child("users").child("manager").getChildrenCount(), R.drawable.ic_baseline_support_agent_24));
                 listModels.add(new ListModel("Notification", String.valueOf(snapshot.child("conf-workshop").getChildrenCount() + snapshot.child("users").child("admin").child("notification").getChildrenCount()), R.drawable.baseline_notifications_none_white_24));
                 if (getContext() != null) {
                     CListAdapter adapter = new CListAdapter(getContext(), listModels);

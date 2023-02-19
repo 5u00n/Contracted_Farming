@@ -143,7 +143,7 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
                                         break;
                                 }
                                 break;
-                            case "new-agent":
+                            case "new-manager":
                                 switch (snapshot.child("approved_num").getValue().toString()) {
                                     case "0":
                                         intent[0] = new Intent(context, UserDetailsActivity.class);
@@ -155,13 +155,12 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
                                         intent[0] = new Intent(context, ManagerApprovalWaitActivity.class);
                                         intent[0].putExtra("status", "Waiting");
                                         break;
-                                }
-
-                                break;
-                            case "agent":
-                                //intent[0] = new Intent(context, AgentDashboardActivity.class);
-                                break;
-                            case "rej-agent":
+                         }
+                        break;
+                        case "manager":
+                            //intent[0] = new Intent(context, AgentDashboardActivity.class);
+                            break;
+                            case "rej-manager":
                                 // intent[0] = new Intent(context, AgentApprovalWaitActivity.class);
                                 //intent[0].putExtra("status", "rejected");
                                 break;

@@ -11,9 +11,13 @@ import android.util.Log;
 
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
 import com.ashish.contractedfarming.AppInfo.AppInfoActivity;
+import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
+import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerApprovalWaitActivity;
+import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerUploadActivity;
 import com.ashish.contractedfarming.Login.LoginActivity;
 import com.ashish.contractedfarming.Login.SetProfileActivity;
 import com.ashish.contractedfarming.Login.UserDetailsActivity;
+import com.ashish.contractedfarming.Manager.Dashboard.ManagerDashboardActivity;
 import com.ashish.contractedfarming.Manager.NewManager.ManagerApprovalWaitActivity;
 import com.ashish.contractedfarming.Manager.NewManager.NewManagerUploadActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,35 +50,36 @@ public class MainActivity extends AppCompatActivity {
             final Intent[] intent = new Intent[1];
             String uid = FirebaseAuth.getInstance().getUid().toString();
 
-            Log.d("Logig Page uid", uid);
+
             databaseReference.child("all-users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                     if (snapshot.exists() && (snapshot.child("usertype").exists() && snapshot.child("approved_num").exists())) {
+                        Log.d("Logig Page uid", uid);
                         switch (snapshot.child("usertype").getValue().toString()) {
                             case "farmer":
-                               // intent[0] = new Intent(MainActivity.this, FarmerDashboardActivity.class);
+                                intent[0] = new Intent(MainActivity.this, FarmerDashboardActivity.class);
                                 break;
                             case "rej-farmer":
-                                //intent[0] = new Intent(MainActivity.this, FarmerApprovalWaitActivity.class);
-                              //  intent[0].putExtra("status", "rejected");
+                                intent[0] = new Intent(MainActivity.this, NewFarmerApprovalWaitActivity.class);
+                                intent[0].putExtra("status", "rejected");
                                 break;
                             case "new-farmer":
                                 switch (snapshot.child("approved_num").getValue().toString()) {
                                     case "0":
-                                       // intent[0] = new Intent(MainActivity.this, UserDetailsActivity.class);
+                                        intent[0] = new Intent(MainActivity.this, UserDetailsActivity.class);
                                         break;
                                     case "1":
-                                       // intent[0] = new Intent(MainActivity.this, FarmerUploadActivity.class);
+                                        intent[0] = new Intent(MainActivity.this, NewFarmerUploadActivity.class);
                                         break;
                                     case "2":
-                                        //intent[0] = new Intent(MainActivity.this, FarmerApprovalWaitActivity.class);
-                                       // intent[0].putExtra("status", "Waiting");
+                                        intent[0] = new Intent(MainActivity.this, NewFarmerApprovalWaitActivity.class);
+                                        intent[0].putExtra("status", "Waiting");
                                         break;
                                 }
                                 break;
-                            case "new-agent":
+                            case "new-manager":
                                 switch (snapshot.child("approved_num").getValue().toString()) {
                                     case "0":
                                         intent[0] = new Intent(MainActivity.this, UserDetailsActivity.class);
@@ -89,12 +94,12 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                                 break;
-                            case "agent":
-                                //intent[0] = new Intent(MainActivity.this, AgentDashboardActivity.class);
+                            case "manager":
+                                intent[0] = new Intent(MainActivity.this, ManagerDashboardActivity.class);
                                 break;
-                            case "rej-agent":
-                               // intent[0] = new Intent(MainActivity.this, AgentApprovalWaitActivity.class);
-                                //intent[0].putExtra("status", "rejected");
+                            case "rej-manager":
+                                 intent[0] = new Intent(MainActivity.this, ManagerApprovalWaitActivity.class);
+                                intent[0].putExtra("status", "rejected");
                                 break;
                             case "admin":
                                 intent[0] = new Intent(MainActivity.this, AdminDashboardActivity.class);
@@ -135,5 +140,11 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        goToNextActivity();
     }
 }

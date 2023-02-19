@@ -63,13 +63,15 @@ public class AdminNewfarmerControlFragment extends Fragment {
 
                             if (ds.child("approved_num").exists()) {
                                 if (ds.child("approved_num").getValue().toString().equals("2")) {
-                                    arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("vill").getValue().toString(), ds.child("imgurl").getValue().toString()));
+                                    arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                                 }
                             }
                         }
-                        AdminFarmerAdapter adapter = new AdminFarmerAdapter(getContext(), arrayList);
-                        if (adapter != null) {
-                            listView.setAdapter(adapter);
+                        if(getContext()!=null) {
+                            AdminFarmerAdapter adapter = new AdminFarmerAdapter(getContext(), arrayList);
+                            if (adapter != null) {
+                                listView.setAdapter(adapter);
+                            }
                         }
                     }
                     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -87,7 +89,7 @@ public class AdminNewfarmerControlFragment extends Fragment {
                                     if (ds.child("approved_num").getValue().toString().equals("2")) {
                                         if (newText.length() <= ds.child("username").toString().length()) {
                                             if (ds.child("username").toString().toLowerCase().contains(newText.toString().toLowerCase())) {
-                                                arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("vill").getValue().toString(), ds.child("imgurl").getValue().toString()));
+                                                arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                                             }
                                         }
                                     }

@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 public class FragmentAdminNewManager extends Fragment {
@@ -39,22 +40,55 @@ public class FragmentAdminNewManager extends Fragment {
 
 
         ListView listView= v.findViewById(R.id.admin_new_agent_control_list);
+        SearchView searchView = v.findViewById(R.id.admin_agent_control_agentlist_search);
 
 
         FirebaseDatabase database=  FirebaseDatabase.getInstance();
-        DatabaseReference reference= database.getReference("users").child("new-agent");
+        DatabaseReference reference= database.getReference("users").child("new-manager");
 
 
         ArrayList<AdminManagerModel> arrayList= new ArrayList<>();
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                for(DataSnapshot snapshot:snapshot1.getChildren()) {
-                    arrayList.add(new AdminManagerModel(snapshot.child("userUID").getValue().toString(), snapshot.child("username").getValue().toString(), snapshot.child("address").child("village").getValue().toString(), snapshot.child("img_url").getValue().toString()));
-                }
-                AdminManagerAdapter adapter= new AdminManagerAdapter(getContext(),arrayList);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    if (!searchView.hasFocus()) {
+                        arrayList.removeAll(arrayList);
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                        }
+                        AdminManagerAdapter adapter = new AdminManagerAdapter(getContext(), arrayList);
+                        if (adapter != null) {
+                            listView.setAdapter(adapter);
+                        }
+                    }
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String query) {
+                            return false;
+                        }
 
-                listView.setAdapter(adapter);
+                        @Override
+                        public boolean onQueryTextChange(String newText) {
+
+                            arrayList.removeAll(arrayList);
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+
+                                if (newText.length() <= ds.child("username").toString().length()) {
+                                    if (ds.child("username").toString().toLowerCase().contains(newText.toString().toLowerCase())) {
+                                        arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                    }
+                                }
+                            }
+                            AdminManagerAdapter adapter = new AdminManagerAdapter(getContext(), arrayList);
+                            if (adapter != null) {
+                                listView.setAdapter(adapter);
+                            }
+
+                            return false;
+                        }
+                    });
+                }
             }
 
             @Override
@@ -71,7 +105,7 @@ public class FragmentAdminNewManager extends Fragment {
 
                 Intent intent = new Intent(getContext(), ManagerProfileActivity.class);
                 intent.putExtra("userUID",ob.getItem(i).getId());
-                intent.putExtra("usertype","new-agent");
+                intent.putExtra("usertype","new-manager");
                 startActivity(intent);
             }
         });

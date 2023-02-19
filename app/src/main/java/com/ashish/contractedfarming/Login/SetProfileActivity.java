@@ -180,7 +180,7 @@ public class SetProfileActivity extends AppCompatActivity {
         }
 
         Matrix matrix = new Matrix();
-        matrix.postRotate(90);
+        matrix.postRotate(0);
         Bitmap imageAfterRotation = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
 

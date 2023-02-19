@@ -47,7 +47,7 @@ public class ManagerFragment extends Fragment {
         ListView listView = v.findViewById(R.id.admin_dash_agent_list);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("users").child("agent");
+        DatabaseReference reference = database.getReference("users").child("manager");
 
         List<AdminManagerModel> arrayList = new ArrayList<>();
         reference.addValueEventListener(new ValueEventListener() {
@@ -58,7 +58,7 @@ public class ManagerFragment extends Fragment {
                 if (!searchView.hasFocus()) {
                     arrayList.removeAll(arrayList);
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        arrayList.add(new AdminManagerModel(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("village").getValue().toString(), ds.child("imgurl").getValue().toString()));
+                        arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                     }
                     if (adapter != null) {
                         listView.setAdapter(adapter);
@@ -76,7 +76,7 @@ public class ManagerFragment extends Fragment {
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             if (newText.length() <= ds.child("username").toString().length()) {
                                 if (ds.child("username").toString().toLowerCase().contains(newText.toString().toLowerCase())) {
-                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                                 }
                             }
                         }
@@ -120,16 +120,16 @@ public class ManagerFragment extends Fragment {
                         pin= promptsView.findViewById(R.id.popup_agent_pin);
                         imageView= promptsView.findViewById(R.id.popup_agent_image);
 
-                        name.setText(snapshot.child("name").getValue().toString());
-                        if(snapshot.child("imgurl").getValue()!=null){
-                            Picasso.get().load(snapshot.child("imgurl").getValue().toString()).into(imageView);
+                        name.setText(snapshot.child("username").getValue().toString());
+                        if(snapshot.child("img_url").getValue()!=null){
+                            Picasso.get().load(snapshot.child("img_url").getValue().toString()).into(imageView);
                         }
-                        no.setText(snapshot.child("mob").getValue().toString());
-                        vill.setText("Village : "+snapshot.child("village").getValue().toString());
-                        circ.setText("Circle    : "+snapshot.child("circle").getValue().toString());
-                        talu.setText("Taluka : "+snapshot.child("taluka").getValue().toString());
-                        dist.setText("District : "+snapshot.child("dist").getValue().toString());
-                        pin.setText("PIN      : "+snapshot.child("pin").getValue().toString());
+                        no.setText(snapshot.child("mob_no").getValue().toString());
+                        vill.setText("Village : "+snapshot.child("address").child("village").getValue().toString());
+                        circ.setText("Circle    : "+snapshot.child("address").child("circle").getValue().toString());
+                        talu.setText("Taluka : "+snapshot.child("address").child("taluka").getValue().toString());
+                        dist.setText("District : "+snapshot.child("address").child("dist").getValue().toString());
+                        pin.setText("PIN      : "+snapshot.child("address").child("pin").getValue().toString());
 
 
 

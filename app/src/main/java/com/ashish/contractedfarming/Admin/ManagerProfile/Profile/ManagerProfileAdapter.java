@@ -21,11 +21,11 @@ public class ManagerProfileAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         if(totaltabs==3){
             switch (position){
-                case 0:
-                    return new FragmentMangerProfileInfo(snapshot);
                 case 1:
-                    return new FragmentManagerProfileIdentity(snapshot);
+                    return new FragmentMangerProfileInfo(snapshot);
                 case 2:
+                    return new FragmentManagerProfileIdentity(snapshot);
+                case 0:
                     return new FragmentManagerProfileFarmer(snapshot);
         }}else{
         switch (position){

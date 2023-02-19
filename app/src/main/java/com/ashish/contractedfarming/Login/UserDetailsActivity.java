@@ -125,7 +125,7 @@ public class UserDetailsActivity extends AppCompatActivity {
                     allrefer.child("approved_num").setValue("1");
 
 
-                    if(utype.getText().toString().equals("new-agent")){
+                    if(utype.getText().toString().equals("new-manager")){
                         startActivity(new Intent(UserDetailsActivity.this, NewManagerUploadActivity.class));
                         finish();
                     }

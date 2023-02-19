@@ -59,7 +59,7 @@ public class AdminFarmerListControlFragment extends Fragment {
                 if (!searchView.hasFocus()) {
                     arrayList.removeAll(arrayList);
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("vill").getValue().toString(), ds.child("imgurl").getValue().toString()));
+                        arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                     }
                     AdminFarmerAdapter adapter = new AdminFarmerAdapter(getContext(), arrayList);
                     if (adapter != null) {
@@ -80,7 +80,7 @@ public class AdminFarmerListControlFragment extends Fragment {
 
                             if (newText.length() <= ds.child("username").toString().length()) {
                                 if (ds.child("username").toString().toLowerCase().contains(newText.toString().toLowerCase())) {
-                                    arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("vill").getValue().toString(), ds.child("imgurl").getValue().toString()));
+                                    arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                                 }
                             }
                         }

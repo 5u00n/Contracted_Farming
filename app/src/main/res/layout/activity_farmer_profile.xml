@@ -23,18 +23,28 @@
         android:layout_marginTop="46dp"
         android:layout_marginBottom="46dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
-        android:id="@+id/approve"
-        android:layout_width="141dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="263dp"
-        android:layout_marginEnd="38dp"
-        android:text="Approve"
+        android:id="@+id/agent_verification_button_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="36dp"
+        android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/agent_verification_button_reject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="36dp"
+        android:text="@string/reject"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

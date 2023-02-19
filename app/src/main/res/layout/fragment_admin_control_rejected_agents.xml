@@ -2,11 +2,35 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello" />
+        android:layout_height="48dp"
+        android:background="?attr/colorPrimary"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/admin_control_rejected_agent_agentlist_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
+            app:iconifiedByDefault="false">
+
+        </androidx.appcompat.widget.SearchView>
+
+    </LinearLayout>
+    <ListView
+        android:layout_marginTop="46dp"
+        android:id="@+id/admin_control_rejected_agent_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
 
 </FrameLayout>

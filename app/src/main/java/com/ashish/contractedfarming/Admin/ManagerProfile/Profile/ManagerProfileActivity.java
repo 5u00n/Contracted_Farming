@@ -24,7 +24,7 @@ public class ManagerProfileActivity extends AppCompatActivity {
     ViewPager viewPager;
 
     FirebaseDatabase database;
-    DatabaseReference reference;
+    DatabaseReference reference,reff_alluser;
 
 
     Button confirm, reject;
@@ -37,8 +37,8 @@ public class ManagerProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent_verification);
 
-        confirm= findViewById(R.id.agent_verification_button_next);
-        reject= findViewById(R.id.agent_verification_button_reject);
+        confirm = findViewById(R.id.agent_verification_button_next);
+        reject = findViewById(R.id.agent_verification_button_reject);
 
         intent = getIntent();
         if (intent != null) {
@@ -49,7 +49,9 @@ public class ManagerProfileActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.agent_verification_viewpager);
         tabLayout = findViewById(R.id.agent_verification_tab_layout);
 
-        if(usertype.equals("manager")){
+        if (usertype.equals("manager")) {
+            confirm.setVisibility(View.GONE);
+            reject.setVisibility(View.VISIBLE);
             tabLayout.addTab(tabLayout.newTab().setText("Farmers"));
         }
 
@@ -57,24 +59,25 @@ public class ManagerProfileActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Identity"));
 
 
-
-
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
-        if(usertype.equals("manager")) {
+        if (usertype.equals("manager")) {
             viewPager.setCurrentItem(1);
         }
 
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference("users").child(usertype).child(userID);
+        reference = database.getReference("users");
+        reff_alluser= database.getReference("all-users");
 
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.child(usertype).child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                viewPager.setAdapter(new ManagerProfileAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), snapshot));
-                if(usertype.equals("manager")) {
-                    viewPager.setCurrentItem(1);
+                if(snapshot.exists()) {
+                    viewPager.setAdapter(new ManagerProfileAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), snapshot));
+                    if (usertype.equals("manager")) {
+                        viewPager.setCurrentItem(1);
+                    }
                 }
 
 
@@ -96,11 +99,11 @@ public class ManagerProfileActivity extends AppCompatActivity {
 
 
                 viewPager.setCurrentItem(tab.getPosition());
-                if(tab.getPosition()==0){
+                if (tab.getPosition() == 0) {
                     confirm.setText("Next");
                     reject.setVisibility(View.GONE);
                 }
-                if(tab.getPosition()==1){
+                if (tab.getPosition() == 1) {
                     confirm.setText("Confirm");
                     reject.setVisibility(View.VISIBLE);
                 }
@@ -121,12 +124,29 @@ public class ManagerProfileActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(confirm.getText().toString().equals("Next")){
-                    Log.d("from click",confirm.getText().toString());
+                if (confirm.getText().toString().equals("Next")) {
+                    Log.d("from click", confirm.getText().toString());
                     confirm.setText("Confirm");
                     viewPager.setCurrentItem(1);
                     reject.setVisibility(View.VISIBLE);
-                }else{
+                } else {
+
+                    reference.child(usertype).child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                reference.child("manager").child(userID).setValue(snapshot.getValue());
+                                reference.child(usertype).child(userID).removeValue();
+                                reff_alluser.child(userID).child("usertype").setValue("manager");
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
 
                 }
@@ -136,10 +156,24 @@ public class ManagerProfileActivity extends AppCompatActivity {
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                reference.child(usertype).child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            reference.child("rej-manager").child(userID).setValue(snapshot.getValue());
+                            reference.child(usertype).child(userID).removeValue();
+                            reff_alluser.child(userID).child("usertype").setValue("rej-manager");
+                            finish();
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
-
 
 
     }

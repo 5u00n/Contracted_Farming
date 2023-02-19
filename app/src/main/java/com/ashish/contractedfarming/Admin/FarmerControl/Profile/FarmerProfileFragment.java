@@ -15,14 +15,15 @@ import com.squareup.picasso.Picasso;
 import androidx.fragment.app.Fragment;
 
 public class FarmerProfileFragment extends Fragment {
-    DataSnapshot ds;
+    DataSnapshot snapshot;
 
-    TextView username,mob,vill,taluka,cir,dist,state,pin;
     ImageView profile;
+    TextView name, mob_no, vill, cir, taluka, dist, stat, pin, id;
+
 
     public FarmerProfileFragment(DataSnapshot ds) {
         // Required empty public constructor
-        this.ds=ds;
+        this.snapshot=ds;
     }
 
 
@@ -30,14 +31,34 @@ public class FarmerProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle saveIstanceState){
        View v = inflater.inflate(R.layout.fragment_farmer_verificationone, container, false);
 
-       username= v.findViewById(R.id.verify_farmer_name);
 
-       profile= v.findViewById(R.id.verify_farmer_image);
-       username.setText(ds.child("username").getValue().toString());
+        profile = v.findViewById(R.id.agent_verification_identity_image);
 
-        Picasso.get().load(ds.child("imgurl").getValue().toString()).into(profile);
-        Context context = getContext();
-        //  AdminFarmerAdapter ob = (AdminFarmerAdapter) adapterView.getAdapter();
+        name = v.findViewById(R.id.agent_verification_identity_name);
+        id = v.findViewById(R.id.agent_verification_identity_id);
+        mob_no = v.findViewById(R.id.agent_verification_identity_phone);
+        vill = v.findViewById(R.id.agent_verification_identity_village);
+        cir = v.findViewById(R.id.agent_verification_identity_circle);
+        taluka = v.findViewById(R.id.agent_verification_identity_taluka);
+        dist = v.findViewById(R.id.agent_verification_identity_district);
+        stat = v.findViewById(R.id.agent_verification_identity_state);
+        pin = v.findViewById(R.id.agent_verification_identity_pin);
+
+        if (snapshot.child("img_url").exists()) {
+            Picasso.get().load(snapshot.child("img_url").getValue().toString()).into(profile);
+        }
+
+        name.setText(snapshot.child("username").getValue().toString());
+        id.setText(snapshot.child("userUID").getValue().toString());
+        mob_no.setText(snapshot.child("mob_no").getValue().toString());
+        vill.setText("Village :   "+snapshot.child("address").child("village").getValue().toString());
+        cir.setText("Circle :   "+snapshot.child("address").child("circle").getValue().toString());
+        taluka.setText("Taluka :   "+snapshot.child("address").child("taluka").getValue().toString());
+        dist.setText("District :   "+snapshot.child("address").child("dist").getValue().toString());
+        stat.setText("State :   "+snapshot.child("address").child("state").getValue().toString());
+        pin.setText("PIN :   "+snapshot.child("address").child("pin").getValue().toString());
+
+
         return v;
     }
 }

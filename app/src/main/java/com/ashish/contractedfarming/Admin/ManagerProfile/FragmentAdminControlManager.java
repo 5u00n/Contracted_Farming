@@ -3,6 +3,7 @@ package com.ashish.contractedfarming.Admin.ManagerProfile;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Manager.AdminManagerAdapter;
 import com.ashish.contractedfarming.Admin.Dashboard.Manager.AdminManagerModel;
+import com.ashish.contractedfarming.Admin.ManagerProfile.Profile.ManagerProfileActivity;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,7 +53,7 @@ public class FragmentAdminControlManager extends Fragment {
 
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference("users").child("agent");
+        DatabaseReference reference = firebaseDatabase.getReference("users").child("manager");
 
 
         List<AdminManagerModel> arrayList = new ArrayList<>();
@@ -63,7 +65,7 @@ public class FragmentAdminControlManager extends Fragment {
                     if (!searchView.hasFocus()) {
                         arrayList.removeAll(arrayList);
                         for (DataSnapshot ds : snapshot.getChildren()) {
-                            arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("vill").getValue().toString(), ds.child("imgurl").getValue().toString()));
+                            arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                         }
                         AdminManagerAdapter adapter = new AdminManagerAdapter(getContext(), arrayList);
                         if (adapter != null) {
@@ -84,7 +86,7 @@ public class FragmentAdminControlManager extends Fragment {
 
                                 if (newText.length() <= ds.child("username").toString().length()) {
                                     if (ds.child("username").toString().toLowerCase().contains(newText.toString().toLowerCase())) {
-                                        arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("vill").getValue().toString(), ds.child("imgurl").getValue().toString()));
+                                        arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                                     }
                                 }
                             }
@@ -109,64 +111,12 @@ public class FragmentAdminControlManager extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                AdminManagerAdapter ob = (AdminManagerAdapter) adapterView.getAdapter();
-                //Log.d("Agent Clicks ", "ID : " + ob.getItem(i).getId()+ "    long: " + l);
+                AdminManagerAdapter ob = (AdminManagerAdapter)adapterView.getAdapter();
 
-
-                reference.child(ob.getItem(i).getId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        LayoutInflater li = LayoutInflater.from(getContext());
-                        View promptsView = li.inflate(R.layout.popup_agent_profile, null);
-
-
-                        TextView name, no, vill, circ, talu, dist, pin;
-                        ImageView imageView;
-                        name = promptsView.findViewById(R.id.popup_agent_name);
-                        no = promptsView.findViewById(R.id.popup_agent_phone);
-                        vill = promptsView.findViewById(R.id.popup_agent_village);
-                        circ = promptsView.findViewById(R.id.popup_agent_circle);
-                        talu = promptsView.findViewById(R.id.popup_agent_taluka);
-                        dist = promptsView.findViewById(R.id.popup_agent_district);
-                        pin = promptsView.findViewById(R.id.popup_agent_pin);
-                        imageView = promptsView.findViewById(R.id.popup_agent_image);
-
-                        name.setText(snapshot.child("name").getValue().toString());
-                        if (snapshot.child("imgurl").getValue() != null) {
-                            Picasso.get().load(snapshot.child("imgurl").getValue().toString()).into(imageView);
-                        }
-                        no.setText(snapshot.child("mob").getValue().toString());
-                        vill.setText("Village : " + snapshot.child("village").getValue().toString());
-                        circ.setText("Circle    : " + snapshot.child("circle").getValue().toString());
-                        talu.setText("Taluka : " + snapshot.child("taluka").getValue().toString());
-                        dist.setText("District : " + snapshot.child("dis").getValue().toString());
-                        pin.setText("PIN      : " + snapshot.child("pin").getValue().toString());
-
-
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                        // set prompts.xml to alertdialog builder
-                        alertDialogBuilder.setView(promptsView);
-
-                        // set dialog message
-                        alertDialogBuilder.setCancelable(false).setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                        // create alert dialog
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        // show it
-                        alertDialog.show();
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                Intent intent = new Intent(getContext(), ManagerProfileActivity.class);
+                intent.putExtra("userUID",ob.getItem(i).getId());
+                intent.putExtra("usertype","manager");
+                startActivity(intent);
 
             }
         });

@@ -24,27 +24,15 @@ public class FarmerProfileAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
 
-        if (totaltabs == 4) {
             switch (position) {
-                case 0:
-                    return new PlotProfileFragment(ds);
-                case 1:
-                    return new FarmerProfileFragment(ds);
-                case 2:
-                    return new ProfileDocument1Fragment(ds);
-                case 3:
-                    return new ProfileDocument2Fragment(ds);
-            }
-        } else {
-            switch (position) {
-                case 0:
-                    return new FarmerProfileFragment(ds);
-                case 1:
-                    return new ProfileDocument1Fragment(ds);
-                case 2:
-                    return new ProfileDocument2Fragment(ds);
-            }
 
+                case 0:
+                    return new FarmerProfileFragment(ds);
+                case 1:
+                    return new PlotProfileFragment(ds);
+                case 2:
+                    return new ProfileIdentityFragment(ds);
+               
 
         }
 
