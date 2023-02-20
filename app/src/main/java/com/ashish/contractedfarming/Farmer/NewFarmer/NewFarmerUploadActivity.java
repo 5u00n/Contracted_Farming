@@ -132,7 +132,7 @@ public class NewFarmerUploadActivity extends AppCompatActivity implements View.O
             //Prompt function to be added
             if(bank_text.getText()!=null){
                 Toast.makeText(NewFarmerUploadActivity.this,"Agree to term and condition prompt", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(NewFarmerUploadActivity.this,NewFarmerApprovalWaitActivity.class));
+                startActivity(new Intent(NewFarmerUploadActivity.this,AddPlotActivity.class));
                 finish();}
             else {
                 Toast.makeText(NewFarmerUploadActivity.this,"Upload all Documents", Toast.LENGTH_SHORT).show();
@@ -205,8 +205,7 @@ public class NewFarmerUploadActivity extends AppCompatActivity implements View.O
                         upRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri2) {
-                                // Continue with the task to get the download URL
-                                Log.d("Download URL", uri2.toString());
+
 
                                 Picasso.get().load(uri2.toString()).into(image);
                                 textView.setText(type + ".png");

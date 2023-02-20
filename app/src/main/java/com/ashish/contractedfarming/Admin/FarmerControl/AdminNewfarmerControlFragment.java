@@ -62,7 +62,7 @@ public class AdminNewfarmerControlFragment extends Fragment {
                         for (DataSnapshot ds : snapshot.getChildren()) {
 
                             if (ds.child("approved_num").exists()) {
-                                if (ds.child("approved_num").getValue().toString().equals("2")) {
+                                if (ds.child("approved_num").getValue().toString().equals("3")) {
                                     arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                                 }
                             }

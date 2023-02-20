@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat2"
         android:layout_width="match_parent"
@@ -27,7 +28,9 @@
             android:textSize="24sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.cardview.widget.CardView
+    <ImageButton
+        android:id="@+id/plotadd_imageview_add"
+        android:src="@drawable/baseline_add_24"
         android:layout_marginHorizontal="20dp"
         android:gravity="center_horizontal"
         app:cardCornerRadius="5dp"
@@ -38,39 +41,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2">
 
-
-
-    </androidx.cardview.widget.CardView>
+    </ImageButton>
 
 
     <ListView
-        android:id="@+id/farmer_upload_listview"
+        android:id="@+id/plotadd_listview"
+        android:paddingTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="85dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="120dp"
+        android:paddingHorizontal="20dp"
+        android:dividerHeight="10.0sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/farmer_upload_progress"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginEnd="160dp"
-        android:layout_marginBottom="100dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
-
-        android:id="@+id/farmer_upload_button_next"
+        android:enabled="false"
+        android:id="@+id/plotadd_button_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"

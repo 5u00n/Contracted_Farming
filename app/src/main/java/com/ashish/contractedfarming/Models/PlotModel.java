@@ -2,9 +2,9 @@ package com.ashish.contractedfarming.Models;
 
 
 public class PlotModel {
-    String plotID, userUID, area, village, taluka, dist, state, gat_no, sarvay_no, plant;
+    String plotID, userUID, area, village, taluka, dist, state, gat_no, sarvay_no,_7_12,_8a,_7_12_url,_8a_url;
 
-    public PlotModel(String plotID, String userUID, String area, String village, String taluka, String dist, String state, String gat_no, String sarvay_no, String plant) {
+    public PlotModel(String plotID, String userUID, String area, String village, String taluka, String dist, String state, String gat_no, String sarvay_no, String _7_12, String _8a, String _7_12_url, String _8a_url) {
         this.plotID = plotID;
         this.userUID = userUID;
         this.area = area;
@@ -14,7 +14,10 @@ public class PlotModel {
         this.state = state;
         this.gat_no = gat_no;
         this.sarvay_no = sarvay_no;
-        this.plant = plant;
+        this._7_12 = _7_12;
+        this._8a = _8a;
+        this._7_12_url = _7_12_url;
+        this._8a_url = _8a_url;
     }
 
     public String getPlotID() {
@@ -89,11 +92,35 @@ public class PlotModel {
         this.sarvay_no = sarvay_no;
     }
 
-    public String getPlant() {
-        return plant;
+    public String get_7_12() {
+        return _7_12;
     }
 
-    public void setPlant(String plant) {
-        this.plant = plant;
+    public void set_7_12(String _7_12) {
+        this._7_12 = _7_12;
+    }
+
+    public String get_8a() {
+        return _8a;
+    }
+
+    public void set_8a(String _8a) {
+        this._8a = _8a;
+    }
+
+    public String get_7_12_url() {
+        return _7_12_url;
+    }
+
+    public void set_7_12_url(String _7_12_url) {
+        this._7_12_url = _7_12_url;
+    }
+
+    public String get_8a_url() {
+        return _8a_url;
+    }
+
+    public void set_8a_url(String _8a_url) {
+        this._8a_url = _8a_url;
     }
 }

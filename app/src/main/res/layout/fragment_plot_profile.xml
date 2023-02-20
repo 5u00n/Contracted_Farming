@@ -6,11 +6,12 @@
     android:layout_gravity="center"
     tools:context=".Admin.FarmerControl.Profile.PlotProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
+    <ListView
+        android:id="@+id/fragment_farmer_plot_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="From plot page" />
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" />
 
 </FrameLayout>

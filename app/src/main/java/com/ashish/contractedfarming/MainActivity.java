@@ -12,6 +12,7 @@ import android.util.Log;
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
 import com.ashish.contractedfarming.AppInfo.AppInfoActivity;
 import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
+import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
 import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerApprovalWaitActivity;
 import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerUploadActivity;
 import com.ashish.contractedfarming.Login.LoginActivity;
@@ -74,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
                                         intent[0] = new Intent(MainActivity.this, NewFarmerUploadActivity.class);
                                         break;
                                     case "2":
+                                        intent[0] = new Intent(MainActivity.this, AddPlotActivity.class);
+                                        break;
+                                    case "3":
                                         intent[0] = new Intent(MainActivity.this, NewFarmerApprovalWaitActivity.class);
                                         intent[0].putExtra("status", "Waiting");
                                         break;

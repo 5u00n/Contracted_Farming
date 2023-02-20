@@ -117,6 +117,14 @@ public class AdminDashboardActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = adapter.getItem(viewPager.getCurrentItem());
+        ((Fragment) fragment).onActivityResult(requestCode, resultCode, data);
+        //Log.d("Image data  ", String.valueOf(data));
+    }
+
     public void updateUI() {
 
     }

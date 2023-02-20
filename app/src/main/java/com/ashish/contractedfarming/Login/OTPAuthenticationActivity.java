@@ -14,6 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
+import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
+import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerApprovalWaitActivity;
+import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerUploadActivity;
 import com.ashish.contractedfarming.MainActivity;
 import com.ashish.contractedfarming.Manager.NewManager.ManagerApprovalWaitActivity;
 import com.ashish.contractedfarming.Manager.NewManager.NewManagerUploadActivity;
@@ -132,14 +135,17 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
                             case "new-farmer":
                                 switch (snapshot.child("approved_num").getValue().toString()) {
                                     case "0":
-                                        // intent[0] = new Intent(context, UserDetailsActivity.class);
+                                        intent[0] = new Intent(context, UserDetailsActivity.class);
                                         break;
                                     case "1":
-                                        // intent[0] = new Intent(context, FarmerUploadActivity.class);
+                                        intent[0] = new Intent(context, NewFarmerUploadActivity.class);
                                         break;
                                     case "2":
-                                        //intent[0] = new Intent(context, FarmerApprovalWaitActivity.class);
-                                        // intent[0].putExtra("status", "Waiting");
+                                        intent[0] = new Intent(context, AddPlotActivity.class);
+                                        break;
+                                    case "3":
+                                        intent[0] = new Intent(context, NewFarmerApprovalWaitActivity.class);
+                                        intent[0].putExtra("status", "Waiting");
                                         break;
                                 }
                                 break;
