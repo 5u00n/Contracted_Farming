@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Farmer.Dashboard.Story.MyFarm;
+package com.ashish.contractedfarming.Farmer.Dashboard.MyFarm;
 
 public class FarmerMyfarmModel {
     String plotID,userUID,area,vill,taluka,dist,state,gatno,survayno,plant;

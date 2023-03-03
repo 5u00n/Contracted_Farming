@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="Theme.ContractedFarming.SplashScreen" parent="Theme.ContractedFarming.NoActionBar">
-
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_background</item>
-
-    </style>
-</resources>

@@ -32,6 +32,9 @@ public class ManagerProfileActivity extends AppCompatActivity {
     Intent intent;
     String userID, usertype;
 
+    Boolean not_completed;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class ManagerProfileActivity extends AppCompatActivity {
         if (intent != null) {
             userID = intent.getStringExtra("userUID");
             usertype = intent.getStringExtra("usertype");
+            not_completed = intent.getBooleanExtra("not_completed", false);
         }
 
         viewPager = findViewById(R.id.agent_verification_viewpager);
@@ -104,8 +108,12 @@ public class ManagerProfileActivity extends AppCompatActivity {
                     reject.setVisibility(View.GONE);
                 }
                 if (tab.getPosition() == 1) {
+                    if (usertype.equals("manager") || not_completed)
+                        confirm.setVisibility(View.GONE);
                     confirm.setText("Confirm");
-                    reject.setVisibility(View.VISIBLE);
+
+                    if (!not_completed)
+                        reject.setVisibility(View.VISIBLE);
                 }
 
             }

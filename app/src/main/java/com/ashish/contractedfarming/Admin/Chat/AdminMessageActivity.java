@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
 import com.ashish.contractedfarming.Admin.Notification.AdminNotificationActivity;
 import com.ashish.contractedfarming.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,6 +27,8 @@ public class AdminMessageActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
 
+    FloatingActionButton floatingActionButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,7 @@ public class AdminMessageActivity extends AppCompatActivity {
         message = findViewById(R.id.admin_message_tab);
         noti = findViewById(R.id.admin_notification_tab);
         home = findViewById(R.id.admin_home_tab);
+        floatingActionButton= findViewById(R.id.admin_addchat_floating);
 
 
         message.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
@@ -85,6 +89,14 @@ public class AdminMessageActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
+                if(tab.getPosition()==1){
+                    floatingActionButton.setVisibility(View.VISIBLE);
+                }
+                else{
+                    floatingActionButton.setVisibility(View.GONE);
+
+                }
             }
 
             @Override

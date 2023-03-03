@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                     if (snapshot.exists() && (snapshot.child("usertype").exists() && snapshot.child("approved_num").exists())) {
-                        Log.d("Logig Page uid", uid);
+
                         switch (snapshot.child("usertype").getValue().toString()) {
                             case "farmer":
                                 intent[0] = new Intent(MainActivity.this, FarmerDashboardActivity.class);

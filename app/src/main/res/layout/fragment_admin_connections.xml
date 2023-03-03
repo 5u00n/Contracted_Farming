@@ -7,15 +7,36 @@
     android:layout_height="match_parent"
     >
 
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="?attr/colorPrimary"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_admin_connections_farmer_rv"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/admin_farmercontrol_con_farmer_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
+            app:iconifiedByDefault="false">
+
+        </androidx.appcompat.widget.SearchView>
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/fragment_admin_con_farmer_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="46dp"
         android:layout_marginStart="2dp"
         android:layout_marginEnd="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,7 +21,7 @@ public class FarmerControlActivity extends AppCompatActivity{
 
         TabLayout tabLayout = findViewById(R.id.admin_farmercontrol_tabnav);
 
-        tabLayout.addTab(tabLayout.newTab().setText("New Farmer"));
+        tabLayout.addTab(tabLayout.newTab().setText("New"));
         tabLayout.addTab(tabLayout.newTab().setText("Farmers"));
         tabLayout.addTab(tabLayout.newTab().setText("Rejected"));
         tabLayout.addTab(tabLayout.newTab().setText("Connect"));

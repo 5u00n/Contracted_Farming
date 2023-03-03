@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Farmer.Dashboard.Story.MyFarm;
+package com.ashish.contractedfarming.Farmer.Dashboard.MyFarm;
 
 import android.content.Context;
 import android.os.Bundle;

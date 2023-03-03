@@ -7,8 +7,8 @@
     tools:context=".Admin.ManagerProfile.Profile.FragmentManagerProfileFarmer">
 
 
-    <ExpandableListView
-        android:id="@+id/manager_profile_farmer_expandable_list_view"
+    <ListView
+        android:id="@+id/manager_profile_farmer_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

@@ -41,17 +41,6 @@ public class AdminChatListFragment extends Fragment {
         recyclerView= view.findViewById(R.id.admin_chat_recyclerview);
 
 
-
-        floatingActionButton= view.findViewById(R.id.admin_chat_floating);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                int LAUNCH_SECOND_ACTIVITY = 1;
-               // Intent i = new Intent(this, SecondActivity.class);
-              //  startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
-            }
-        });
         return  view;
     }
 }

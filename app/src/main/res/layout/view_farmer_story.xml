@@ -30,11 +30,19 @@
         app:layout_constraintTop_toTopOf="@+id/addStoryImg"
         />
 
+
+    <TextView
+        android:id="@+id/farmer_storyuser_disc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/farmer_storyuser_uid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

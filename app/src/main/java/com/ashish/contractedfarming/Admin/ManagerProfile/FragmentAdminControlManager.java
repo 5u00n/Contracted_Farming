@@ -42,8 +42,7 @@ public class FragmentAdminControlManager extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v;
-        v = inflater.inflate(R.layout.fragment_admin_control_agents, container, false);
+        View v = inflater.inflate(R.layout.fragment_admin_control_agents, container, false);
 
         Context context = getContext();
 

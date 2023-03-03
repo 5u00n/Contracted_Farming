@@ -1,16 +1,16 @@
 package com.ashish.contractedfarming.Farmer.Dashboard.Story;
 
 public class FarmerStoryModel {
-    String username,imgurl,storyimg,userUID;
+    String userUID, username, img_url,story_text, story_img;
 
-
-
-    public FarmerStoryModel(String username, String imgurl, String storyimg) {
-        this.username = username;
-        this.imgurl = imgurl;
-        this.storyimg = storyimg;
+    public FarmerStoryModel(String userUID, String username, String img_url, String story_text, String story_img) {
         this.userUID = userUID;
+        this.username = username;
+        this.img_url = img_url;
+        this.story_text = story_text;
+        this.story_img = story_img;
     }
+
 
     public String getUserUID() {
         return userUID;
@@ -28,19 +28,27 @@ public class FarmerStoryModel {
         this.username = username;
     }
 
-    public String getImgurl() {
-        return imgurl;
+    public String getImg_url() {
+        return img_url;
     }
 
-    public void setImgurl(String imgurl) {
-        this.imgurl = imgurl;
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
     }
 
-    public String getStoryimg() {
-        return storyimg;
+    public String getStory_text() {
+        return story_text;
     }
 
-    public void setStoryimg(String storyimg) {
-        this.storyimg = storyimg;
+    public void setStory_text(String story_text) {
+        this.story_text = story_text;
+    }
+
+    public String getStory_img() {
+        return story_img;
+    }
+
+    public void setStory_img(String story_img) {
+        this.story_img = story_img;
     }
 }

@@ -55,12 +55,18 @@ public class FragmentAdminNewManager extends Fragment {
                     if (!searchView.hasFocus()) {
                         arrayList.removeAll(arrayList);
                         for (DataSnapshot ds : snapshot.getChildren()) {
-                            arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+
+                            if (ds.child("approved_num").exists()) {
+                                if (ds.child("approved_num").getValue().toString().equals("2")) {
+                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                }
+                            }
                         }
                         AdminManagerAdapter adapter = new AdminManagerAdapter(getContext(), arrayList);
                         if (adapter != null) {
                             listView.setAdapter(adapter);
                         }
+
                     }
                     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                         @Override
@@ -73,10 +79,14 @@ public class FragmentAdminNewManager extends Fragment {
 
                             arrayList.removeAll(arrayList);
                             for (DataSnapshot ds : snapshot.getChildren()) {
+                                if (ds.child("approved_num").exists()) {
+                                    if (ds.child("approved_num").getValue().toString().equals("2")) {
 
-                                if (newText.length() <= ds.child("username").toString().length()) {
-                                    if (ds.child("username").toString().toLowerCase().contains(newText.toString().toLowerCase())) {
-                                        arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                        if (newText.length() <= ds.child("username").toString().length()) {
+                                            if (ds.child("username").toString().toLowerCase().contains(newText.toString().toLowerCase())) {
+                                                arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                            }
+                                        }
                                     }
                                 }
                             }

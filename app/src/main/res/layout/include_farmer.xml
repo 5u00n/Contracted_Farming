@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.ContractedFarming.NoActionBar"
 
     >
     <LinearLayout
@@ -14,8 +15,7 @@
         <LinearLayout
             android:id="@+id/linearLayout8"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/white">
+            android:layout_height="100dp">
 
 
 
@@ -94,6 +94,7 @@
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:theme="@style/Theme.ContractedFarming.NoActionBar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
@@ -118,12 +119,11 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/weather_data_farmer2"
+                                    android:id="@+id/weather_data_temprature"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:text="30 C"
-                                    android:textColor="#3E3434"
                                     android:textSize="12sp" />
 
                                 <TextView
@@ -131,7 +131,7 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="Tempraure"
-                                    android:textColor="#3E3434"
+
                                     android:textSize="12sp" />
                             </LinearLayout>
 
@@ -163,13 +163,12 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/weather_data_farmer1"
+                                    android:id="@+id/weather_data_wind_speed"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:shadowColor="#3E3434"
                                     android:text="30 m/s"
-                                    android:textColor="#3E3434"
                                     android:textSize="12sp" />
 
                                 <TextView
@@ -177,7 +176,6 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="WindSpeed"
-                                    android:textColor="#3E3434"
                                     android:textSize="12sp" />
                             </LinearLayout>
 
@@ -219,12 +217,12 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/weather_data_farmer3"
+                                    android:id="@+id/weather_data_hunidity"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:text="40 %"
-                                    android:textColor="#3E3434"
+
                                     android:textSize="12sp" />
 
                                 <TextView
@@ -232,7 +230,6 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="Humidity"
-                                    android:textColor="#3E3C3C"
                                     android:textSize="12sp" />
                             </LinearLayout>
 
@@ -268,13 +265,11 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/weather_data_farmer4"
+                                    android:id="@+id/weather_data_rainfall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:text="50 mm"
-                                    android:textColor="#3E3434"
-
                                     android:textSize="12sp" />
 
                                 <TextView
@@ -282,8 +277,6 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text="Rainfall"
-
-                                    android:textColor="#3E3434"
                                     android:textSize="12sp" />
                             </LinearLayout>
 
@@ -327,7 +320,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-
+                        android:id="@+id/addStory_layout"
                         android:layout_marginRight="10dp">
 
                         <com.makeramen.roundedimageview.RoundedImageView
@@ -368,9 +361,9 @@
 
                         <ImageView
                             android:id="@+id/addStory"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/baseline_add_24"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_add_story"
                             app:layout_constraintBottom_toBottomOf="@+id/addStoryImg"
                             app:layout_constraintEnd_toEndOf="@+id/addStoryImg"
                             app:layout_constraintStart_toStartOf="@+id/addStoryImg"
