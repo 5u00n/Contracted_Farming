@@ -114,6 +114,10 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
 
                     mprogressbarofmain.setVisibility(View.VISIBLE);
+
+                    if(countrycode==null){
+                        countrycode="+91";
+                    }
                     phonenumber = countrycode + number;
 
                     PhoneAuthOptions options = PhoneAuthOptions.newBuilder(firebaseAuth)

@@ -42,7 +42,7 @@ public class FragmentAdminControlRejectedManager extends Fragment {
 
 
         FirebaseDatabase database=  FirebaseDatabase.getInstance();
-        DatabaseReference reference= database.getReference("users").child("new-manager");
+        DatabaseReference reference= database.getReference("users").child("rej-manager");
 
 
         ArrayList<AdminManagerModel> arrayList= new ArrayList<>();

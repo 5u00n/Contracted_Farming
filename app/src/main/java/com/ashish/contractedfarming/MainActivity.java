@@ -7,7 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
 import com.ashish.contractedfarming.AppInfo.AppInfoActivity;
@@ -15,6 +16,7 @@ import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
 import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
 import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerApprovalWaitActivity;
 import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerUploadActivity;
+import com.ashish.contractedfarming.Helper.Helpers;
 import com.ashish.contractedfarming.Login.LoginActivity;
 import com.ashish.contractedfarming.Login.SetProfileActivity;
 import com.ashish.contractedfarming.Login.UserDetailsActivity;
@@ -31,26 +33,37 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
-    FirebaseDatabase database ;
-    DatabaseReference databaseReference ;
+    FirebaseDatabase database;
+    DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_main);
+         setContentView(R.layout.activity_main);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
 
+        LinearLayout ll= findViewById(R.id.main_linear);
 
-        goToNextActivity();
+
+        if(Helpers.isInternetAvailable()) {
+            goToNextActivity();
+            ll.setVisibility(View.GONE);
+        }
+        else {
+            ll.setVisibility(View.VISIBLE);
+        }
+
+
         // ...
     }
 
 
     void goToNextActivity() {
+
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             final Intent[] intent = new Intent[1];
             String uid = FirebaseAuth.getInstance().getUid().toString();
-
 
             databaseReference.child("all-users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -102,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                                 intent[0] = new Intent(MainActivity.this, ManagerDashboardActivity.class);
                                 break;
                             case "rej-manager":
-                                 intent[0] = new Intent(MainActivity.this, ManagerApprovalWaitActivity.class);
+                                intent[0] = new Intent(MainActivity.this, ManagerApprovalWaitActivity.class);
                                 intent[0].putExtra("status", "rejected");
                                 break;
                             case "admin":
@@ -114,8 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         intent[0] = new Intent(MainActivity.this, SetProfileActivity.class);
                     }
-
-                    if(intent[0]!=null) {
+                    if (intent[0] != null) {
                         intent[0].setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent[0]);
                         finish();
@@ -124,11 +136,8 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
-
-
         } else {
             SharedPreferences sharedPreferences = getSharedPreferences("APP_PREFERENCES", Context.MODE_PRIVATE);
             boolean isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true);
@@ -139,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(new Intent(this, AppInfoActivity.class));
                 finish();
-            }else{
+            } else {
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
             }
