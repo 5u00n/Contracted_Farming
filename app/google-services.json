@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "955261374654",
+    "firebase_url": "https://contracted-farming-default-rtdb.firebaseio.com",
+    "project_id": "contracted-farming",
+    "storage_bucket": "contracted-farming.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955261374654:android:bab6dd8aff37f9807e4eef",
+        "android_client_info": {
+          "package_name": "com.ashish.contractedfarming"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955261374654-h08vpjaep40j86td2dfgaiprbprn3h1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2cxnRwYLuj5MuAt2tVDU5li8Kvyjqfeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955261374654-h08vpjaep40j86td2dfgaiprbprn3h1l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955261374654:android:077ada7b8a3459897e4eef",
+        "android_client_info": {
+          "package_name": "com.example.contractedfarming"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955261374654-o9n31dflssjcosp8n4rbrha6pokksrg0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.contractedfarming",
+            "certificate_hash": "8a451d12771a639536e42d2716747068b16ff2d1"
+          }
+        },
+        {
+          "client_id": "955261374654-h08vpjaep40j86td2dfgaiprbprn3h1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2cxnRwYLuj5MuAt2tVDU5li8Kvyjqfeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955261374654-h08vpjaep40j86td2dfgaiprbprn3h1l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
+import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
 import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
 import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerApprovalWaitActivity;
 import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerUploadActivity;
@@ -126,11 +127,11 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
                     if (snapshot.exists() && (snapshot.child("usertype").exists() && snapshot.child("approved_num").exists())) {
                         switch (snapshot.child("usertype").getValue().toString()) {
                             case "farmer":
-                                // intent[0] = new Intent(context, FarmerDashboardActivity.class);
+                                  intent[0] = new Intent(context, FarmerDashboardActivity.class);
                                 break;
                             case "rej-farmer":
-                                //intent[0] = new Intent(context, FarmerApprovalWaitActivity.class);
-                                //  intent[0].putExtra("status", "rejected");
+                                  //intent[0] = new Intent(context, FarmerApprovalWaitActivity.class);
+                                 // intent[0].putExtra("status", "rejected");
                                 break;
                             case "new-farmer":
                                 switch (snapshot.child("approved_num").getValue().toString()) {
