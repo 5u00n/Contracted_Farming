@@ -130,7 +130,8 @@ public class FarmerFragment extends Fragment {
                         imageView = promptsView.findViewById(R.id.popup_farmer_image);
 
 
-                        plants.setText("Plant 1 : " + snapshot.child("plants").child("0").child("name").getValue().toString() + "\nPlant 2 : " + snapshot.child("plants").child("1").child("name").getValue().toString());
+                        if(snapshot.child("plants").exists())
+                         plants.setText("Plant 1 : " + snapshot.child("plants").child("0").child("name").getValue().toString() + "\nPlant 2 : " + snapshot.child("plants").child("1").child("name").getValue().toString());
                         name.setText(snapshot.child("username").getValue().toString());
                         if (snapshot.child("img_url").getValue() != null) {
                             Picasso.get().load(snapshot.child("img_url").getValue().toString()).into(imageView);

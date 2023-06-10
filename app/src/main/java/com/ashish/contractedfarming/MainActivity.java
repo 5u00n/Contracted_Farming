@@ -44,14 +44,15 @@ public class MainActivity extends AppCompatActivity {
         databaseReference = database.getReference();
 
         LinearLayout ll= findViewById(R.id.main_linear);
-
+        ll.setVisibility(View.GONE);
 
         if(Helpers.isInternetAvailable()) {
             goToNextActivity();
             ll.setVisibility(View.GONE);
         }
         else {
-            ll.setVisibility(View.VISIBLE);
+            if(Helpers.isInternetAvailable())
+             ll.setVisibility(View.VISIBLE);
         }
 
 
