@@ -48,6 +48,9 @@
             android:name=".Manager.NewManager.NewManagerUploadActivity"
             android:exported="false" />
         <activity
+            android:name=".Farmer.News.FarmerNewsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Login.UserDetailsActivity"
             android:exported="false" />
         <activity

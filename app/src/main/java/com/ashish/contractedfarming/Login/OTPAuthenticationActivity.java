@@ -130,7 +130,7 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
                                   intent[0] = new Intent(context, FarmerDashboardActivity.class);
                                 break;
                             case "rej-farmer":
-                                  //intent[0] = new Intent(context, FarmerApprovalWaitActivity.class);
+                                 // intent[0] = new Intent(context, FarmerApprovalWaitActivity.class);
                                  // intent[0].putExtra("status", "rejected");
                                 break;
                             case "new-farmer":

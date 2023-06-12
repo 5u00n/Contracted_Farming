@@ -123,22 +123,22 @@ public class FarmerDashboardActivity extends AppCompatActivity {
 
 
         //sets up weather
+        run();
 
         getGPS();
-
-
         //sets up story
-        initSrory();
 
+        initStory();
         //sets up Explore plants
+
         initExplorePlants();
         initMyPlants();
-        initMyfarm();
+        initMyFarm();
 
     }
 
 
-    public void initSrory(){
+    public void initStory(){
 
 
         constraintLayout= findViewById(R.id.addStory_layout);
@@ -260,7 +260,7 @@ public class FarmerDashboardActivity extends AppCompatActivity {
         myPlantsRv.setAdapter(adapter3);
     }
 
-    public void initMyfarm(){
+    public void initMyFarm(){
         myfarmList = new ArrayList<>();
 
         myfarmList.add(new FarmerMyfarmModel("1", "11", "1", "kharadi", "pune", "pune", "maha", "55", "10", "tree"));

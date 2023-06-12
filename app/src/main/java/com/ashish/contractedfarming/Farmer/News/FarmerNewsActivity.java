@@ -4,13 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.ashish.contractedfarming.Admin.Dashboard.News.AdminNewsAdapter;
 import com.ashish.contractedfarming.Admin.Dashboard.News.AdminNewsModel;
 import com.ashish.contractedfarming.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,14 +42,32 @@ public class FarmerNewsActivity extends AppCompatActivity {
         rv = findViewById(R.id.farmer_news_rv);
         context = getBaseContext();
         list = new ArrayList<>();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.removeAll(list);
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    list.add(new AdminNewsModel(ds.child("id").getValue().toString(), ds.child("topic").getValue().toString(), ds.child("date").getValue().toString(), ds.child("data").getValue().toString(), ds.child("imgurl").getValue().toString()));
+                }
+                if(getBaseContext()!=null) {
+                    FarmerNewsAdapter adapter = new FarmerNewsAdapter(FarmerNewsActivity.this,list);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
 
-        list.add(new AdminNewsModel("1","asfg","20/01/2023"," cvcvcvc"," "));
-        list.add(new AdminNewsModel("2","asfg","20/01/2023"," cvcvcvc"," "));
+                    if (adapter != null) {
+                        rv.setLayoutManager(layoutManager);
+                        rv.setAdapter(adapter);
+                    }
+                }
+                ;
+            }
 
-        FarmerNewsAdapter adapter = new FarmerNewsAdapter(this,list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
-        rv.setLayoutManager(layoutManager);
-        rv.setAdapter(adapter);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
 
 
