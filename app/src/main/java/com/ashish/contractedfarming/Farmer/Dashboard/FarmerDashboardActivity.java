@@ -3,10 +3,12 @@ package com.ashish.contractedfarming.Farmer.Dashboard;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -23,6 +25,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,6 +47,8 @@ import com.ashish.contractedfarming.Farmer.News.FarmerNewsActivity;
 
 import com.ashish.contractedfarming.Models.PlotModel;
 import com.ashish.contractedfarming.R;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -90,6 +95,11 @@ public class FarmerDashboardActivity extends AppCompatActivity {
 
     ImageView story_img;
 
+    AppBarLayout appBarLayout;
+    Toolbar toolbar;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_dashboard);
@@ -103,10 +113,22 @@ public class FarmerDashboardActivity extends AppCompatActivity {
         database= FirebaseDatabase.getInstance();
         databaseReference= database.getReference();
 
-        farmerstoryRV = findViewById(R.id.farmerstoryRV);
-        explorePlantsRv = findViewById(R.id.farmer_exploreplantsrv);
-        myPlantsRv = findViewById(R.id.farmer_myplantsrv);
-        myFarmRv = findViewById(R.id.farmer_myfarmRv);
+        tabLayout= findViewById(R.id.farmer_tabs_layout);
+        viewPager= findViewById(R.id.farmer_view_pager);
+
+       for(int i=0; i < tabLayout.getTabCount(); i++) {
+            View tab = ((ViewGroup)tabLayout.getChildAt(0)).getChildAt(i);
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
+            p.setMargins(0, 0, 50, 0);
+            tab.requestLayout();
+        }
+
+
+
+        //farmerstoryRV = findViewById(R.id.farmerstoryRV);
+        //explorePlantsRv = findViewById(R.id.farmer_exploreplantsrv);
+        //myPlantsRv = findViewById(R.id.farmer_myplantsrv);
+       // myFarmRv = findViewById(R.id.farmer_myfarmRv);
         newsbtn = findViewById(R.id.farmer_news_tab);
 
 
@@ -123,17 +145,17 @@ public class FarmerDashboardActivity extends AppCompatActivity {
 
 
         //sets up weather
-        run();
+       // run();
 
-        getGPS();
+        //getGPS();
         //sets up story
 
-        initStory();
+       // initStory();
         //sets up Explore plants
 
-        initExplorePlants();
-        initMyPlants();
-        initMyFarm();
+       // initExplorePlants();
+        //initMyPlants();
+      //  initMyFarm();
 
     }
 
