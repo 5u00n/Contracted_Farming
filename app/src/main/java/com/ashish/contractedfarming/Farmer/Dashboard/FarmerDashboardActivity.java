@@ -1,5 +1,6 @@
 package com.ashish.contractedfarming.Farmer.Dashboard;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,10 +52,14 @@ import com.ashish.contractedfarming.R;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -101,6 +106,9 @@ public class FarmerDashboardActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
 
+    ImageView profile_img;
+    TextView profile_name;
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_dashboard);
@@ -116,6 +124,9 @@ public class FarmerDashboardActivity extends AppCompatActivity {
 
         tabLayout= findViewById(R.id.farmer_tabs_layout);
         viewPager= findViewById(R.id.farmer_view_pager);
+
+        profile_img=findViewById(R.id.dash_farmer_profile);
+        profile_name= findViewById(R.id.dash_farmer_name);
 
        for(int i=0; i < tabLayout.getTabCount(); i++) {
             View tab = ((ViewGroup)tabLayout.getChildAt(0)).getChildAt(i);
@@ -181,82 +192,21 @@ public class FarmerDashboardActivity extends AppCompatActivity {
         });
 
 
-    }
 
-
-    public void initStory(){
-
-
-        constraintLayout= findViewById(R.id.addStory_layout);
-
-        constraintLayout.setOnClickListener(new View.OnClickListener() {
+        databaseReference.child("users").child("farmer").child(auth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                final Dialog dialog = new Dialog(FarmerDashboardActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(false);
-                dialog.setContentView(R.layout.prompt_add_story);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                profile_name.setText(snapshot.child("username").getValue().toString());
+                Picasso.get().load(snapshot.child("img_url").getValue().toString()).into(profile_img);
+            }
 
-                EditText story_disc;
-                Button addStory,cancel;
-                story_disc= dialog.findViewById(R.id.prompt_add_story_disc);
-                story_img= dialog.findViewById(R.id.prompt_add_story_img);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
-
-
-
-                story_img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                        startActivityForResult(intent, ADD_STORY_IMG);
-                    }
-                });
-
-
-                addStory= dialog.findViewById(R.id.prompt_add_story_button_post);
-                cancel= dialog.findViewById(R.id.prompt_add_story_button_cancel);
-
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                addStory.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        String time_stamp=String.valueOf((System.currentTimeMillis() / 1000));
-                        if(story_disc.getText().toString().isEmpty() ) {
-
-                        }else{
-
-                        }
-
-                            dialog.dismiss();
-
-                    }
-                });
-
-                dialog.show();
             }
         });
-
-        farmerstoryList = new ArrayList<>();
-        farmerstoryList.add(new FarmerStoryModel("Ashish", "BB", "https://www.google.com/imgres?imgurl=https%3A%2F%2Ftimesofindia.indiatimes.com%2Fthumb%2Fmsid-97672613%2Cwidth-1200%2Cheight-900%2Cresizemode-4%2F97672613.jpg&imgrefurl=https%3A%2F%2Ftimesofindia.indiatimes.com%2Findia%2Fbreaking-news-live-updates-7-2-2023%2Fliveblog%2F97672613.cms&tbnid=KEbAPKnwf0U_zM&vet=12ahUKEwjjhsuC_5v9AhWHIrcAHRgeAskQMygGegUIARCzAQ..i&docid=KTKj333gdYGDjM&w=1200&h=900&q=news&ved=2ahUKEwjjhsuC_5v9AhWHIrcAHRgeAskQMygGegUIARCzAQ","hELLO",""));
-        farmerstoryList.add(new FarmerStoryModel("Ashish", "BB", "https://www.google.com/imgres?imgurl=https%3A%2F%2Ftimesofindia.indiatimes.com%2Fthumb%2Fmsid-97672613%2Cwidth-1200%2Cheight-900%2Cresizemode-4%2F97672613.jpg&imgrefurl=https%3A%2F%2Ftimesofindia.indiatimes.com%2Findia%2Fbreaking-news-live-updates-7-2-2023%2Fliveblog%2F97672613.cms&tbnid=KEbAPKnwf0U_zM&vet=12ahUKEwjjhsuC_5v9AhWHIrcAHRgeAskQMygGegUIARCzAQ..i&docid=KTKj333gdYGDjM&w=1200&h=900&q=news&ved=2ahUKEwjjhsuC_5v9AhWHIrcAHRgeAskQMygGegUIARCzAQ","Found Business",""));
-
-
-        FarmerStoryAdapter adapter1 = new FarmerStoryAdapter(farmerstoryList, context);
-        LinearLayoutManager layoutManager1 = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        farmerstoryRV.setLayoutManager(layoutManager1);
-        farmerstoryRV.setNestedScrollingEnabled(false);
-        farmerstoryRV.setAdapter(adapter1);
-
     }
+
 
 
     @Override
@@ -288,17 +238,6 @@ public class FarmerDashboardActivity extends AppCompatActivity {
         myPlantsRv.setAdapter(adapter3);
     }
 
-    public void initMyFarm(){
-        myfarmList = new ArrayList<>();
-
-        myfarmList.add(new FarmerMyfarmModel("1", "11", "1", "kharadi", "pune", "pune", "maha", "55", "10", "tree"));
-        myfarmList.add(new FarmerMyfarmModel("1", "11", "1", "pune", "pune", "pune", "maha", "55", "10", "tree"));
-
-        FarmerMyfarmAdapter adapter4 = new FarmerMyfarmAdapter(myfarmList, context);
-        LinearLayoutManager layoutManager4 = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        myFarmRv.setLayoutManager(layoutManager4);
-        myFarmRv.setAdapter(adapter4);
-    }
 
 
 

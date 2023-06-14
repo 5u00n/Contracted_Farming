@@ -1,6 +1,8 @@
 package com.ashish.contractedfarming.Farmer.Dashboard.Home;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,17 +10,23 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.FarmerExploreplantsAdapter;
+import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.FarmerMyplantsAdapter;
+import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryModel;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -159,6 +167,85 @@ public class FarmerHomeFragment extends Fragment {
         myFarmRv.setLayoutManager(layoutManager4);
         myFarmRv.setAdapter(adapter4);
     }
+
+/*
+    public void initStory(){
+
+
+        constraintLayout= findViewById(R.id.addStory_layout);
+
+        constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(FarmerDashboardActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.prompt_add_story);
+
+                EditText story_disc;
+                Button addStory,cancel;
+                story_disc= dialog.findViewById(R.id.prompt_add_story_disc);
+                story_img= dialog.findViewById(R.id.prompt_add_story_img);
+
+
+
+
+
+                story_img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                        startActivityForResult(intent, ADD_STORY_IMG);
+                    }
+                });
+
+
+                addStory= dialog.findViewById(R.id.prompt_add_story_button_post);
+                cancel= dialog.findViewById(R.id.prompt_add_story_button_cancel);
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                addStory.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String time_stamp=String.valueOf((System.currentTimeMillis() / 1000));
+                        if(story_disc.getText().toString().isEmpty() ) {
+
+                        }else{
+
+                        }
+
+                        dialog.dismiss();
+
+                    }
+                });
+
+                dialog.show();
+            }
+        });
+
+        farmerstoryList = new ArrayList<>();
+        farmerstoryList.add(new FarmerStoryModel("Ashish", "BB", "https://www.google.com/imgres?imgurl=https%3A%2F%2Ftimesofindia.indiatimes.com%2Fthumb%2Fmsid-97672613%2Cwidth-1200%2Cheight-900%2Cresizemode-4%2F97672613.jpg&imgrefurl=https%3A%2F%2Ftimesofindia.indiatimes.com%2Findia%2Fbreaking-news-live-updates-7-2-2023%2Fliveblog%2F97672613.cms&tbnid=KEbAPKnwf0U_zM&vet=12ahUKEwjjhsuC_5v9AhWHIrcAHRgeAskQMygGegUIARCzAQ..i&docid=KTKj333gdYGDjM&w=1200&h=900&q=news&ved=2ahUKEwjjhsuC_5v9AhWHIrcAHRgeAskQMygGegUIARCzAQ","hELLO",""));
+        farmerstoryList.add(new FarmerStoryModel("Ashish", "BB", "https://www.google.com/imgres?imgurl=https%3A%2F%2Ftimesofindia.indiatimes.com%2Fthumb%2Fmsid-97672613%2Cwidth-1200%2Cheight-900%2Cresizemode-4%2F97672613.jpg&imgrefurl=https%3A%2F%2Ftimesofindia.indiatimes.com%2Findia%2Fbreaking-news-live-updates-7-2-2023%2Fliveblog%2F97672613.cms&tbnid=KEbAPKnwf0U_zM&vet=12ahUKEwjjhsuC_5v9AhWHIrcAHRgeAskQMygGegUIARCzAQ..i&docid=KTKj333gdYGDjM&w=1200&h=900&q=news&ved=2ahUKEwjjhsuC_5v9AhWHIrcAHRgeAskQMygGegUIARCzAQ","Found Business",""));
+
+
+        FarmerStoryAdapter adapter1 = new FarmerStoryAdapter(farmerstoryList, context);
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        farmerstoryRV.setLayoutManager(layoutManager1);
+        farmerstoryRV.setNestedScrollingEnabled(false);
+        farmerstoryRV.setAdapter(adapter1);
+
+    }
+
+ */
+
+
 
 
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,13 +7,14 @@
     android:theme="@style/Theme.ContractedFarming.NoActionBar"
 
     >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
 
-            <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginTop="10dp">
@@ -42,24 +42,26 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:theme="@style/Theme.ContractedFarming.NoActionBar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:paddingLeft="5dp">
+                            android:paddingLeft="5dp"
+                            android:theme="@style/Theme.ContractedFarming.NoActionBar">
 
                             <androidx.cardview.widget.CardView
-                                app:cardBackgroundColor="@android:color/holo_green_dark"
-                                app:cardCornerRadius="40dp"
                                 android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:layout_margin="10dp"
-                                android:layout_height="40dp">
+                                app:cardBackgroundColor="@android:color/holo_green_dark"
+                                app:cardCornerRadius="40dp">
+
                                 <ImageView
-                                 android:layout_width="40dp"
-                                 android:layout_height="35dp"
-                                 app:srcCompat="@drawable/ic_baseline_thermostat_24" />
+                                    android:layout_width="40dp"
+                                    android:layout_height="35dp"
+                                    app:srcCompat="@drawable/ic_baseline_thermostat_24" />
 
                             </androidx.cardview.widget.CardView>
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -93,17 +95,19 @@
                             android:paddingLeft="5dp">
 
                             <androidx.cardview.widget.CardView
-                                app:cardBackgroundColor="@android:color/holo_orange_light"
-                                app:cardCornerRadius="40dp"
                                 android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:layout_margin="10dp"
-                                android:layout_height="40dp">
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="35dp"
-                                app:srcCompat="@drawable/baseline_speed_24" />
+                                app:cardBackgroundColor="@android:color/holo_orange_light"
+                                app:cardCornerRadius="40dp">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="35dp"
+                                    app:srcCompat="@drawable/baseline_speed_24" />
 
                             </androidx.cardview.widget.CardView>
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -145,18 +149,18 @@
                             android:paddingLeft="5dp">
 
                             <androidx.cardview.widget.CardView
-                                app:cardCornerRadius="40dp"
                                 android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:layout_margin="10dp"
-                                android:layout_height="40dp"
-                                app:cardBackgroundColor="@android:color/holo_blue_bright">
+                                app:cardBackgroundColor="@android:color/holo_blue_bright"
+                                app:cardCornerRadius="40dp">
 
-                            <ImageView
-                                android:padding="5dp"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/baseline_water_drop_24" />
-            </androidx.cardview.widget.CardView>
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:padding="5dp"
+                                    app:srcCompat="@drawable/baseline_water_drop_24" />
+                            </androidx.cardview.widget.CardView>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -193,19 +197,21 @@
                             android:paddingLeft="5dp">
 
                             <androidx.cardview.widget.CardView
-                                app:cardBackgroundColor="@android:color/holo_purple"
-                                android:padding="2dp"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:layout_margin="10dp"
-                                app:cardCornerRadius="40dp"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp">
-                            <ImageView
-                                android:padding="5dp"
-                                android:layout_width="40dp"
-                                android:layout_height="35dp"
-                                app:srcCompat="@drawable/baseline_cloud_24" />
+                                android:padding="2dp"
+                                app:cardBackgroundColor="@android:color/holo_purple"
+                                app:cardCornerRadius="40dp">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="35dp"
+                                    android:padding="5dp"
+                                    app:srcCompat="@drawable/baseline_cloud_24" />
 
                             </androidx.cardview.widget.CardView>
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -235,14 +241,12 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-            <LinearLayout
 
-                android:layout_marginTop="20dp"
+        <LinearLayout
             android:id="@+id/linearLayout9"
             android:layout_width="match_parent"
-
-
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView6">
@@ -265,10 +269,10 @@
                     android:orientation="horizontal">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
                         android:id="@+id/addStory_layout"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
                         android:layout_marginRight="10dp">
 
                         <com.makeramen.roundedimageview.RoundedImageView
@@ -346,12 +350,13 @@
             </HorizontalScrollView>
 
 
-
         </LinearLayout>
-            <LinearLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -359,64 +364,142 @@
                 android:layout_marginTop="20dp"
                 android:text="Explore Plants"
                 android:textSize="24dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/farmer_exploreplantsrv"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
 
         </LinearLayout>
+
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:orientation="vertical">
-        <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:text="MyPlants"
-            android:textSize="24dp"
-            android:textStyle="bold"/>
+            android:layout_height="250dp"
+            android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/farmer_myplantsrv"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="MyPlants"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/addPlant_layout"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/addPlantImg"
+                        android:layout_width="100dp"
+                        android:layout_height="130dp"
+
+                        android:layout_marginStart="16dp"
+                        android:alpha="0.9"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/bg_img_login"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_corner_radius="10dip" />
+
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/bg_black_shade"
+                        app:layout_constraintBottom_toBottomOf="@+id/addPlantImg"
+                        app:layout_constraintEnd_toEndOf="@+id/addPlantImg"
+                        app:layout_constraintStart_toStartOf="@+id/addPlantImg"
+                        app:layout_constraintTop_toTopOf="@+id/addPlantImg" />
+
+                    <View
+                        android:id="@+id/view9"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:backgroundTint="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/addPlant"
+                        app:layout_constraintEnd_toEndOf="@+id/addPlant"
+                        app:layout_constraintStart_toStartOf="@+id/addPlant"
+                        app:layout_constraintTop_toTopOf="@+id/addPlant" />
+
+                    <ImageView
+                        android:id="@+id/addPlant"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_story"
+                        app:layout_constraintBottom_toBottomOf="@+id/addPlantImg"
+                        app:layout_constraintEnd_toEndOf="@+id/addPlantImg"
+                        app:layout_constraintStart_toStartOf="@+id/addPlantImg"
+                        app:layout_constraintTop_toTopOf="@+id/addPlantImg"
+                        app:layout_constraintVertical_bias="0.3" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="Add Plant"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="@+id/addPlant"
+                        app:layout_constraintStart_toStartOf="@+id/addPlant"
+                        app:layout_constraintTop_toBottomOf="@+id/addPlant" />
 
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/farmer_myplantsrv"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="20dp"
+                 />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="350dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:text="MyFarm"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/farmer_myfarmRv"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:text="MyFarm"
-            android:textSize="24dp"
-            android:textStyle="bold"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/farmer_myfarmRv"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-
-
-            android:layout_width="match_parent"
-            android:layout_height="250dp"/>
-    </LinearLayout>
-
-</LinearLayout>
-
 
 
     <!--
@@ -479,14 +562,6 @@
                   app:layout_constraintHorizontal_bias="1.0"
                   app:layout_constraintStart_toStartOf="parent"
                   app:layout_constraintTop_toTopOf="parent" />-->
-
-
-
-
-
-
-
-
 
 
 </ScrollView>
