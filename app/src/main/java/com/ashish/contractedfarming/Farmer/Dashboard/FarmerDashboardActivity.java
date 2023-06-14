@@ -34,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ashish.contractedfarming.Admin.Dashboard.DashboardAdapter;
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmModel;
@@ -120,15 +121,13 @@ public class FarmerDashboardActivity extends AppCompatActivity {
             View tab = ((ViewGroup)tabLayout.getChildAt(0)).getChildAt(i);
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
             p.setMargins(0, 0, 50, 0);
+
             tab.requestLayout();
         }
 
 
 
-        //farmerstoryRV = findViewById(R.id.farmerstoryRV);
-        //explorePlantsRv = findViewById(R.id.farmer_exploreplantsrv);
-        //myPlantsRv = findViewById(R.id.farmer_myplantsrv);
-       // myFarmRv = findViewById(R.id.farmer_myfarmRv);
+
         newsbtn = findViewById(R.id.farmer_news_tab);
 
 
@@ -156,6 +155,31 @@ public class FarmerDashboardActivity extends AppCompatActivity {
        // initExplorePlants();
         //initMyPlants();
       //  initMyFarm();
+
+        FarmerDashboardAdapter adapter = new FarmerDashboardAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.getCurrentItem();
+
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
 
     }
 
@@ -246,24 +270,6 @@ public class FarmerDashboardActivity extends AppCompatActivity {
         }
     }
 
-    public void initExplorePlants(){
-
-
-
-        ArrayList<AdminPlantsModel> exploreplantList = new ArrayList<>();
-
-
-        exploreplantList.add(new AdminPlantsModel("1", "Potato", "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.macmillandictionary.com%2Fexternal%2Fslideshow%2Ffull%2F141151_full.jpg&imgrefurl=https%3A%2F%2Fwww.macmillandictionary.com%2Fdictionary%2Fbritish%2Fpotato&tbnid=1CeaBPMDK9eX9M&vet=12ahUKEwjw_7b0v539AhUV3nMBHf_2C9kQMygCegUIARDsAQ..i&docid=D83Ugcq3LvI-CM&w=1280&h=680&q=potato&ved=2ahUKEwjw_7b0v539AhUV3nMBHf_2C9kQMygCegUIARDsAQ"));
-        exploreplantList.add(new AdminPlantsModel("2", "Tomato", "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.macmillandictionary.com%2Fexternal%2Fslideshow%2Ffull%2F141151_full.jpg&imgrefurl=https%3A%2F%2Fwww.macmillandictionary.com%2Fdictionary%2Fbritish%2Fpotato&tbnid=1CeaBPMDK9eX9M&vet=12ahUKEwjw_7b0v539AhUV3nMBHf_2C9kQMygCegUIARDsAQ..i&docid=D83Ugcq3LvI-CM&w=1280&h=680&q=potato&ved=2ahUKEwjw_7b0v539AhUV3nMBHf_2C9kQMygCegUIARDsAQ"));
-
-        FarmerExploreplantsAdapter adapter2 = new FarmerExploreplantsAdapter(exploreplantList, this);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
-        explorePlantsRv.setLayoutManager(layoutManager2);
-        explorePlantsRv.setNestedScrollingEnabled(false);
-        explorePlantsRv.setAdapter(adapter2);
-
-    }
 
 
     public void initMyPlants(){

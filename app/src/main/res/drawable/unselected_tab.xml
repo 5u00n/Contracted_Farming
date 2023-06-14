@@ -1,0 +1,23 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item  android:bottom="7dp" android:top="5dp">
+        <shape >
+            <gradient
+                android:angle="0"
+                android:startColor="@color/md_theme_dark_onPrimaryContainer"
+                android:endColor="@color/md_theme_dark_onPrimaryContainer"/>
+            <corners
+                android:radius="80dp"/>
+        </shape>
+
+    </item>
+    <item android:bottom="7dp" android:top="5dp">
+        <shape>
+            <gradient
+                android:angle="0"
+                android:startColor="@color/md_theme_dark_onPrimaryContainer"
+                android:endColor="@color/md_theme_dark_onPrimaryContainer"/>
+            <corners
+                android:radius="80dp"/>
+        </shape>
+    </item>
+</layer-list>

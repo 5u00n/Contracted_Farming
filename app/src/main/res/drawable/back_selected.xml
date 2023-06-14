@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_selected="true">
-        <shape>
+    <item android:state_selected="true" android:drawable="@drawable/selected_tab">
+      <!--  <shape>
             <gradient
                 android:angle="0"
                 android:startColor="@color/md_theme_dark_primaryContainer"
                 android:endColor="@color/md_theme_dark_primaryContainer"/>
             <corners
                 android:radius="80dp"/>
-        </shape>
+        </shape>-->
 
     </item>
-    <item android:state_selected="false">
-        <shape>
-            <gradient
-                android:angle="0"
-                android:startColor="@color/md_theme_dark_surfaceTint"
-                android:endColor="@color/md_theme_dark_primary"/>
-            <corners
-                android:radius="80dp"/>
-        </shape>
+    <item  android:state_selected="false"  android:drawable="@drawable/unselected_tab">
     </item>
 </selector>

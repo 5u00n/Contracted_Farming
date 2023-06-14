@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
 import com.ashish.contractedfarming.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,7 @@ public class FarmerExploreplantsAdapter extends RecyclerView.Adapter<FarmerExplo
         
         AdminPlantsModel model = list.get(position);
        holder.plantname.setText(model.getPlant());
+       Picasso.get().load(model.getImg()).into(holder.imag);
       // holder.imag.setImageResource(R.drawable.awalapic);
 
        holder.id.setText(model.getId());
