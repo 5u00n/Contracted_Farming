@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
 import com.ashish.contractedfarming.AppInfo.AppInfoActivity;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseAuth = FirebaseAuth.getInstance();
          setContentView(R.layout.activity_main);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
@@ -51,8 +53,13 @@ public class MainActivity extends AppCompatActivity {
             ll.setVisibility(View.GONE);
         }
         else {
-            if(Helpers.isInternetAvailable())
+            Toast.makeText(this, "No Internet ", Toast.LENGTH_SHORT).show();
+            if(!Helpers.isInternetAvailable())
              ll.setVisibility(View.VISIBLE);
+            else {
+                goToNextActivity();
+                ll.setVisibility(View.GONE);
+            }
         }
 
 

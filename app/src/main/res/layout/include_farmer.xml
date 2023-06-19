@@ -399,15 +399,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/addPlant_layout"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp">
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/addPlantImg"
-                        android:layout_width="100dp"
-                        android:layout_height="130dp"
-
+                        android:layout_width="160dp"
+                        android:layout_height="190dp"
                         android:layout_marginStart="16dp"
                         android:alpha="0.9"
                         android:scaleType="centerCrop"

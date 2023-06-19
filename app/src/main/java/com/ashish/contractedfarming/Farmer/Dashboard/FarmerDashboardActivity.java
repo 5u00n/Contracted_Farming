@@ -25,6 +25,8 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -47,6 +49,7 @@ import com.ashish.contractedfarming.Farmer.Dashboard.Weather.HttpRequest;
 import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
 import com.ashish.contractedfarming.Farmer.News.FarmerNewsActivity;
 
+import com.ashish.contractedfarming.MainActivity;
 import com.ashish.contractedfarming.Models.PlotModel;
 import com.ashish.contractedfarming.R;
 import com.google.android.material.appbar.AppBarLayout;
@@ -66,7 +69,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class FarmerDashboardActivity extends AppCompatActivity {
+public class FarmerDashboardActivity extends AppCompatActivity{
     RecyclerView farmerstoryRV, explorePlantsRv, myPlantsRv, myFarmRv;
     Context context;
     ImageButton newsbtn;
@@ -113,7 +116,16 @@ public class FarmerDashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_dashboard);
 
-        context = this.getBaseContext();
+
+        toolbar =findViewById(R.id.farmer_dash_toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
+        toolbar.setTitle("");
+        toolbar.setSubtitle("");
+
+        context = FarmerDashboardActivity.this;
 
         auth= FirebaseAuth.getInstance();
         storage= FirebaseStorage.getInstance();
@@ -288,6 +300,29 @@ public class FarmerDashboardActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.menu_profile :
+            // do something
+            Toast.makeText(context, "Profile", Toast.LENGTH_SHORT).show();
+            break;
+
+            case R.id.menu_logout:
+                auth.signOut();
+                startActivity(new Intent(FarmerDashboardActivity.this,MainActivity.class));
+                finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     public void run() {
         //CITY1 = CITY.getText().toString();
