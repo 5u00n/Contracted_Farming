@@ -25,9 +25,11 @@ public class ManagerControlAdapter extends FragmentPagerAdapter {
                 return new FragmentAdminControlRejectedManager();
             case 3:
                 return new FragmentAdminManagerConnect();
+            default:
+                return new  FragmentAdminNewManager();
         }
 
-        return null;
+
     }
 
     @Override

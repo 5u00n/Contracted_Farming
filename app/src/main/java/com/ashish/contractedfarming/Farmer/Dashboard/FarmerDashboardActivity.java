@@ -74,10 +74,6 @@ public class FarmerDashboardActivity extends AppCompatActivity{
     Context context;
     ImageButton newsbtn;
 
-    ArrayList<FarmerStoryModel> farmerstoryList;
-    ArrayList<AdminPlantsModel> exploreplantList;
-    ArrayList<AdminPlantsModel> myplantList;
-    ArrayList<FarmerMyfarmModel> myfarmList;
 
     LocationManager locationManager;
     String latitude, longitude;

@@ -82,7 +82,7 @@ public class FarmerHomeFragment extends Fragment {
 
 
         farmerstoryRV = v.findViewById(R.id.farmerstoryRV);
-        explorePlantsRv = v.findViewById(R.id.farmer_exploreplantsrv);
+        //explorePlantsRv = v.findViewById(R.id.farmer_exploreplantsrv);
         myPlantsRv = v.findViewById(R.id.farmer_myplantsrv);
          myFarmRv = v.findViewById(R.id.farmer_myfarmRv);
 
