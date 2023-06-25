@@ -39,7 +39,7 @@ public class FarmerDashboardAdapter extends FragmentPagerAdapter {
             case 4:
                 return new MyPlantsFragment();
             default:
-                return new HomeFragment();
+                return new FarmerHomeFragment();
         }
     }
 

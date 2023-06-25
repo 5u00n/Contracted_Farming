@@ -139,7 +139,7 @@ public class FarmerDashboardActivity extends AppCompatActivity{
         tabLayout.addTab(tabLayout.newTab().setText("All Plants"));
         tabLayout.addTab(tabLayout.newTab().setText("My Farm"));
         tabLayout.addTab(tabLayout.newTab().setText("My Plants"));
-        tabLayout.addTab(tabLayout.newTab().setText("My Requests"));
+        //tabLayout.addTab(tabLayout.newTab().setText("My Requests"));
 
         profile_img=findViewById(R.id.dash_farmer_profile);
         profile_name= findViewById(R.id.dash_farmer_name);
