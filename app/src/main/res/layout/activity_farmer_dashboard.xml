@@ -81,29 +81,6 @@
         app:tabMinWidth="100dp"
         app:tabTextAppearance="@style/TabTextStyle"
         app:tabIndicatorColor="@android:color/transparent" >
-        <com.google.android.material.tabs.TabItem
-            android:text="Dashboard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <com.google.android.material.tabs.TabItem
-            android:text="Posts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:text="All Plants"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:text="My Land"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:text="My Plants"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
 
 
