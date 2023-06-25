@@ -160,7 +160,7 @@ public class FarmerHomeFragment extends Fragment {
                             story_disc.setHint("Please Enter Description !");
                             story_disc.setHintTextColor(Color.RED);
                         } else {
-                            sendImageToStorage(new FarmerStoryModel(auth.getUid(), username.getText().toString(), user_img.toString(), "", story_disc.getText().toString(), time_stamp), imageUri);
+                            sendImageToStorage(new FarmerStoryModel(auth.getUid(), username.getText().toString(), user_img.getText().toString(), "", story_disc.getText().toString(), time_stamp), imageUri);
                         }
 
                         dialog.dismiss();
