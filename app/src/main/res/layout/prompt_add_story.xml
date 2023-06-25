@@ -25,7 +25,7 @@
         android:id="@+id/prompt_add_story_disc"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
-        android:text="Enter Description"
+        android:hint="Enter Description"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         />

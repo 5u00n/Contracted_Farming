@@ -1,14 +1,15 @@
 package com.ashish.contractedfarming.Farmer.Dashboard.Story;
 
 public class FarmerStoryModel {
-    String userUID, username, img_url,story_text, story_img;
+    String userUID, username,user_img_url, img_url,story_text,story_time;
 
-    public FarmerStoryModel(String userUID, String username, String img_url, String story_text, String story_img) {
+    public FarmerStoryModel(String userUID, String username,String user_img_url, String img_url, String story_text,String story_time) {
         this.userUID = userUID;
         this.username = username;
         this.img_url = img_url;
         this.story_text = story_text;
-        this.story_img = story_img;
+        this.story_time= story_time;
+        this.user_img_url=user_img_url;
     }
 
 
@@ -44,11 +45,22 @@ public class FarmerStoryModel {
         this.story_text = story_text;
     }
 
-    public String getStory_img() {
-        return story_img;
+
+
+    public String getStory_time() {
+        return story_time;
     }
 
-    public void setStory_img(String story_img) {
-        this.story_img = story_img;
+    public void setStory_time(String story_time) {
+        this.story_time = story_time;
+    }
+
+
+    public String getUser_img_url() {
+        return user_img_url;
+    }
+
+    public void setUser_img_url(String user_img_url) {
+        this.user_img_url = user_img_url;
     }
 }

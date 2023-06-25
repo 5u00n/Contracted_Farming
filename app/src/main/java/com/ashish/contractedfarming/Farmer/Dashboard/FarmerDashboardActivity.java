@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -70,11 +71,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class FarmerDashboardActivity extends AppCompatActivity{
-    RecyclerView farmerstoryRV, explorePlantsRv, myPlantsRv, myFarmRv;
+
+    FarmerDashboardAdapter adapter;
     Context context;
+
+
+
     ImageButton newsbtn;
-
-
     LocationManager locationManager;
     String latitude, longitude;
 
@@ -95,8 +98,7 @@ public class FarmerDashboardActivity extends AppCompatActivity{
     //Weather
     TextView  temp,humidity,windSpeed,rainfall;
 
-    //Story Section
-    ConstraintLayout constraintLayout;
+
 
     ImageView story_img;
 
@@ -124,8 +126,6 @@ public class FarmerDashboardActivity extends AppCompatActivity{
         context = FarmerDashboardActivity.this;
 
         auth= FirebaseAuth.getInstance();
-        storage= FirebaseStorage.getInstance();
-        storageReference= storage.getReference();
 
         database= FirebaseDatabase.getInstance();
         databaseReference= database.getReference();
@@ -183,7 +183,7 @@ public class FarmerDashboardActivity extends AppCompatActivity{
         //initMyPlants();
       //  initMyFarm();
 
-        FarmerDashboardAdapter adapter = new FarmerDashboardAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount());
+        adapter = new FarmerDashboardAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.getCurrentItem();
 
@@ -225,6 +225,7 @@ public class FarmerDashboardActivity extends AppCompatActivity{
 
 
 
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // In fragment class callback
@@ -235,24 +236,17 @@ public class FarmerDashboardActivity extends AppCompatActivity{
             story_img.setImageURI(data.getData());
         }
     }
+    */
 
 
-
-    public void initMyPlants(){
-        ArrayList<AdminPlantsModel> myplantList = new ArrayList<>();
-
-        myplantList.add(new AdminPlantsModel("1", "", "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.macmillandictionary.com%2Fexternal%2Fslideshow%2Ffull%2F141151_full.jpg&imgrefurl=https%3A%2F%2Fwww.macmillandictionary.com%2Fdictionary%2Fbritish%2Fpotato&tbnid=1CeaBPMDK9eX9M&vet=12ahUKEwjw_7b0v539AhUV3nMBHf_2C9kQMygCegUIARDsAQ..i&docid=D83Ugcq3LvI-CM&w=1280&h=680&q=potato&ved=2ahUKEwjw_7b0v539AhUV3nMBHf_2C9kQMygCegUIARDsAQ"));
-        myplantList.add(new AdminPlantsModel("1", "ppp", "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.macmillandictionary.com%2Fexternal%2Fslideshow%2Ffull%2F141151_full.jpg&imgrefurl=https%3A%2F%2Fwww.macmillandictionary.com%2Fdictionary%2Fbritish%2Fpotato&tbnid=1CeaBPMDK9eX9M&vet=12ahUKEwjw_7b0v539AhUV3nMBHf_2C9kQMygCegUIARDsAQ..i&docid=D83Ugcq3LvI-CM&w=1280&h=680&q=potato&ved=2ahUKEwjw_7b0v539AhUV3nMBHf_2C9kQMygCegUIARDsAQ"));
-        myplantList.add(new AdminPlantsModel("1", "ppp", "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.macmillandictionary.com%2Fexternal%2Fslideshow%2Ffull%2F141151_full.jpg&imgrefurl=https%3A%2F%2Fwww.macmillandictionary.com%2Fdictionary%2Fbritish%2Fpotato&tbnid=1CeaBPMDK9eX9M&vet=12ahUKEwjw_7b0v539AhUV3nMBHf_2C9kQMygCegUIARDsAQ..i&docid=D83Ugcq3LvI-CM&w=1280&h=680&q=potato&ved=2ahUKEwjw_7b0v539AhUV3nMBHf_2C9kQMygCegUIARDsAQ"));
-
-
-        FarmerMyplantsAdapter adapter3 = new FarmerMyplantsAdapter(myplantList, this);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
-        myPlantsRv.setLayoutManager(layoutManager);
-        myPlantsRv.setNestedScrollingEnabled(false);
-        myPlantsRv.setAdapter(adapter3);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = adapter.getItem(viewPager.getCurrentItem());
+        ((Fragment) fragment).onActivityResult(requestCode, resultCode, data);
+        //Log.d("Image data  ", String.valueOf(data));
     }
+
 
 
 

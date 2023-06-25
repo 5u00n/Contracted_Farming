@@ -3,8 +3,8 @@
         <shape >
             <gradient
                 android:angle="0"
-                android:startColor="@color/md_theme_dark_onPrimaryContainer"
-                android:endColor="@color/md_theme_dark_onPrimaryContainer"/>
+                android:startColor="@color/md_theme_dark_onSurface"
+                android:endColor="@color/md_theme_dark_onSurface"/>
             <corners
                 android:radius="80dp"/>
         </shape>
@@ -14,8 +14,8 @@
         <shape>
             <gradient
                 android:angle="0"
-                android:startColor="@color/md_theme_dark_onPrimaryContainer"
-                android:endColor="@color/md_theme_dark_onPrimaryContainer"/>
+                android:startColor="@color/md_theme_dark_onSurface"
+                android:endColor="@color/md_theme_dark_onSurface"/>
             <corners
                 android:radius="80dp"/>
         </shape>

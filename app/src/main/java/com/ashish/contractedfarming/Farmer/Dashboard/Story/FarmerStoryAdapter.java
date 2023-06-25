@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 
 import com.ashish.contractedfarming.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,8 @@ public class FarmerStoryAdapter extends RecyclerView.Adapter<FarmerStoryAdapter.
        // holder.storyimg.setImageResource(R.drawable.news2);
         holder.name.setText(model.getUsername());
         holder.userUID.setText(model.getUserUID());
+        Picasso.get().load(model.img_url).into(holder.storyimg);
+        Picasso.get().load(model.user_img_url).into(holder.userimg);
 
 
     }

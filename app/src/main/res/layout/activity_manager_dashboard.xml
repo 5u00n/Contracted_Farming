@@ -81,35 +81,6 @@
         app:tabMinWidth="100dp"
         app:tabTextAppearance="@style/TabTextStyle"
         app:tabIndicatorColor="@android:color/transparent" >
-        <com.google.android.material.tabs.TabItem
-            android:text="Dashboard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <com.google.android.material.tabs.TabItem
-            android:text="Tasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:text="Requests"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:text="Connections"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:text="Requirments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-        <com.google.android.material.tabs.TabItem
-            android:text="My Area"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
 
 

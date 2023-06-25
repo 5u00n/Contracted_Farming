@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".Farmer.Dashboard.Home.FarmerHomeFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/username_fragment_farmer_home"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/user_img_fragment_farmer_home"/>
+
     <!-- TODO: Update blank fragment layout -->
    <include layout="@layout/include_farmer"></include>
 </FrameLayout>
