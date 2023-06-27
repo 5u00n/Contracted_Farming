@@ -31,7 +31,7 @@ public class ManagerDashboardActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
-        viewPager.setAdapter(new FarmerControlAdapter(getSupportFragmentManager(), tabLayout.getTabCount()));
+        viewPager.setAdapter(new ManagerDashboardAdapter(getSupportFragmentManager(), tabLayout.getTabCount()));
 
         viewPager.getCurrentItem();
 
