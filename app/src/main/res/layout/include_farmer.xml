@@ -273,7 +273,7 @@
                     android:layout_width="wrap_content"/>
 
                 <Button
-
+                    android:id="@+id/farmer_dash_see_all_story_button"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_margin="0dp"
@@ -409,12 +409,12 @@
                     android:layout_width="wrap_content"/>
 
                 <Button
-
+                    android:id="@+id/farmer_dash_explore_expand_button"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_margin="0dp"
                     android:padding="0px"
-                    android:text="See All plants"
+                    android:text="Expand"
                     android:textSize="8dp" />
 
 
@@ -435,14 +435,36 @@
             android:layout_height="250dp"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="MyPlants"
-                android:textSize="24dp"
-                android:textStyle="bold" />
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="My Plants"
+                    android:textSize="24dp"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_weight="1"
+                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"/>
+
+                <Button
+                    android:id="@+id/farmer_dash_my_plant_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_margin="0dp"
+                    android:padding="0px"
+                    android:text="See Details"
+                    android:textSize="8dp" />
+
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -26,7 +26,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-public class HomeFragment extends Fragment {
+public class AdminHomeFragment extends Fragment {
 
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
 
     TextView mg_stat,mg_reg,mg_rej;
 
-    public HomeFragment() {
+    public AdminHomeFragment() {
 
     }
 

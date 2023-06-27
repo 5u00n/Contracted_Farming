@@ -4,7 +4,7 @@ import android.content.Context;
 
 
 import com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerFragment;
-import com.ashish.contractedfarming.Admin.Dashboard.Home.HomeFragment;
+import com.ashish.contractedfarming.Admin.Dashboard.Home.AdminHomeFragment;
 import com.ashish.contractedfarming.Admin.Dashboard.Manager.ManagerFragment;
 import com.ashish.contractedfarming.Admin.Dashboard.News.NewsFragment;
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.PlantFragment;
@@ -29,7 +29,7 @@ public class DashboardAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch(position){
             case 0:
-                return new HomeFragment();
+                return new AdminHomeFragment();
             case 1:
                 return new NewsFragment();
             case 2:
@@ -39,7 +39,7 @@ public class DashboardAdapter extends FragmentPagerAdapter {
             case 4:
                 return new ManagerFragment();
             default:
-                return new HomeFragment();
+                return new AdminHomeFragment();
         }
     }
 

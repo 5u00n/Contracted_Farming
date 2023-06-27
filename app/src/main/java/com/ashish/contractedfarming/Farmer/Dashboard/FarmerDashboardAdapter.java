@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.ashish.contractedfarming.Admin.Dashboard.Home.HomeFragment;
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.PlantFragment;
 import com.ashish.contractedfarming.Farmer.Dashboard.Home.FarmerHomeFragment;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.MyFarmFragment;

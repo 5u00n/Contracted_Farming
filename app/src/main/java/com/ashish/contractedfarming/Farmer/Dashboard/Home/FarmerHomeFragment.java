@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -56,6 +57,8 @@ import java.util.ArrayList;
 
 public class FarmerHomeFragment extends Fragment {
 
+    ViewPager viewPager;
+
     private static final int ADD_STORY_IMG = 2;
     private static int PICK_IMAGE = 123;
     Uri imageUri = null;
@@ -76,6 +79,9 @@ public class FarmerHomeFragment extends Fragment {
     RecyclerView farmerstoryRV, explorePlantsRv, myPlantsRv, myFarmRv;
     //Story Section
     ConstraintLayout constraintLayout;
+
+
+
 
 
     ArrayList<FarmerStoryModel> farmerstoryList;
@@ -106,6 +112,8 @@ public class FarmerHomeFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference();
         auth = FirebaseAuth.getInstance();
+
+        viewPager=getActivity().findViewById(R.id.farmer_view_pager);
 
 
         farmerstoryRV = v.findViewById(R.id.farmerstoryRV);
