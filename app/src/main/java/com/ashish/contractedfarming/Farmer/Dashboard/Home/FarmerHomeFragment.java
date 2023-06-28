@@ -24,15 +24,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
-import com.ashish.contractedfarming.Admin.Dashboard.Plant.PlantModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.FarmerExploreplantsAdapter;
-import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.FarmerMyplantsAdapter;
@@ -51,7 +47,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -84,9 +79,8 @@ public class FarmerHomeFragment extends Fragment {
 
 
 
+
     ArrayList<FarmerStoryModel> farmerstoryList;
-    ArrayList<AdminPlantsModel> exploreplantList;
-    ArrayList<AdminPlantsModel> myplantList;
     ArrayList<FarmerMyfarmModel> myfarmList;
 
     public FarmerHomeFragment() {
@@ -123,6 +117,43 @@ public class FarmerHomeFragment extends Fragment {
         constraintLayout = v.findViewById(R.id.addStory_layout);
         username = v.findViewById(R.id.username_fragment_farmer_home);
         user_img = v.findViewById(R.id.user_img_fragment_farmer_home);
+
+        v.findViewById(R.id.farmer_dash_see_all_story_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(1);
+            }
+        });
+
+        v.findViewById(R.id.addPlantImg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(2);
+            }
+        });
+        v.findViewById(R.id.farmer_dash_explore_expand_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(2);
+            }
+        });
+
+        v.findViewById(R.id.farmer_dash_my_farm_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(3);
+            }
+        });
+
+        v.findViewById(R.id.farmer_dash_my_plant_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(4);
+            }
+        });
+
+
+
 
 
         constraintLayout.setOnClickListener(new View.OnClickListener() {

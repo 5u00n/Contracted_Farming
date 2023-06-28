@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Admin.Dashboard.Plant;
+package com.ashish.contractedfarming.Models;
 
 public class PlantModel {
     String id, name, disc, life_span, humidity, fertilizer, water_time, light,temprature, imgurl;
@@ -13,6 +13,13 @@ public class PlantModel {
         this.water_time = water_time;
         this.light = light;
         this.temprature = temprature;
+        this.imgurl = imgurl;
+    }
+
+    public PlantModel(String id, String name, String life_span, String imgurl) {
+        this.id = id;
+        this.name = name;
+        this.life_span = life_span;
         this.imgurl = imgurl;
     }
 

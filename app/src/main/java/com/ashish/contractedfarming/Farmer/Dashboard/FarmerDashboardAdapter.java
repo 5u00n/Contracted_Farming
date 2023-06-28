@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.ashish.contractedfarming.Admin.Dashboard.Plant.PlantFragment;
+import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.ExplorePlantsFragment;
 import com.ashish.contractedfarming.Farmer.Dashboard.Home.FarmerHomeFragment;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.MyFarmFragment;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.MyPlantsFragment;
@@ -32,7 +32,7 @@ public class FarmerDashboardAdapter extends FragmentPagerAdapter {
             case 1:
                 return new StoryFragment();
             case 2:
-                return new PlantFragment();
+                return new ExplorePlantsFragment();
             case 3:
                 return new MyFarmFragment();
             case 4:

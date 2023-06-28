@@ -32,7 +32,6 @@ public class FarmerFragmentStoryAdapter extends RecyclerView.Adapter<FarmerFragm
     @NonNull
     @Override
     public FarmerFragmentStoryAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //View view = LayoutInflater.from(contex).inflate(R.layout.view_farmer_story, parent, false);
         View view = LayoutInflater.from(context).inflate(R.layout.view_story,parent,false);
         return new FarmerFragmentStoryAdapter.viewHolder(view);
     }
@@ -42,8 +41,6 @@ public class FarmerFragmentStoryAdapter extends RecyclerView.Adapter<FarmerFragm
     @Override
     public void onBindViewHolder(@NonNull FarmerFragmentStoryAdapter.viewHolder holder, int position) {
         FarmerStoryModel model = list.get(position);
-        // holder.userimg.setImageResource(R.drawable.farmerimg);
-        // holder.storyimg.setImageResource(R.drawable.news2);
         holder.topic.setText(model.getStory_text());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM YYY, hh:mm aa");
 

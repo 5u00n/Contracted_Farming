@@ -1,66 +1,161 @@
 package com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsAdapter;
+import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
+import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.FragmentHelper.ExplorePlantsAdapter;
+import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ExplorePlantsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class ExplorePlantsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    Context context;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    RecyclerView recyclerView;
 
+    FirebaseAuth auth;
+    FirebaseDatabase database;
+    DatabaseReference reference;
+
+    SearchView searchView;
+
+
+    ArrayList<PlantModel> arrayList ;
+    
+    
     public ExplorePlantsFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ExplorePlantsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ExplorePlantsFragment newInstance(String param1, String param2) {
-        ExplorePlantsFragment fragment = new ExplorePlantsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_explore_plants, container, false);
+        View v=inflater.inflate(R.layout.fragment_explore_plants, container, false);
+        
+        context = getContext();
+
+        auth=FirebaseAuth.getInstance();
+        database= FirebaseDatabase.getInstance();
+        reference=database.getReference("plants");
+
+        recyclerView=v.findViewById(R.id.farmer_explore_plant_recycler);
+        searchView=v.findViewById(R.id.farmer_explore_plant_search);
+
+
+        
+        
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList= new ArrayList<>();
+                final ExplorePlantsAdapter[] adapter = new ExplorePlantsAdapter[1];
+                StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
+                recyclerView.setLayoutManager(staggeredGridLayoutManager);
+                if (snapshot.hasChildren()) {
+                     if (!searchView.hasFocus() || searchView.getQuery()!=null) {
+                         //adapter[0].notifyDataSetChanged();
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            arrayList.add(new PlantModel(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("life_span").getValue().toString(), ds.child("imgurl").getValue().toString()));
+
+                            Log.d("all data ", String.valueOf(arrayList));
+                        }
+
+                        adapter[0] = new ExplorePlantsAdapter(arrayList, context);
+                        recyclerView.setAdapter(adapter[0]);
+
+
+                    }
+
+
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String query) {
+                            return false;
+                        }
+
+
+
+                        @Override
+                        public boolean onQueryTextChange(String newText) {
+                           /* arrayList.clear();
+
+                            if (snapshot.hasChildren())
+                                for (DataSnapshot ds : snapshot.getChildren()) {
+                                    if (newText.length() <= ds.child("name").toString().length()) {
+                                        if (ds.child("name").toString().toLowerCase().contains(newText.toLowerCase())) {
+                                            arrayList.add(new PlantModel(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("life_span").getValue().toString(), ds.child("imgurl").getValue().toString()));
+
+                                            Log.d("----  search data", String.valueOf(arrayList.size())+" -- "+ds.child("name").getValue().toString());
+                                        }
+                                    }
+
+                                }
+
+                           // Log.d("----  search data", String.valueOf(arrayList.size()));
+
+                            adapter[0] = new ExplorePlantsAdapter(arrayList, context);
+                            recyclerView.setAdapter(adapter[0]);
+                            adapter[0].notifyDataSetChanged();*/
+                            ArrayList<PlantModel> filteredlist = new ArrayList<PlantModel>();
+
+                            // running a for loop to compare elements.
+                            for (PlantModel item : arrayList) {
+                                // checking if the entered string matched with any item of our recycler view.
+                                if (item.getName().toLowerCase().contains(newText.toLowerCase())) {
+                                    // if the item is matched we are
+                                    // adding it to our filtered list.
+                                    filteredlist.add(item);
+                                }
+                            }
+                            if (filteredlist.isEmpty()) {
+                                // if no item is added in filtered list we are
+                                // displaying a toast message as no data found.
+                                //Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // at last we are passing that filtered
+                                // list to our adapter class.
+                                adapter[0].filterList(filteredlist);
+                            }
+
+
+                            return false;
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        return v;
     }
 }
