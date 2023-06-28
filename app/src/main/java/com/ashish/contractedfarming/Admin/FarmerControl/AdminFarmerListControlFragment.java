@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+
 import com.ashish.contractedfarming.Admin.Dashboard.Farmer.AdminFarmerAdapter;
 import com.ashish.contractedfarming.Admin.Dashboard.Farmer.AdminFarmerModel;
 import com.ashish.contractedfarming.Admin.FarmerControl.Profile.FarmerProfileActivity;
@@ -21,10 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
 
 public class AdminFarmerListControlFragment extends Fragment {
 

@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.ashish.contractedfarming.R;
 import com.google.firebase.database.DataSnapshot;
 import com.squareup.picasso.Picasso;
-
-import androidx.fragment.app.Fragment;
 
 public class ProfileIdentityFragment extends Fragment {
     DataSnapshot snapshot;

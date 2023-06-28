@@ -2,11 +2,11 @@ package com.ashish.contractedfarming.Admin.FarmerControl;
 
 import android.os.Bundle;
 
-import com.ashish.contractedfarming.R;
-import com.google.android.material.tabs.TabLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
+import com.ashish.contractedfarming.R;
+import com.google.android.material.tabs.TabLayout;
 
 public class FarmerControlActivity extends AppCompatActivity{
 

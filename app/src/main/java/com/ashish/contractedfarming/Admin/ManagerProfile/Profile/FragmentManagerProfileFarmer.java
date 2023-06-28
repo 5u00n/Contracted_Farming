@@ -1,22 +1,17 @@
 package com.ashish.contractedfarming.Admin.ManagerProfile.Profile;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import androidx.fragment.app.Fragment;
+
 import com.ashish.contractedfarming.Admin.Dashboard.Farmer.AdminFarmerAdapter;
 import com.ashish.contractedfarming.Admin.Dashboard.Farmer.AdminFarmerModel;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;

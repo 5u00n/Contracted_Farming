@@ -6,15 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.ashish.contractedfarming.Admin.Chat.AdminMessageActivity;
-import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
-import com.ashish.contractedfarming.R;
-import com.google.android.material.tabs.TabLayout;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
+
+import com.ashish.contractedfarming.Admin.Chat.AdminMessageActivity;
+import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
+import com.ashish.contractedfarming.R;
+import com.google.android.material.tabs.TabLayout;
 
 public class AdminNotificationActivity extends AppCompatActivity {
 

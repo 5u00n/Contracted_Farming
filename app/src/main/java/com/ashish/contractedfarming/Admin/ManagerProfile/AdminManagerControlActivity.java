@@ -2,13 +2,13 @@ package com.ashish.contractedfarming.Admin.ManagerProfile;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.ashish.contractedfarming.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 public class AdminManagerControlActivity extends AppCompatActivity {
     TabLayout tabLayout;

@@ -7,16 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
+import androidx.fragment.app.Fragment;
+
 import com.ashish.contractedfarming.R;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 public class PlotProfileFragment extends Fragment {
 

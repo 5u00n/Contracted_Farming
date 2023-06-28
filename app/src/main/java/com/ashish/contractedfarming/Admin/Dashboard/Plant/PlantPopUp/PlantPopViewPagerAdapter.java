@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.PagerAdapter;
+
 import com.ashish.contractedfarming.R;
 import com.google.firebase.database.DataSnapshot;
 import com.squareup.picasso.Picasso;
-
-import androidx.viewpager.widget.PagerAdapter;
 
 public class PlantPopViewPagerAdapter extends PagerAdapter {
 

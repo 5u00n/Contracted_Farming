@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ashish.contractedfarming.R;
-
 import androidx.fragment.app.Fragment;
+
+import com.ashish.contractedfarming.R;
 
 public class PlantPopupSecondFragment extends Fragment {
 

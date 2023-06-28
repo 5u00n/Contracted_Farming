@@ -1,17 +1,17 @@
 package com.ashish.contractedfarming.Admin.Dashboard;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.ashish.contractedfarming.Admin.Chat.AdminMessageActivity;
 import com.ashish.contractedfarming.Admin.Notification.AdminNotificationActivity;

@@ -2,17 +2,16 @@ package com.ashish.contractedfarming.Admin.Dashboard;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerFragment;
 import com.ashish.contractedfarming.Admin.Dashboard.Home.AdminHomeFragment;
 import com.ashish.contractedfarming.Admin.Dashboard.Manager.ManagerFragment;
 import com.ashish.contractedfarming.Admin.Dashboard.News.NewsFragment;
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.PlantFragment;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 
 public class DashboardAdapter extends FragmentPagerAdapter {
 

@@ -8,13 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.ashish.contractedfarming.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class AdminPlantsAdapter extends ArrayAdapter<AdminPlantsModel> {
     public AdminPlantsAdapter(@NonNull Context context, List<AdminPlantsModel> arr) {

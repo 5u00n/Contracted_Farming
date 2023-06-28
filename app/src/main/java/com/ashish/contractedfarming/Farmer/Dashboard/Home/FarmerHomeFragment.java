@@ -55,7 +55,6 @@ public class FarmerHomeFragment extends Fragment {
     ViewPager viewPager;
 
     private static final int ADD_STORY_IMG = 2;
-    private static int PICK_IMAGE = 123;
     Uri imageUri = null;
 
     Context context;
@@ -93,8 +92,7 @@ public class FarmerHomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         context = getContext();
-        if (getArguments() != null) {
-        }
+
     }
 
     @Override
@@ -107,7 +105,7 @@ public class FarmerHomeFragment extends Fragment {
         reference = database.getReference();
         auth = FirebaseAuth.getInstance();
 
-        viewPager=getActivity().findViewById(R.id.farmer_view_pager);
+        viewPager=v.findViewById(R.id.farmer_view_pager);
 
 
         farmerstoryRV = v.findViewById(R.id.farmerstoryRV);
@@ -118,97 +116,69 @@ public class FarmerHomeFragment extends Fragment {
         username = v.findViewById(R.id.username_fragment_farmer_home);
         user_img = v.findViewById(R.id.user_img_fragment_farmer_home);
 
-        v.findViewById(R.id.farmer_dash_see_all_story_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setCurrentItem(1);
-            }
-        });
+        v.findViewById(R.id.farmer_dash_see_all_story_button).setOnClickListener(view -> viewPager.setCurrentItem(1));
 
-        v.findViewById(R.id.addPlantImg).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setCurrentItem(2);
-            }
-        });
-        v.findViewById(R.id.farmer_dash_explore_expand_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setCurrentItem(2);
-            }
-        });
+        v.findViewById(R.id.addPlantImg).setOnClickListener(view -> viewPager.setCurrentItem(2));
+        v.findViewById(R.id.farmer_dash_explore_expand_button).setOnClickListener(view -> viewPager.setCurrentItem(2));
 
-        v.findViewById(R.id.farmer_dash_my_farm_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setCurrentItem(3);
-            }
-        });
+        v.findViewById(R.id.farmer_dash_my_farm_button).setOnClickListener(view -> viewPager.setCurrentItem(3));
 
-        v.findViewById(R.id.farmer_dash_my_plant_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setCurrentItem(4);
-            }
-        });
+        v.findViewById(R.id.farmer_dash_my_plant_button).setOnClickListener(view -> viewPager.setCurrentItem(4));
 
 
 
 
 
-        constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Dialog dialog = new Dialog(getContext());
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(false);
-                dialog.setContentView(R.layout.prompt_add_story);
+        constraintLayout.setOnClickListener(v1 -> {
+            final Dialog dialog = new Dialog(getContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.prompt_add_story);
 
-                EditText story_disc;
-                Button addStory, cancel;
-                story_disc = dialog.findViewById(R.id.prompt_add_story_disc);
-                story_img = dialog.findViewById(R.id.prompt_add_story_img);
+            EditText story_disc;
+            Button addStory, cancel;
+            story_disc = dialog.findViewById(R.id.prompt_add_story_disc);
+            story_img = dialog.findViewById(R.id.prompt_add_story_img);
 
-                story_img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                        startActivityForResult(intent, ADD_STORY_IMG);
+            story_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v1) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, ADD_STORY_IMG);
 
 
+                }
+            });
+
+
+            addStory = dialog.findViewById(R.id.prompt_add_story_button_post);
+            cancel = dialog.findViewById(R.id.prompt_add_story_button_cancel);
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v1) {
+                    dialog.dismiss();
+                }
+            });
+
+            addStory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v1) {
+
+                    String time_stamp = String.valueOf((System.currentTimeMillis() / 1000));
+                    if (story_disc.getText().toString().isEmpty()) {
+                        story_disc.setHint("Please Enter Description !");
+                        story_disc.setHintTextColor(Color.RED);
+                    } else {
+                        sendImageToStorage(new FarmerStoryModel(auth.getUid(), username.getText().toString(), user_img.getText().toString(), "", story_disc.getText().toString(), time_stamp), imageUri);
                     }
-                });
 
+                    dialog.dismiss();
 
-                addStory = dialog.findViewById(R.id.prompt_add_story_button_post);
-                cancel = dialog.findViewById(R.id.prompt_add_story_button_cancel);
+                }
+            });
 
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                addStory.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        String time_stamp = String.valueOf((System.currentTimeMillis() / 1000));
-                        if (story_disc.getText().toString().isEmpty()) {
-                            story_disc.setHint("Please Enter Description !");
-                            story_disc.setHintTextColor(Color.RED);
-                        } else {
-                            sendImageToStorage(new FarmerStoryModel(auth.getUid(), username.getText().toString(), user_img.getText().toString(), "", story_disc.getText().toString(), time_stamp), imageUri);
-                        }
-
-                        dialog.dismiss();
-
-                    }
-                });
-
-                dialog.show();
-            }
+            dialog.show();
         });
 
         //initMyPlants();
@@ -337,29 +307,24 @@ public class FarmerHomeFragment extends Fragment {
 
         UploadTask uploadTask = imageref.putFile(imguri);
         final Uri[] downloadUri = new Uri[1];
-        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    throw task.getException();
-                }
-
-                // Continue with the task to get the download URL
-                return imageref.getDownloadUrl();
+        uploadTask.continueWithTask(task -> {
+            if (!task.isSuccessful()) {
+                throw task.getException();
             }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    downloadUri[0] = task.getResult();
-                    Log.d("Download uri", downloadUri[0].toString());
-                    sm.setImg_url(downloadUri[0].toString());
-                    sendToRealtimeDatabase(sm);
 
-                } else {
-                    // Handle failures
-                    // ...
-                }
+            // Continue with the task to get the download URL
+            return imageref.getDownloadUrl();
+        }).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                downloadUri[0] = task.getResult();
+                Log.d("Download uri", downloadUri[0].toString());
+                sm.setImg_url(downloadUri[0].toString());
+                sendToRealtimeDatabase(sm);
+
+            } else {
+                // Handle failures
+                // ...
+                Log.d("FarmerHomeFragment","File Upload Failed");
             }
         });
 

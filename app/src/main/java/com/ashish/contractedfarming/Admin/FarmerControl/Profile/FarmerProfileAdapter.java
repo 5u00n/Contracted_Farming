@@ -1,11 +1,11 @@
 package com.ashish.contractedfarming.Admin.FarmerControl.Profile;
 
-import com.google.firebase.database.DataSnapshot;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.google.firebase.database.DataSnapshot;
 
 public class FarmerProfileAdapter extends FragmentPagerAdapter {
 
