@@ -15,8 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsAdapter;
-import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.FragmentHelper.ExplorePlantsAdapter;
 import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.R;
@@ -101,25 +99,7 @@ public class ExplorePlantsFragment extends Fragment {
 
                         @Override
                         public boolean onQueryTextChange(String newText) {
-                           /* arrayList.clear();
 
-                            if (snapshot.hasChildren())
-                                for (DataSnapshot ds : snapshot.getChildren()) {
-                                    if (newText.length() <= ds.child("name").toString().length()) {
-                                        if (ds.child("name").toString().toLowerCase().contains(newText.toLowerCase())) {
-                                            arrayList.add(new PlantModel(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("life_span").getValue().toString(), ds.child("imgurl").getValue().toString()));
-
-                                            Log.d("----  search data", String.valueOf(arrayList.size())+" -- "+ds.child("name").getValue().toString());
-                                        }
-                                    }
-
-                                }
-
-                           // Log.d("----  search data", String.valueOf(arrayList.size()));
-
-                            adapter[0] = new ExplorePlantsAdapter(arrayList, context);
-                            recyclerView.setAdapter(adapter[0]);
-                            adapter[0].notifyDataSetChanged();*/
                             ArrayList<PlantModel> filteredlist = new ArrayList<PlantModel>();
 
                             // running a for loop to compare elements.

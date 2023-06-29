@@ -11,8 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryModel;
-import com.ashish.contractedfarming.Farmer.Dashboard.Story.FragmentHelper.FarmerFragmentStoryAdapter;
+import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FragmentHelper.FarmerFragmentMyFarmAdapter;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -62,7 +61,7 @@ public class MyFarmFragment extends Fragment {
                         }
                         farmerFarm_List.add(fm); }
 
-                FarmerMyfarmAdapter adapter1 = new FarmerMyfarmAdapter(farmerFarm_List, getContext());
+                FarmerFragmentMyFarmAdapter adapter1 = new FarmerFragmentMyFarmAdapter(farmerFarm_List, getContext());
                 LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                 recyclerView.setLayoutManager(layoutManager1);
                 recyclerView.setNestedScrollingEnabled(false);

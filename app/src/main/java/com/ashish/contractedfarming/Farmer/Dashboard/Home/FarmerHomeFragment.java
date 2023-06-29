@@ -35,9 +35,6 @@ import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.FarmerMyplantsAdap
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryModel;
 import com.ashish.contractedfarming.R;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +46,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FarmerHomeFragment extends Fragment {
 
@@ -105,7 +103,7 @@ public class FarmerHomeFragment extends Fragment {
         reference = database.getReference();
         auth = FirebaseAuth.getInstance();
 
-        viewPager=v.findViewById(R.id.farmer_view_pager);
+        viewPager=getActivity().findViewById(R.id.farmer_view_pager);
 
 
         farmerstoryRV = v.findViewById(R.id.farmerstoryRV);
@@ -117,12 +115,9 @@ public class FarmerHomeFragment extends Fragment {
         user_img = v.findViewById(R.id.user_img_fragment_farmer_home);
 
         v.findViewById(R.id.farmer_dash_see_all_story_button).setOnClickListener(view -> viewPager.setCurrentItem(1));
-
         v.findViewById(R.id.addPlantImg).setOnClickListener(view -> viewPager.setCurrentItem(2));
         v.findViewById(R.id.farmer_dash_explore_expand_button).setOnClickListener(view -> viewPager.setCurrentItem(2));
-
         v.findViewById(R.id.farmer_dash_my_farm_button).setOnClickListener(view -> viewPager.setCurrentItem(3));
-
         v.findViewById(R.id.farmer_dash_my_plant_button).setOnClickListener(view -> viewPager.setCurrentItem(4));
 
 
@@ -334,7 +329,7 @@ public class FarmerHomeFragment extends Fragment {
     public void sendToRealtimeDatabase(FarmerStoryModel sm) {
         FirebaseDatabase storage = FirebaseDatabase.getInstance();
         DatabaseReference reference = storage.getReference();
-        reference.child("users").child("farmer").child(auth.getUid()).child("story").child(sm.getStory_time()).setValue(sm);
+        reference.child("users").child("farmer").child(Objects.requireNonNull(auth.getUid())).child("story").child(sm.getStory_time()).setValue(sm);
         reference.child("Story").child(auth.getUid()).child(sm.getStory_time()).setValue(sm);
 
         imageUri = null;
