@@ -41,7 +41,6 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:orientation="vertical"
-
             android:paddingRight="20dp">
 
             <TextView
@@ -49,7 +48,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="10 weeks"
-                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
@@ -58,7 +56,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="70%"
-                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -66,7 +63,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Humidity"
-                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
@@ -75,7 +71,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="125%"
-                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -83,7 +78,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Fertilizer"
-                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
@@ -92,7 +86,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="24 hours"
-                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -100,7 +93,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Watering Time"
-                android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -119,7 +111,6 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:text="PAPAYA"
-        android:textColor="@color/white"
         android:textSize="40sp"
         android:textStyle="bold"
         card_view:layout_constraintBottom_toBottomOf="parent"
@@ -166,7 +157,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:text="20%"
-                        android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <TextView
@@ -174,8 +164,7 @@
                         android:textStyle="bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Light"
-                        android:textColor="@color/black" />
+                        android:text="Light"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -191,7 +180,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:text="55 C"
-                        android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <TextView

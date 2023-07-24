@@ -12,12 +12,15 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.FragmentHelper.ExplorePlantsAdapter;
 import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.R;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,6 +45,8 @@ public class ExplorePlantsFragment extends Fragment {
 
 
     ArrayList<PlantModel> arrayList ;
+
+
     
     
     public ExplorePlantsFragment() {
@@ -56,9 +61,29 @@ public class ExplorePlantsFragment extends Fragment {
         
         context = getContext();
 
+
         auth=FirebaseAuth.getInstance();
         database= FirebaseDatabase.getInstance();
         reference=database.getReference("plants");
+
+
+        View bottomSheet = v.findViewById(R.id.farmer_explore_plant_bottom_sheet);
+
+        final BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
+
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState){
+
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
 
         recyclerView=v.findViewById(R.id.farmer_explore_plant_recycler);
         searchView=v.findViewById(R.id.farmer_explore_plant_search);
@@ -82,7 +107,7 @@ public class ExplorePlantsFragment extends Fragment {
                             Log.d("all data ", String.valueOf(arrayList));
                         }
 
-                        adapter[0] = new ExplorePlantsAdapter(arrayList, context);
+                        adapter[0] = new ExplorePlantsAdapter(arrayList, context,v);
                         recyclerView.setAdapter(adapter[0]);
 
 
@@ -131,6 +156,24 @@ public class ExplorePlantsFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                //Toast.makeText(context, rv.getId(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
             }
         });

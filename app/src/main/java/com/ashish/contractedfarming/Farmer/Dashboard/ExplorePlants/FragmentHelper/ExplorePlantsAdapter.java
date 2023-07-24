@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
@@ -15,6 +17,7 @@ import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.FragmentHelper.FarmerFragmentStoryAdapter;
 import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.R;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -26,10 +29,13 @@ public class ExplorePlantsAdapter extends RecyclerView.Adapter<ExplorePlantsAdap
     Context context;
 
 
-    public ExplorePlantsAdapter(ArrayList<PlantModel> list, Context context) {
+    View view;
+
+    public ExplorePlantsAdapter(ArrayList<PlantModel> list, Context context,View view) {
         // super();
         this.list = list;
         this.context = context;
+        this.view=view;
     }
 
     public void filterList(ArrayList<PlantModel> filterlist) {
@@ -64,6 +70,20 @@ public class ExplorePlantsAdapter extends RecyclerView.Adapter<ExplorePlantsAdap
         Picasso.get().load(model.getImgurl()).into(holder.plant_image);
         //Picasso.get().load(model.user_img_url).into(holder.userimg);
 
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(context, holder.name.getText(), Toast.LENGTH_SHORT).show();
+                holder.sheet_name.setText(holder.name.getText());
+
+                if(holder.behavior.getState()==BottomSheetBehavior.STATE_COLLAPSED){
+                    holder.behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }else {
+                    holder.behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+        });
+
 
     }
 
@@ -73,11 +93,25 @@ public class ExplorePlantsAdapter extends RecyclerView.Adapter<ExplorePlantsAdap
     }
 
     public class viewHolder extends RecyclerView.ViewHolder{
-        TextView id,name,lifecycle;
+        TextView id,name,lifecycle,sheet_name;
         ImageView plant_image,back_img;
+
+        CardView cardView;
+        View bottomSheet;
+        BottomSheetBehavior behavior;
+
+
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
+
+            bottomSheet = view.findViewById(R.id.farmer_explore_plant_bottom_sheet);
+            sheet_name = view.findViewById(R.id.farmer_explore_plant_sheet_name);
+
+            behavior = BottomSheetBehavior.from(bottomSheet);
+
+
+            cardView= itemView.findViewById(R.id.view_plant_main_layout);
             id= itemView.findViewById(R.id.farmer_plant_id);
             name= itemView.findViewById(R.id.farmer_plant_name_text);
             lifecycle = itemView.findViewById(R.id.farmer_plant_lifespan_text);
