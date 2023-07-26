@@ -48,12 +48,12 @@ public class AddPlotActivity extends AppCompatActivity {
     StorageReference storageReference;
 
 
-    EditText _7_12_edittext, _8a_edittext, area, village, taluka, dist, gat_no, sarvay_no;
+    EditText plotName,plot_img_edittext,_7_12_edittext, _8a_edittext, area, village, taluka, dist, gat_no, sarvay_no;
 
-    ImageButton upload_712,upload_8a;
+    ImageButton upload_712,upload_8a,upload_plot_img;
 
 
-    TextView _712_url,_8a_url;
+    TextView _712_url,_8a_url,plot_img_url;
     Button submit,addPlot,cancel;
     ImageButton add;
     ListView lv;
@@ -90,6 +90,9 @@ public class AddPlotActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.prompt_add_plot);
 
 
+
+                plotName = dialog.findViewById(R.id.prompt_add_plant_name);
+                plot_img_edittext=dialog.findViewById(R.id.prompt_add_plot_edittext);
                 _7_12_edittext = dialog.findViewById(R.id.prompt_add_7_12);
                 _8a_edittext = dialog.findViewById(R.id.prompt_add_8a);
                 area = dialog.findViewById(R.id.prompt_addplot_area);
@@ -101,9 +104,12 @@ public class AddPlotActivity extends AppCompatActivity {
 
                 _712_url = dialog.findViewById(R.id.prompt_7_12_url);
                 _8a_url = dialog.findViewById(R.id.prompt_8a_url);
+                plot_img_url=dialog.findViewById(R.id.prompt_plot_img_url);
 
                 upload_712= dialog.findViewById(R.id.farmer_addplot_imageview_7_12_selimage);
                 upload_8a=dialog.findViewById(R.id.farmer_addplot_imageview_8a_selimage);
+
+                upload_plot_img=dialog.findViewById(R.id.farmer_addplot_imageview_plot_selimage);
 
 
                 upload_8a.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +125,14 @@ public class AddPlotActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                         startActivityForResult(intent, 1);
+                    }
+                });
+
+                upload_plot_img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                        startActivityForResult(intent, 3);
                     }
                 });
 
@@ -138,11 +152,11 @@ public class AddPlotActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         String time_stamp=String.valueOf((System.currentTimeMillis() / 1000));
-                        if(_7_12_edittext.getText().toString().isEmpty() || _8a_edittext.getText().toString().isEmpty() || area.getText().toString().isEmpty() || village.getText().toString().isEmpty() || taluka.getText().toString().isEmpty() || dist.getText().toString().isEmpty() || gat_no.getText().toString().isEmpty() || sarvay_no.getText().toString().isEmpty()){
+                        if(plotName.getText().toString().isEmpty()||plot_img_edittext.getText().toString().isEmpty()|| _7_12_edittext.getText().toString().isEmpty() || _8a_edittext.getText().toString().isEmpty() || area.getText().toString().isEmpty() || village.getText().toString().isEmpty() || taluka.getText().toString().isEmpty() || dist.getText().toString().isEmpty() || gat_no.getText().toString().isEmpty() || sarvay_no.getText().toString().isEmpty()){
                             Toast.makeText(AddPlotActivity.this, "Field Empty Please Fill!", Toast.LENGTH_SHORT).show();
                         }else {
-                            databaseReference.child("users").child("new-farmer").child(firebaseAuth.getUid()).child("plot").child(firebaseAuth.getUid()+"__"+time_stamp).setValue(new PlotModel(firebaseAuth.getUid()+"__"+time_stamp,firebaseAuth.getUid(),area.getText().toString(),village.getText().toString(),taluka.getText().toString(),dist.getText().toString(),"Maharashtra",gat_no.getText().toString(),sarvay_no.getText().toString(),_7_12_edittext.getText().toString(),_8a_edittext.getText().toString(),_712_url.getText().toString(),_8a_url.getText().toString()));
-                            databaseReference.child("plots").child(firebaseAuth.getUid()+"__"+time_stamp).setValue(new PlotModel(firebaseAuth.getUid()+"__"+time_stamp,firebaseAuth.getUid(),area.getText().toString(),village.getText().toString(),taluka.getText().toString(),dist.getText().toString(),"Maharashtra",gat_no.getText().toString(),sarvay_no.getText().toString(),_7_12_edittext.getText().toString(),_8a_edittext.getText().toString(),_712_url.getText().toString(),_8a_url.getText().toString()));
+                            databaseReference.child("users").child("new-farmer").child(firebaseAuth.getUid()).child("plot").child(firebaseAuth.getUid()+"__"+time_stamp).setValue(new PlotModel(firebaseAuth.getUid()+"__"+time_stamp,plotName.getText().toString(),firebaseAuth.getUid(),plot_img_url.getText().toString(),area.getText().toString(),village.getText().toString(),taluka.getText().toString(),dist.getText().toString(),"Maharashtra",gat_no.getText().toString(),sarvay_no.getText().toString(),_7_12_edittext.getText().toString(),_8a_edittext.getText().toString(),_712_url.getText().toString(),_8a_url.getText().toString()));
+                            databaseReference.child("plots").child(firebaseAuth.getUid()+"__"+time_stamp).setValue(new PlotModel(firebaseAuth.getUid()+"__"+time_stamp,plotName.getText().toString(),firebaseAuth.getUid(),plot_img_url.getText().toString(),area.getText().toString(),village.getText().toString(),taluka.getText().toString(),dist.getText().toString(),"Maharashtra",gat_no.getText().toString(),sarvay_no.getText().toString(),_7_12_edittext.getText().toString(),_8a_edittext.getText().toString(),_712_url.getText().toString(),_8a_url.getText().toString()));
 
 
                             dialog.dismiss();
@@ -205,6 +219,9 @@ public class AddPlotActivity extends AppCompatActivity {
         if (requestCode == 2 && resultCode == RESULT_OK) {
             sendImagetoStorage("_8a",data.getData());
         }
+        if (requestCode == 3 && resultCode == RESULT_OK) {
+            sendImagetoStorage("plot_img",data.getData());
+        }
 
 
 
@@ -241,6 +258,10 @@ public class AddPlotActivity extends AppCompatActivity {
                     if(filetype.equals("_8a")){
                         _8a_url.setText(downloadUri[0].toString());
                         upload_8a.setImageResource(R.drawable.ic_baseline_check_24);
+                    }
+                    if(filetype.equals("plot_img")){
+                        plot_img_url.setText(downloadUri[0].toString());
+                        upload_plot_img.setImageResource(R.drawable.ic_baseline_check_24);
                     }
 
                 } else {

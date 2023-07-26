@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:layout_weight="2"
-        android:layout_marginRight="112dp"
+        android:layout_marginRight="162dp"
         android:layout_marginBottom="380dp"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:orientation="vertical"
             android:paddingRight="20dp">
 
@@ -120,7 +120,7 @@
     <androidx.cardview.widget.CardView
 
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="350dp"
         android:layout_gravity="center"
         card_view:cardBackgroundColor="@android:color/transparent"
         card_view:cardElevation="0dp"
@@ -130,7 +130,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_inner"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="400dp"
             android:layout_gravity="center"
             android:layout_marginTop="60dp"
             card_view:cardBackgroundColor="@color/white"
@@ -150,6 +150,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                     <TextView
+                        android:textColor="@color/black"
                         android:id="@+id/fragment_plant_popup_first_light"
                         android:textAlignment="textEnd"
                         android:textStyle="bold"
@@ -160,6 +161,7 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:textColor="@color/black"
                         android:textAlignment="textEnd"
                         android:textStyle="bold"
                         android:layout_width="match_parent"
@@ -180,6 +182,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:text="55 C"
+                        android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <TextView

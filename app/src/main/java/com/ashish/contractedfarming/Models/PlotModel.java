@@ -2,9 +2,9 @@ package com.ashish.contractedfarming.Models;
 
 
 public class PlotModel {
-    String plotID, userUID, area, village, taluka, dist, state, gat_no, sarvay_no,_7_12,_8a,_7_12_url,_8a_url;
+    String plot_img_url,plotID, plotName,userUID, area, village, taluka, dist, state, gat_no, sarvay_no,_7_12,_8a,_7_12_url,_8a_url,approval;
 
-    public PlotModel(String plotID, String userUID, String area, String village, String taluka, String dist, String state, String gat_no, String sarvay_no, String _7_12, String _8a, String _7_12_url, String _8a_url) {
+    public PlotModel(String plotID, String plotName,String userUID,String plot_img_url,String area, String village, String taluka, String dist, String state, String gat_no, String sarvay_no, String _7_12, String _8a, String _7_12_url, String _8a_url) {
         this.plotID = plotID;
         this.userUID = userUID;
         this.area = area;
@@ -18,6 +18,41 @@ public class PlotModel {
         this._8a = _8a;
         this._7_12_url = _7_12_url;
         this._8a_url = _8a_url;
+        this.plot_img_url=plot_img_url;
+        this.plotName=plotName;
+    }
+
+    public PlotModel(String plot_img_url, String plotID, String plotName, String area, String village, String approval) {
+        this.plot_img_url = plot_img_url;
+        this.plotID = plotID;
+        this.plotName = plotName;
+        this.area = area;
+        this.village = village;
+        this.approval = approval;
+    }
+
+    public String getPlotName() {
+        return plotName;
+    }
+
+    public String getApproval() {
+        return approval;
+    }
+
+    public void setApproval(String approval) {
+        this.approval = approval;
+    }
+
+    public void setPlotName(String plotName) {
+        this.plotName = plotName;
+    }
+
+    public String getPlot_img_url() {
+        return plot_img_url;
+    }
+
+    public void setPlot_img_url(String plot_img_url) {
+        this.plot_img_url = plot_img_url;
     }
 
     public String getPlotID() {
@@ -123,4 +158,6 @@ public class PlotModel {
     public void set_8a_url(String _8a_url) {
         this._8a_url = _8a_url;
     }
+
+
 }

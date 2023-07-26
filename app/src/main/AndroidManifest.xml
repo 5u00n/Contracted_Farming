@@ -2,27 +2,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:label="@string/app_name"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/logo"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.ContractedFarming.NoActionBar"
         tools:targetApi="31">
+        <activity android:name=".Farmer.Dashboard.ExplorePlants.PlantAddition.FarmerSelectFarmActivity"/>
+        <activity
+            android:name=".Farmer.Dashboard.ExplorePlants.PlantAddition.FarmerExplorePlantsActivity"
+            android:exported="false" />
         <activity
             android:name=".Farmer.NewFarmer.AddPlotActivity"
             android:exported="false" />
-
         <activity
             android:name=".Farmer.NewFarmer.NewFarmerApprovalWaitActivity"
             android:exported="false" />
@@ -36,8 +40,7 @@
         <activity
             android:name=".Manager.Dashboard.ManagerDashboardActivity"
             android:exported="false" />
-
-        <activity android:name=".Farmer.Dashboard.FarmerDashboardActivity"/>
+        <activity android:name=".Farmer.Dashboard.FarmerDashboardActivity" />
         <activity
             android:name=".Farmer.NewFarmer.NewFarmerUploadActivity"
             android:exported="false" />
@@ -72,9 +75,9 @@
             android:exported="false"
             android:theme="@style/Theme.ContractedFarming.Login" />
         <activity
-            android:theme="@style/Theme.ContractedFarming.SplashScreen"
             android:name=".AppInfo.AppInfoActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.ContractedFarming.SplashScreen" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -86,6 +89,5 @@
             </intent-filter>
         </activity>
     </application>
-
 
 </manifest>

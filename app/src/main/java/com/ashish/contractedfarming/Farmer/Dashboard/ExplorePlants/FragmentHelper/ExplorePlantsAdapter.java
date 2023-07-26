@@ -1,28 +1,23 @@
 package com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.FragmentHelper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
-import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryModel;
-import com.ashish.contractedfarming.Farmer.Dashboard.Story.FragmentHelper.FarmerFragmentStoryAdapter;
+import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.PlantAddition.FarmerExplorePlantsActivity;
 import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.R;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ExplorePlantsAdapter extends RecyclerView.Adapter<ExplorePlantsAdapter.viewHolder>{
     ArrayList<PlantModel> list;
@@ -74,13 +69,12 @@ public class ExplorePlantsAdapter extends RecyclerView.Adapter<ExplorePlantsAdap
             @Override
             public void onClick(View view) {
                 //Toast.makeText(context, holder.name.getText(), Toast.LENGTH_SHORT).show();
-                holder.sheet_name.setText(holder.name.getText());
 
-                if(holder.behavior.getState()==BottomSheetBehavior.STATE_COLLAPSED){
-                    holder.behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                }else {
-                    holder.behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
+                Intent i = new Intent(context, FarmerExplorePlantsActivity.class);
+                i.putExtra("plant_id",model.getId());
+                context.startActivity(i);
+
+
             }
         });
 
@@ -93,22 +87,19 @@ public class ExplorePlantsAdapter extends RecyclerView.Adapter<ExplorePlantsAdap
     }
 
     public class viewHolder extends RecyclerView.ViewHolder{
-        TextView id,name,lifecycle,sheet_name;
+        TextView id,name,lifecycle;
         ImageView plant_image,back_img;
 
         CardView cardView;
-        View bottomSheet;
-        BottomSheetBehavior behavior;
+
+
 
 
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
 
-            bottomSheet = view.findViewById(R.id.farmer_explore_plant_bottom_sheet);
-            sheet_name = view.findViewById(R.id.farmer_explore_plant_sheet_name);
 
-            behavior = BottomSheetBehavior.from(bottomSheet);
 
 
             cardView= itemView.findViewById(R.id.view_plant_main_layout);

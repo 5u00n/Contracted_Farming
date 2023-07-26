@@ -6,14 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Farmer.Dashboard.ExplorePlants.ExplorePlantsFragment">
 
-    <androidx.core.widget.NestedScrollView
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -61,35 +55,5 @@
                 android:layout_marginTop="130dp"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="15dp" />
-        </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <RelativeLayout
-        android:id="@+id/farmer_explore_plant_bottom_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/seed"
-        android:elevation="4dp"
-        app:behavior_hideable="true"
-        app:behavior_peekHeight="0dp"
-        android:layout_gravity="center"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-
-        >
-
-        <TextView
-            android:textStyle="bold"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="400px"
-            android:id="@+id/farmer_explore_plant_sheet_name"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <androidx.viewpager.widget.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -67,23 +67,10 @@ public class ExplorePlantsFragment extends Fragment {
         reference=database.getReference("plants");
 
 
-        View bottomSheet = v.findViewById(R.id.farmer_explore_plant_bottom_sheet);
 
-        final BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
 
-        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                switch (newState){
 
-                }
-            }
 
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-            }
-        });
 
         recyclerView=v.findViewById(R.id.farmer_explore_plant_recycler);
         searchView=v.findViewById(R.id.farmer_explore_plant_search);
@@ -161,22 +148,7 @@ public class ExplorePlantsFragment extends Fragment {
         });
 
 
-        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                return false;
-            }
 
-            @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                //Toast.makeText(context, rv.getId(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
 
 
         return v;

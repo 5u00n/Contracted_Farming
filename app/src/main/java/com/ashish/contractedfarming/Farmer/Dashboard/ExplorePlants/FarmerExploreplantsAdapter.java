@@ -1,6 +1,7 @@
 package com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
+import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.PlantAddition.FarmerExplorePlantsActivity;
 import com.ashish.contractedfarming.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class FarmerExploreplantsAdapter extends RecyclerView.Adapter<FarmerExploreplantsAdapter.viewHolder> {
@@ -44,6 +47,20 @@ public class FarmerExploreplantsAdapter extends RecyclerView.Adapter<FarmerExplo
 
        holder.id.setText(model.getId());
 
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(context, holder.name.getText(), Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(context, FarmerExplorePlantsActivity.class);
+                i.putExtra("plant_id",model.getId());
+                context.startActivity(i);
+
+
+            }
+        });
+
     }
 
     @Override
@@ -55,9 +72,12 @@ public class FarmerExploreplantsAdapter extends RecyclerView.Adapter<FarmerExplo
         ImageView imag;
         TextView plantname,id;
 
+        CardView cardView;
+
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
+            cardView= itemView.findViewById(R.id.farmer_dash_explore_plant_layout);
             imag = itemView.findViewById(R.id.farmer_exploreplant_img);
             plantname = itemView.findViewById(R.id.farmer_exploreplant_plantname);
             id = itemView.findViewById(R.id.farmer_exploreplant_plantid);
