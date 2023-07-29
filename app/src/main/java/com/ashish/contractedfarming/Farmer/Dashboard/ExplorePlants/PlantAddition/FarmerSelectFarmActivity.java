@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -38,6 +40,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FarmerSelectFarmActivity extends AppCompatActivity {
 
@@ -220,6 +223,21 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
         next_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Toast.makeText(FarmerSelectFarmActivity.this, listView.getCount(), Toast.LENGTH_SHORT).show();
+
+
+                FarmerSelectFarmListViewAdapter adapter= (FarmerSelectFarmListViewAdapter) listView.getAdapter();
+
+
+                List<Boolean> checkboxStates = adapter.getCheckboxStates();
+
+                for(int i=0;i<adapter.getCount();i++){
+                    Log.d("List count", String.valueOf(checkboxStates.get(i)));
+                }
+
+                //Log.d("List count", String.valueOf(listView.getAdapter().getCount()));
+
+
 
             }
         });

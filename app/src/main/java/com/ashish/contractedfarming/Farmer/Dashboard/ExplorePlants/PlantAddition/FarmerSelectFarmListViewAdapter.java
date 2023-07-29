@@ -2,7 +2,9 @@ package com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.PlantAdditio
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,10 +32,12 @@ import com.google.android.material.checkbox.MaterialCheckBox;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FarmerSelectFarmListViewAdapter extends ArrayAdapter<PlotModel> {
 
+    private List<Boolean> checkboxStates;
     ArrayList<PlotModel> plotmodels;
     TextView id,plot_name,approval,location;
     ImageView plot_img;
@@ -42,11 +46,14 @@ public class FarmerSelectFarmListViewAdapter extends ArrayAdapter<PlotModel> {
     MaterialCardView layout;
     Context context;
 
+
+
     public FarmerSelectFarmListViewAdapter(@NonNull Context context,ArrayList<PlotModel> plotModels) {
         super(context,0,plotModels);
 
         this.context=getContext();
         this.plotmodels= plotModels;
+        checkboxStates = new ArrayList<>(Collections.nCopies(plotModels.size(), false));
     }
 
 
@@ -66,6 +73,8 @@ public class FarmerSelectFarmListViewAdapter extends ArrayAdapter<PlotModel> {
 
         MaterialCheckBox checked1= row.findViewById(R.id.view_select_farm_listview_checkbox1);
 
+        checked1.setChecked(checkboxStates.get(position));
+
 
         id.setText(model.getPlotID());
         if(model. getPlot_img_url()!="--" || model.getPlot_img_url()!=null) {
@@ -75,6 +84,8 @@ public class FarmerSelectFarmListViewAdapter extends ArrayAdapter<PlotModel> {
         location.setText(model.getArea()+","+model.getVillage());
         approval.setText(model.getApproval());
 
+
+        ColorStateList colorList=layout.getCardBackgroundColor();
         row.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -82,12 +93,14 @@ public class FarmerSelectFarmListViewAdapter extends ArrayAdapter<PlotModel> {
 
                 if(!checked1.isChecked()) {
                     checked1.toggle();
-                    layout.setBackgroundColor(Color.rgb(110,130,225));
+                    layout.setCardBackgroundColor(Color.GREEN);
                 }
                 else {
                     checked1.toggle();
-                    layout.setBackgroundColor(Color.TRANSPARENT);
+                    layout.setCardBackgroundColor(colorList);
                 }
+
+               // if(layout.getCardBackgroundColor())
 
             }
         });
@@ -97,10 +110,16 @@ public class FarmerSelectFarmListViewAdapter extends ArrayAdapter<PlotModel> {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                // Log.d("------checkbox---", String.valueOf(b));
+                checkboxStates.set(position, b);
             }
         });
         return row;
 
+    }
+
+
+    public List<Boolean> getCheckboxStates() {
+        return checkboxStates;
     }
 
 
