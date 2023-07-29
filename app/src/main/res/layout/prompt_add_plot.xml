@@ -20,7 +20,7 @@
 
         <EditText
             android:layout_marginBottom="14dp"
-            android:id="@+id/prompt_addplot_name"
+            android:id="@+id/prompt_add_plot_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Farm Name">

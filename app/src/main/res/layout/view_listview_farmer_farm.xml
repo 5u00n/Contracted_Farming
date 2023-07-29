@@ -36,6 +36,7 @@
         android:layout_height="match_parent"
         app:cardCornerRadius="80dp">
         <ImageView
+            android:scaleType="centerCrop"
             android:id="@+id/view_select_farm_listview_img_farm"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
