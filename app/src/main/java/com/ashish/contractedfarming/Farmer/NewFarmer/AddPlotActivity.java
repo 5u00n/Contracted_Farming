@@ -96,7 +96,7 @@ public class AddPlotActivity extends AppCompatActivity {
 
 
 
-                plotName = dialog.findViewById(R.id.prompt_add_plant_name);
+                plotName = dialog.findViewById(R.id.prompt_add_plot_name);
                 plot_img_edittext=dialog.findViewById(R.id.prompt_add_plot_edittext);
                 _7_12_edittext = dialog.findViewById(R.id.prompt_add_7_12);
                 _8a_edittext = dialog.findViewById(R.id.prompt_add_8a);
@@ -226,6 +226,7 @@ public class AddPlotActivity extends AppCompatActivity {
         }
         if (requestCode == 3 && resultCode == RESULT_OK) {
             sendImagetoStorage("plot_img",data.getData());
+            plot_img_edittext.setText((System.currentTimeMillis() / 1000)+" Farm img");
         }
 
 
