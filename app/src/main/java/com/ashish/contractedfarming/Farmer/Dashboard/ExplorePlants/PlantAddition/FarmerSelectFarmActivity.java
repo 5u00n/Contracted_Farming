@@ -69,6 +69,7 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
     TextView _712_url,_8a_url,plot_img_url;
     Button submit,addPlot,cancel;
 
+    String plotID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,12 +137,14 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
         add_newFarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 final Dialog dialog = new Dialog(FarmerSelectFarmActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(false);
                 dialog.setContentView(R.layout.prompt_add_plot);
 
-
+                String time_stamp=String.valueOf((System.currentTimeMillis() / 1000));
+                plotID=auth.getUid()+"__"+time_stamp;
 
 
                 plotName = dialog.findViewById(R.id.prompt_add_plot_name);
@@ -204,12 +207,12 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        String time_stamp=String.valueOf((System.currentTimeMillis() / 1000));
+
                         if(plotName.getText().toString().isEmpty()|| plot_img_edittext.getText().toString().isEmpty() || _7_12_edittext.getText().toString().isEmpty() || _8a_edittext.getText().toString().isEmpty() || area.getText().toString().isEmpty() || village.getText().toString().isEmpty() || taluka.getText().toString().isEmpty() || dist.getText().toString().isEmpty() || gat_no.getText().toString().isEmpty() || sarvay_no.getText().toString().isEmpty()){
                             Toast.makeText(FarmerSelectFarmActivity.this, "Field Empty Please Fill!", Toast.LENGTH_SHORT).show();
                         }else {
-                            reference.child("users").child("farmer").child(auth.getUid()).child("plot").child(auth.getUid()+"__"+time_stamp).setValue(new PlotModel(auth.getUid()+"__"+time_stamp,plotName.getText().toString(),auth.getUid(),plot_img_url.getText().toString(),area.getText().toString(),village.getText().toString(),taluka.getText().toString(),dist.getText().toString(),"Maharashtra",gat_no.getText().toString(),sarvay_no.getText().toString(),_7_12_edittext.getText().toString(),_8a_edittext.getText().toString(),_712_url.getText().toString(),_8a_url.getText().toString()));
-                            reference.child("plots").child(auth.getUid()+"__"+time_stamp).setValue(new PlotModel(auth.getUid()+"__"+time_stamp,plotName.getText().toString(),auth.getUid(),plot_img_url.getText().toString(),area.getText().toString(),village.getText().toString(),taluka.getText().toString(),dist.getText().toString(),"Maharashtra",gat_no.getText().toString(),sarvay_no.getText().toString(),_7_12_edittext.getText().toString(),_8a_edittext.getText().toString(),_712_url.getText().toString(),_8a_url.getText().toString()));
+                            reference.child("users").child("farmer").child(auth.getUid()).child("plot").child(plotID).setValue(new PlotModel(plotID,plotName.getText().toString(),auth.getUid(),plot_img_url.getText().toString(),area.getText().toString(),village.getText().toString(),taluka.getText().toString(),dist.getText().toString(),"Maharashtra",gat_no.getText().toString(),sarvay_no.getText().toString(),_7_12_edittext.getText().toString(),_8a_edittext.getText().toString(),_712_url.getText().toString(),_8a_url.getText().toString()));
+                            reference.child("plots").child(plotID).setValue(new PlotModel(plotID,plotName.getText().toString(),auth.getUid(),plot_img_url.getText().toString(),area.getText().toString(),village.getText().toString(),taluka.getText().toString(),dist.getText().toString(),"Maharashtra",gat_no.getText().toString(),sarvay_no.getText().toString(),_7_12_edittext.getText().toString(),_8a_edittext.getText().toString(),_712_url.getText().toString(),_8a_url.getText().toString()));
 
 
                             dialog.dismiss();
@@ -281,7 +284,7 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
 
 
         FirebaseStorage storage= FirebaseStorage.getInstance();
-        StorageReference storageReference= storage.getReference();
+        StorageReference storageReference= storage.getReference("users").child("farmer").child("plot").child(plotID);
         StorageReference imageref = storageReference.child("image"+filetype+".png");
 
         UploadTask uploadTask = imageref.putFile(imguri);
