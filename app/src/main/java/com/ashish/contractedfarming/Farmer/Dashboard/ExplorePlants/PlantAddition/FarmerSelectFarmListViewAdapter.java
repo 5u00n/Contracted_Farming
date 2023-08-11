@@ -93,11 +93,11 @@ public class FarmerSelectFarmListViewAdapter extends ArrayAdapter<PlotModel> {
 
                 if(!checked1.isChecked()) {
                     checked1.toggle();
-                    layout.setCardBackgroundColor(Color.GREEN);
+                    //layout.setCardBackgroundColor(Color.GREEN);
                 }
                 else {
                     checked1.toggle();
-                    layout.setCardBackgroundColor(colorList);
+                    //layout.setCardBackgroundColor(colorList);
                 }
 
                // if(layout.getCardBackgroundColor())
@@ -121,6 +121,8 @@ public class FarmerSelectFarmListViewAdapter extends ArrayAdapter<PlotModel> {
     public List<Boolean> getCheckboxStates() {
         return checkboxStates;
     }
+
+
 
 
 }

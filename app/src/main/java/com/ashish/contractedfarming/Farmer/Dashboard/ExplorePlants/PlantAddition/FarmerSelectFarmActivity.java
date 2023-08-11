@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -23,7 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
+import com.ashish.contractedfarming.Models.FarmerPlantModel;
+import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.Models.PlotModel;
+import com.ashish.contractedfarming.Models.RequestModel;
 import com.ashish.contractedfarming.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,7 +60,7 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
     ImageButton back_button;
     ListView listView;
 
-    String plant_id;
+    String plant_id,plant_img_url,plant_name;
 
 
 
@@ -81,6 +86,9 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
         reference= database.getReference();
 
         plant_id= getIntent().getExtras().getString("plant_id");
+        plant_name= getIntent().getExtras().getString("plant_name");
+        plant_img_url= getIntent().getExtras().getString("plant_url");
+
         next_button= findViewById(R.id.farmer_select_farm_popup_select_button_next);
         back_button= findViewById(R.id.farmer_select_farm_popup_back_button);
 
@@ -133,7 +141,6 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
             }
         });
 
-
         add_newFarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +152,6 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
 
                 String time_stamp=String.valueOf((System.currentTimeMillis() / 1000));
                 plotID=auth.getUid()+"__"+time_stamp;
-
 
                 plotName = dialog.findViewById(R.id.prompt_add_plot_name);
                 plot_img_edittext=dialog.findViewById(R.id.prompt_add_plot_edittext);
@@ -192,7 +198,6 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
                     }
                 });
 
-
                 addPlot= dialog.findViewById(R.id.prompt_addbutton);
                 cancel= dialog.findViewById(R.id.prompt_cancel_button);
 
@@ -206,7 +211,6 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
                 addPlot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
 
                         if(plotName.getText().toString().isEmpty()|| plot_img_edittext.getText().toString().isEmpty() || _7_12_edittext.getText().toString().isEmpty() || _8a_edittext.getText().toString().isEmpty() || area.getText().toString().isEmpty() || village.getText().toString().isEmpty() || taluka.getText().toString().isEmpty() || dist.getText().toString().isEmpty() || gat_no.getText().toString().isEmpty() || sarvay_no.getText().toString().isEmpty()){
                             Toast.makeText(FarmerSelectFarmActivity.this, "Field Empty Please Fill!", Toast.LENGTH_SHORT).show();
@@ -235,19 +239,84 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
 
 
                 List<Boolean> checkboxStates = adapter.getCheckboxStates();
+                ArrayList<PlotModel> plotOb=adapter.plotmodels;
+
+                ArrayList<String> plot_ids=new ArrayList<>();
+                ArrayList<String> plot_names=new ArrayList<>();
+                ArrayList<String> plot_urls=new ArrayList<>();
+
 
                 for(int i=0;i<adapter.getCount();i++){
-                    Log.d("List count", String.valueOf(checkboxStates.get(i)));
+                    if(checkboxStates.get(i)) {
+                        plot_ids.add(plotOb.get(i).getPlotID());
+                        plot_names.add(plotOb.get(i).getPlotName());
+                        plot_urls.add(plotOb.get(i).getPlot_img_url());
+                    }
                 }
 
-                //Log.d("List count", String.valueOf(listView.getAdapter().getCount()));
+                if(plot_ids.isEmpty()){
+                    Toast.makeText(FarmerSelectFarmActivity.this,"Please Select a farm before proceeding !",Toast.LENGTH_SHORT).show();
+                }else{
+                    String plotName ="";
+                    for(int i=0;i<plot_names.size();i++) {
+                        if(i>0)plotName+=", ";
+                        plotName+=plot_names.get(i);
+                    }
 
+                    //Prompt to accept changes
+                    final Dialog dialog = new Dialog(FarmerSelectFarmActivity.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCancelable(false);
+                    dialog.setContentView(R.layout.prompt_finlaze_add_plant_to_farm);
 
+                    String time_stamp = String.valueOf((System.currentTimeMillis() / 1000));
 
+                    ImageView plant_imgView = dialog.findViewById(R.id.prompt_add_plant_to_farm_plant_img);
+                    TextView plant_name_text = dialog.findViewById(R.id.prompt_add_plant_to_farm_plant_name);
+                    ImageView plot_imgView = dialog.findViewById(R.id.prompt_add_plant_to_farm_plot_img);
+                    TextView plot_name_text = dialog.findViewById(R.id.prompt_add_plant_to_farm_plot_name);
+                    Button close_prompt = dialog.findViewById(R.id.prompt_add_plant_to_farm_cancel_button);
+                    Button proceed = dialog.findViewById(R.id.prompt_add_plant_to_farm_proceed_button);
+
+                    if(!plot_urls.get(0).isEmpty()){
+                        Picasso.get().load(plot_urls.get(0)).into(plot_imgView);
+                    }
+                    plot_name_text.setText(plotName);
+
+                    if(!TextUtils.isEmpty(plant_img_url)){
+                        Picasso.get().load(plant_img_url).into(plant_imgView);
+                    }
+                    plant_name_text.setText("Plant name:\n"+plant_name);
+
+                    close_prompt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    proceed.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //Add data to data to database of user and admin send them notification
+                            for (int i = 0; i < plot_ids.size(); i++) {
+
+                                reference.child("users").child("farmer").child(auth.getUid()).child("farmer_plants").child("farmer-plants_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_"+time_stamp).setValue(new FarmerPlantModel("farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,plot_ids.get(i),plant_id,"waiting","waiting","waiting",time_stamp,"Waiting","Waiting",plant_img_url,plant_name,plot_urls.get(i),plot_names.get(i)));
+                                reference.child("users").child("farmer").child(auth.getUid()).child("requests").child("requests_"+auth.getUid()  + "_"+time_stamp).setValue(new RequestModel("requests_"+auth.getUid()  + "_"+time_stamp,auth.getUid(),"admin,manager","plant_request","farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,time_stamp,"false","false"));
+                                reference.child("requests").child("requests_"+auth.getUid()  +"_"+ time_stamp).setValue(new RequestModel("requests_"+auth.getUid()  +"_"+ time_stamp,auth.getUid(),"admin,manager","plant_request","farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,time_stamp,"false","false"));
+                                reference.child("farmer_plants").child(auth.getUid()).child("farmer-plants_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_"+time_stamp).setValue(new FarmerPlantModel("farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_"+time_stamp,plot_ids.get(i),plant_id,"waiting","waiting","waiting",time_stamp,"Waiting","Waiting",plant_img_url,plant_name,plot_urls.get(i),plot_names.get(i)));
+                            }
+                            dialog.dismiss();
+                            finish();
+
+                        }
+                    });
+
+                    dialog.show();
+
+                }
             }
         });
-
-
     }
 
     @Override
@@ -256,8 +325,6 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
         startActivity(new Intent(FarmerSelectFarmActivity.this,FarmerExplorePlantsActivity.class).putExtra("plant_id",plant_id));
         finish();
     }
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // In fragment class callback

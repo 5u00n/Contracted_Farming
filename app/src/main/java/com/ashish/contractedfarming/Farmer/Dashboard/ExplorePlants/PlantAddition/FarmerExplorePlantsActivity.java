@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -30,7 +31,7 @@ public class FarmerExplorePlantsActivity extends AppCompatActivity {
     Button add_button;
 
 
-    String plant_id;
+    String plant_id,plant_name,plant_url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,10 @@ public class FarmerExplorePlantsActivity extends AppCompatActivity {
         reference = database.getReference("plants");
 
         plant_id=getIntent().getExtras().getString("plant_id");
+        plant_url=getIntent().getExtras().getString("plant_url");
+        plant_name=getIntent().getExtras().getString("plant_name");
+
+
 
         imageButton= findViewById(R.id.farmer_explore_plant_popup_back_button);
 
@@ -57,6 +62,8 @@ public class FarmerExplorePlantsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(FarmerExplorePlantsActivity.this, FarmerSelectFarmActivity.class);
                 i.putExtra("plant_id",plant_id);
+                i.putExtra("plant_name",plant_name);
+                i.putExtra("plant_url",plant_url);
                 startActivity(i);
                 finish();
             }

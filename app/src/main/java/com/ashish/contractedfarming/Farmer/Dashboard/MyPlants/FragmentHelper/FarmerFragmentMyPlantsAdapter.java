@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.MyPlantModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryModel;
+import com.ashish.contractedfarming.Models.FarmerPlantModel;
 import com.ashish.contractedfarming.R;
 import com.squareup.picasso.Picasso;
 
@@ -21,11 +22,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class FarmerFragmentMyPlantsAdapter extends RecyclerView.Adapter<FarmerFragmentMyPlantsAdapter.viewHolder>{
-    ArrayList<MyPlantModel> list;
+    ArrayList<FarmerPlantModel> list;
     Context context;
 
 
-    public FarmerFragmentMyPlantsAdapter(ArrayList<MyPlantModel> list, Context context) {
+    public FarmerFragmentMyPlantsAdapter(ArrayList<FarmerPlantModel> list, Context context) {
         // super();
         this.list = list;
         this.context = context;
@@ -34,21 +35,31 @@ public class FarmerFragmentMyPlantsAdapter extends RecyclerView.Adapter<FarmerFr
     @NonNull
     @Override
     public FarmerFragmentMyPlantsAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.view_story,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.view_farmer_my_plant,parent,false);
         return new FarmerFragmentMyPlantsAdapter .viewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        MyPlantModel model = list.get(position);
+        FarmerPlantModel model = list.get(position);
 
-        holder.status.setText(model.getPlant_status());
+        if(model.getPlant_progress()!=0) {
+            holder.status.setText(model.getPlant_progress());
+        }else{
+            holder.status.setText("Not set");
+        }
         holder.plantName.setText(model.getPlant_name());
         holder.farmName.setText(model.getFarm_name());
+        holder.id.setText(model.getId());
 
-        //Picasso.get().load(model.getBackground_img_url()).into(holder.backgroundImg);
-        holder.plantProgress.setProgress(model.getPlant_progress());
-        Picasso.get().load(model.getPlant_img_url()).into(holder.plantImg);
+        if(!model.getPlant_img_url().isEmpty()) {
+            Picasso.get().load(model.getPlant_img_url()).into(holder.plantImg);
+        }
+        //holder.plantProgress.setProgress(model.getPlant_progress());
+        if(!model.getFarm_img_url().isEmpty()) {
+            Picasso.get().load(model.getFarm_img_url()).into(holder.plotImg);
+        }
+
     }
 
 
@@ -58,18 +69,20 @@ public class FarmerFragmentMyPlantsAdapter extends RecyclerView.Adapter<FarmerFr
     }
 
     public class viewHolder extends RecyclerView.ViewHolder{
-        TextView  status,plantName,farmName;
-        ImageView backgroundImg,plantImg;
-        ProgressBar plantProgress;
+        TextView  status,plantName,farmName,id;
+        ImageView plotImg,plantImg;
+
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
-            status= itemView.findViewById(R.id.farmer_my_plant_status_text);
-            plantName= itemView.findViewById(R.id.farmer_my_plant_name_text);
-            farmName= itemView.findViewById(R.id.farmer_my_plant_farm_text);
-            backgroundImg= itemView.findViewById(R.id.farmer_my_plant_background_img);
-            plantImg= itemView.findViewById(R.id.farmer_my_plant_img);
-            plantProgress= itemView.findViewById(R.id.farmer_my_plant_progress);
+            status= itemView.findViewById(R.id.view_farmer_my_plant_progress);
+            plantName= itemView.findViewById(R.id.view_farmer_my_plant_plant_name);
+            farmName= itemView.findViewById(R.id.view_farmer_my_plant_plot_name);
+            id= itemView.findViewById(R.id.view_farmer_my_plant_id);
+
+
+            plotImg= itemView.findViewById(R.id.view_farmer_my_plant_farm_img);
+            plantImg= itemView.findViewById(R.id.view_farmer_my_plant_plant_img);
 
 
 

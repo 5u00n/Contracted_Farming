@@ -39,7 +39,8 @@
             android:scaleType="centerCrop"
             android:id="@+id/view_select_farm_listview_img_farm"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:src="@drawable/bg_farm"/>
     </androidx.cardview.widget.CardView>
 
     <LinearLayout

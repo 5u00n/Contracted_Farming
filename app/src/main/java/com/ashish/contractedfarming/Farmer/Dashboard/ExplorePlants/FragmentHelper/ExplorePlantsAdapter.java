@@ -72,6 +72,8 @@ public class ExplorePlantsAdapter extends RecyclerView.Adapter<ExplorePlantsAdap
 
                 Intent i = new Intent(context, FarmerExplorePlantsActivity.class);
                 i.putExtra("plant_id",model.getId());
+                i.putExtra("plant_url",model.getImgurl());
+                i.putExtra("plant_name",model.getName());
                 context.startActivity(i);
 
 

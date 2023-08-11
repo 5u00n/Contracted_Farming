@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.FragmentHelper.FarmerFragmentMyPlantsAdapter;
+import com.ashish.contractedfarming.Models.FarmerPlantModel;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -37,7 +39,7 @@ public class MyPlantsFragment extends Fragment {
 
     FirebaseAuth auth;
 
-    ArrayList<MyPlantModel> plantModelArrayList;
+    ArrayList<FarmerPlantModel> farmerPlantModelArrayList;
 
 
     public MyPlantsFragment() {
@@ -49,7 +51,7 @@ public class MyPlantsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_my_plants, container, false);
 
-        recyclerView=v.findViewById(R.id.farmer_my_plants_fragment_recycle_view);
+        recyclerView=v.findViewById(R.id.farmer_my_plant_fragment_recycle_view);
         auth=FirebaseAuth.getInstance();
         database= FirebaseDatabase.getInstance();
         reference= database.getReference();
@@ -57,12 +59,13 @@ public class MyPlantsFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                plantModelArrayList= new ArrayList<>();
+                farmerPlantModelArrayList= new ArrayList<>();
 
-                MyPlantModel plantModel=null;
+                FarmerPlantModel farmerPlantModel=null;
 
-                if(snapshot.child("users").child("farmer").child(auth.getUid()).child("myplant").hasChildren()){
-                    for(DataSnapshot mpds :snapshot.child("users").child("farmer").child(auth.getUid()).child("my_plant").getChildren() ){
+                if(snapshot.child("users").child("farmer").child(auth.getUid()).child("farmer_plants").hasChildren()){
+
+                    for(DataSnapshot mpds :snapshot.child("users").child("farmer").child(auth.getUid()).child("farmer_plants").getChildren() ){
                         int statusDays = 0;
                         if(mpds.child("planted_time").exists() && snapshot.child("plants").child(mpds.child("plant_id").getValue().toString()).child("lifespan").exists()){
                             statusDays= (int) ((TimeUnit.MILLISECONDS.toDays(new Date(System.currentTimeMillis()).getTime()-new Date(Long.parseLong(mpds.child("planted_time").getValue().toString())).getTime()))/Long.parseLong(snapshot.child("plants").child(mpds.child("plant_id").getValue().toString()).child("lifespan").getValue().toString()))*100;
@@ -70,33 +73,27 @@ public class MyPlantsFragment extends Fragment {
                             statusDays=1;
                         }
 
-                        plantModel= new MyPlantModel(mpds.child("myPlant_id").getValue().toString(),mpds.child("plant_status").getValue().toString(),statusDays,snapshot.child("plants").child(mpds.child("plant_id").getValue().toString()).child("imgurl").getValue().toString(),snapshot.child("plants").child(mpds.child("plant_id").getValue().toString()).child("name").getValue().toString(),snapshot.child("users").child("farmer").child(auth.getUid()).child("plot").child(mpds.child("plot_id").getValue().toString()).child("name").getValue().toString());
+                        //Log.d("check data",mpds.getKey());
 
-                        plantModelArrayList.add(plantModel);
+                        farmerPlantModel= new FarmerPlantModel(mpds.child("id").getValue().toString(),mpds.child("plot_id").getValue().toString(),mpds.child("plant_id").getValue().toString(),mpds.child("approval_admin").getValue().toString(),mpds.child("approval_manager").getValue().toString(),mpds.child("final_approval").getValue().toString(),mpds.child("date_added").getValue().toString(),mpds.child("date_accepted").getValue().toString(),mpds.child("planted_time").getValue().toString(),mpds.child("plant_img_url").getValue().toString(),mpds.child("plant_name").getValue().toString(),mpds.child("farm_img_url").getValue().toString(),mpds.child("farm_name").getValue().toString());
+                        farmerPlantModelArrayList.add(farmerPlantModel);
 
                     }
                 }
-
-                if(!plantModelArrayList.isEmpty()){
-                    StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
-                    FarmerFragmentMyPlantsAdapter adapter = new FarmerFragmentMyPlantsAdapter(plantModelArrayList,getContext());
+                if(!farmerPlantModelArrayList.isEmpty()){
+                    //StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
+                    FarmerFragmentMyPlantsAdapter adapter = new FarmerFragmentMyPlantsAdapter(farmerPlantModelArrayList,getContext());
+                    LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                    recyclerView.setLayoutManager(layoutManager1);
+                    recyclerView.setNestedScrollingEnabled(false);
                     recyclerView.setAdapter(adapter);
                 }
-
-
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
-
-
-
-
         return v;
     }
 }

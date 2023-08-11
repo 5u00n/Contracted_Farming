@@ -2,6 +2,7 @@ package com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,9 @@ public class FarmerExploreplantsAdapter extends RecyclerView.Adapter<FarmerExplo
 
                 Intent i = new Intent(context, FarmerExplorePlantsActivity.class);
                 i.putExtra("plant_id",model.getId());
+                i.putExtra("plant_url",model.getImg());
+                i.putExtra("plant_name",model.getPlant());
+                Log.d("From fragment",model.getId()+" : "+model.getPlant()+" : "+model.getImg());
                 context.startActivity(i);
 
 
