@@ -29,6 +29,7 @@
 
                 <ImageView
                     android:contentDescription="@string/farmer_profile_picture"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/baseline_person_24"
                     android:id="@+id/dash_farmer_profile"
                     android:layout_width="match_parent"
@@ -51,15 +52,16 @@
                     android:text="@string/farmer_name"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-                <!--  <TextView
+                  <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Ashish Humbre"
+                        android:text="location"
+                      android:paddingLeft="10dp"
                         android:textColorHighlight="#279D5B"
                         android:textSize="12sp"
                         android:textStyle="bold" />
-                    -->
+                    -
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 

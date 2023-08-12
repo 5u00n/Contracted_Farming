@@ -1,4 +1,9 @@
-package com.ashish.contractedfarming.Farmer.ConferenceAndWorkShop;
+package com.ashish.contractedfarming.Farmer.Chat;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +12,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
-
-import com.ashish.contractedfarming.Farmer.Chat.FarmerChatActivity;
+import com.ashish.contractedfarming.Farmer.ConferenceAndWorkShop.FarmerCandWActivity;
 import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
 import com.ashish.contractedfarming.Farmer.News.FarmerNewsActivity;
 import com.ashish.contractedfarming.Farmer.Notification.FarmerNotificationActivity;
@@ -19,33 +22,24 @@ import com.ashish.contractedfarming.MainActivity;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-
-public class FarmerCandWActivity extends AppCompatActivity {
-    ListView lv;
+public class FarmerChatActivity extends AppCompatActivity {
     Context context;
-
-
-
-    ImageButton home,newsTabButton,confTabButton,chatTabButton,notificationTabButton,currentTab;
 
     Toolbar toolbar;
 
+    ImageButton home, newsTabButton, confTabButton, chatTabButton, notificationTabButton, currentTab;
+
+
     FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_farmer_confandwork);
+        setContentView(R.layout.activity_farmer_chat);
 
+        auth = FirebaseAuth.getInstance();
 
-        auth= FirebaseAuth.getInstance();
-
-        toolbar =findViewById(R.id.farmer_dash_toolbar);
+        toolbar = findViewById(R.id.farmer_dash_toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -54,22 +48,16 @@ public class FarmerCandWActivity extends AppCompatActivity {
         toolbar.setSubtitle("");
 
 
-
-        //lv = findViewById(R.id.farmer_conferance_list);
-        ArrayList<FarmerCandWModel> list = new ArrayList<>();
+        context = getBaseContext();
 
 
-        context= getBaseContext();
+        home = findViewById(R.id.farmer_home_tab);
+        newsTabButton = findViewById(R.id.farmer_news_tab);
+        confTabButton = findViewById(R.id.farmer_conference_tab);
+        chatTabButton = findViewById(R.id.farmer_message_tab);
+        notificationTabButton = findViewById(R.id.farmer_notification_icon);
 
-
-
-        home=findViewById(R.id.farmer_home_tab);
-        newsTabButton=findViewById(R.id.farmer_news_tab);
-        confTabButton=findViewById(R.id.farmer_conference_tab);
-        chatTabButton=findViewById(R.id.farmer_message_tab);
-        notificationTabButton=findViewById(R.id.farmer_notification_icon);
-
-        currentTab=confTabButton;
+        currentTab = chatTabButton;
 
         currentTab.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
 
@@ -88,25 +76,25 @@ public class FarmerCandWActivity extends AppCompatActivity {
             Intent intent = new Intent(context, FarmerNewsActivity.class);
             startActivity(intent);
             finish();
-            overridePendingTransition( R.anim.slide_in_right,R.anim.slide_out_left);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         confTabButton.setOnClickListener(view -> {
-            //currentTab.setBackgroundColor(Color.TRANSPARENT);
-            //confTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
-            //Intent intent = new Intent(context, FarmerCandWActivity.class);
-            //startActivity(intent);
-            //finish();
-            //overridePendingTransition( R.anim.slide_in_right,R.anim.slide_out_left);
+            currentTab.setBackgroundColor(Color.TRANSPARENT);
+            confTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+            Intent intent = new Intent(context, FarmerCandWActivity.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         chatTabButton.setOnClickListener(view -> {
-            currentTab.setBackgroundColor(Color.TRANSPARENT);
-            chatTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
-            Intent intent = new Intent(context, FarmerChatActivity.class);
-            startActivity(intent);
-            finish();
-            overridePendingTransition( R.anim.slide_in_right,R.anim.slide_out_left);
+            //currentTab.setBackgroundColor(Color.TRANSPARENT);
+            //chatTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+            //Intent intent = new Intent(context, FarmerChatActivity.class);
+            //startActivity(intent);
+            //finish();
+            //overridePendingTransition( R.anim.slide_in_right,R.anim.slide_out_left);
         });
 
         notificationTabButton.setOnClickListener(view -> {
@@ -115,10 +103,9 @@ public class FarmerCandWActivity extends AppCompatActivity {
             Intent intent = new Intent(context, FarmerNotificationActivity.class);
             startActivity(intent);
             finish();
-            overridePendingTransition( R.anim.slide_in_right,R.anim.slide_out_left);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         });
-
 
     }
 
@@ -131,8 +118,8 @@ public class FarmerCandWActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
-            case R.id.menu_profile :
+        switch (id) {
+            case R.id.menu_profile:
                 // do something
                 Toast.makeText(context, "Profile", Toast.LENGTH_SHORT).show();
                 break;

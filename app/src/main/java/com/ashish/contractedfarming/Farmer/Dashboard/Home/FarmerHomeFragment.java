@@ -2,21 +2,30 @@ package com.ashish.contractedfarming.Farmer.Dashboard.Home;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +35,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.FarmerExploreplantsAdapter;
@@ -34,6 +44,7 @@ import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.FarmerMyplantsAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryModel;
+import com.ashish.contractedfarming.Farmer.Dashboard.Weather.HttpRequest;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +55,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -73,9 +87,11 @@ public class FarmerHomeFragment extends Fragment {
     ConstraintLayout constraintLayout;
 
 
-
-
-
+    LocationManager locationManager;
+    private static final int REQUEST_LOCATION = 1;
+    String latitude, longitude;
+    //Weather
+    TextView temp, humidity, windSpeed, rainfall;
 
     ArrayList<FarmerStoryModel> farmerstoryList;
     ArrayList<FarmerMyfarmModel> myfarmList;
@@ -113,6 +129,12 @@ public class FarmerHomeFragment extends Fragment {
         constraintLayout = v.findViewById(R.id.addStory_layout);
         username = v.findViewById(R.id.username_fragment_farmer_home);
         user_img = v.findViewById(R.id.user_img_fragment_farmer_home);
+
+
+        temp = v.findViewById(R.id.weather_data_temprature);
+        humidity = v.findViewById(R.id.weather_data_hunidity);
+        windSpeed = v.findViewById(R.id.weather_data_wind_speed);
+        rainfall = v.findViewById(R.id.weather_data_rainfall);
 
         v.findViewById(R.id.farmer_dash_see_all_story_button).setOnClickListener(view -> viewPager.setCurrentItem(1));
         v.findViewById(R.id.addPlantImg).setOnClickListener(view -> viewPager.setCurrentItem(2));
@@ -183,6 +205,7 @@ public class FarmerHomeFragment extends Fragment {
 
 
     void updateView() {
+        getGPS();
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -335,6 +358,102 @@ public class FarmerHomeFragment extends Fragment {
         imageUri = null;
 
     }
+
+
+    public void getGPS() {
+        locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            OnGPS();
+        } else {
+            getLocation();
+        }
+    }
+
+    private void OnGPS() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Enable GPS").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                getLocation();
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void getLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        } else {
+            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (locationGPS != null) {
+                double lat = locationGPS.getLatitude();
+                double longi = locationGPS.getLongitude();
+                latitude = String.valueOf(lat);
+                longitude = String.valueOf(longi);
+
+                run();
+                Log.d("Your Location: ", "Latitude: " + latitude + " " + "Longitude: " + longitude);
+            } else {
+                Toast.makeText(context, "Unable to find location.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void run() {
+        //CITY1 = CITY.getText().toString();
+        new weatherTask().execute();
+    }
+
+    class weatherTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+
+        }
+
+        protected String doInBackground(String[] args) {
+            String response = HttpRequest.excuteGet("https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=73cbebdd0322acd49bda6ede059b2b18");
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+
+
+            try {
+                JSONObject jsonObj = new JSONObject(result);
+
+                Log.d("weather data", jsonObj.toString());
+                JSONObject main = jsonObj.getJSONObject("main");
+                JSONObject sys = jsonObj.getJSONObject("sys");
+                JSONObject wind = jsonObj.getJSONObject("wind");
+                JSONObject cloud = jsonObj.getJSONObject("clouds");
+                JSONObject weather = jsonObj.getJSONArray("weather").getJSONObject(0);
+
+                temp.setText(String.format("%.02f", (Float.parseFloat(main.getString("temp")) - 273.15)) + "°C");
+                humidity.setText(main.getString("humidity") + "%");
+                windSpeed.setText(wind.getString("speed") + " m/s");
+                rainfall.setText(cloud.getString("all"));
+
+
+            } catch (JSONException e) {
+                Log.d("Weather Error", e.toString());
+            }
+
+        }
+    }
+
 
 
 }

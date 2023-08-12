@@ -1,22 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
 
-    <ListView
-        android:id="@+id/farmer_notigication_list"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="66dp"
-        android:layout_marginEnd="1dp"
-        android:divider="@null"
-        android:dividerHeight="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/farmer_dash_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="41dp"
+                android:layout_height="41dp"
+                android:layout_margin="2.5dp"
+                android:elevation="3dp"
+                app:cardCornerRadius="42dp">
+
+                <ImageView
+                    android:contentDescription="@string/farmer_profile_picture"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/baseline_person_24"
+                    android:id="@+id/dash_farmer_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dash_farmer_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/farmer_name"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="location"
+                    android:paddingLeft="10dp"
+                    android:textColorHighlight="#279D5B"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+                -
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/farmer_tabs_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.462" />
+        app:tabBackground="@drawable/back_selected"
+        app:tabIndicator="@android:color/transparent"
+        app:tabMode="auto"
+        app:tabContentStart="30dp"
+        app:tabPaddingEnd="20dp"
+        app:tabPaddingStart="20dp"
+        app:tabMinWidth="100dp"
+        app:tabTextAppearance="@style/TabTextStyle"
+        app:tabIndicatorColor="@android:color/transparent" >
+
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+
+
+    <androidx.viewpager.widget.ViewPager
+
+        android:id="@+id/farmer_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="110dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <!--<include
+        layout="@layout/include_farmer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/tabs_layout_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />-->
+
+    <LinearLayout
+        android:id="@+id/tabs_layout_nav"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_gradient"
+
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/farmer_home_tab"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_home_24" />
+
+        <ImageButton
+            android:id="@+id/farmer_conference_tab"
+            android:layout_width="40dp"
+
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/outline_video_camera_front_24" />
+
+        <ImageButton
+            android:id="@+id/farmer_message_tab"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_message_24" />
+
+        <ImageButton
+            android:id="@+id/farmer_news_tab"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_newspaper_24" />
+
+        <ImageButton
+            android:id="@+id/farmer_notification_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:src="@drawable/ic_baseline_notifications_none_24" />
+
+
+    </LinearLayout>
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

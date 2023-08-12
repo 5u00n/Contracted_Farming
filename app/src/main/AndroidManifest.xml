@@ -20,7 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ContractedFarming.NoActionBar"
         tools:targetApi="31">
-        <activity android:name=".Farmer.Dashboard.ExplorePlants.PlantAddition.FarmerSelectFarmActivity"/>
+        <activity
+            android:name=".Farmer.Chat.FarmerChatActivity"
+            android:exported="false" />
+        <activity android:name=".Farmer.Dashboard.ExplorePlants.PlantAddition.FarmerSelectFarmActivity" />
         <activity
             android:name=".Farmer.Dashboard.ExplorePlants.PlantAddition.FarmerExplorePlantsActivity"
             android:exported="false" />
@@ -30,6 +33,15 @@
         <activity
             android:name=".Farmer.NewFarmer.NewFarmerApprovalWaitActivity"
             android:exported="false" />
+        <activity
+            android:name=".Farmer.NewFarmer.NewFarmerUploadActivity"
+            android:exported="false" />
+        <activity android:name=".Farmer.News.FarmerNewsActivity" android:exported="false" />
+        <activity android:name=".Farmer.ConferenceAndWorkShop.FarmerCandWActivity" android:exported="false"/>
+        <activity android:name=".Farmer.Notification.FarmerNotificationActivity" android:exported="false"/>
+
+        <activity android:name=".Farmer.Dashboard.FarmerDashboardActivity" />
+
         <activity android:name=".Admin.Chat.AdminMessageActivity" />
         <activity android:name=".Admin.Chat.AdminSpecificChat.AdminSpecificChatActivity" />
         <activity android:name=".Admin.Notification.AdminNotificationActivity" />
@@ -40,19 +52,15 @@
         <activity
             android:name=".Manager.Dashboard.ManagerDashboardActivity"
             android:exported="false" />
-        <activity android:name=".Farmer.Dashboard.FarmerDashboardActivity" />
-        <activity
-            android:name=".Farmer.NewFarmer.NewFarmerUploadActivity"
-            android:exported="false" />
+
+
         <activity
             android:name=".Manager.NewManager.ManagerApprovalWaitActivity"
             android:exported="false" />
         <activity
             android:name=".Manager.NewManager.NewManagerUploadActivity"
             android:exported="false" />
-        <activity
-            android:name=".Farmer.News.FarmerNewsActivity"
-            android:exported="false" />
+
         <activity
             android:name=".Login.UserDetailsActivity"
             android:exported="false" />

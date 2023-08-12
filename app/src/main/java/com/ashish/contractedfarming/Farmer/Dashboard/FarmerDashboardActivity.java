@@ -1,57 +1,42 @@
 package com.ashish.contractedfarming.Farmer.Dashboard;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ashish.contractedfarming.Admin.Dashboard.DashboardAdapter;
-import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
-import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmAdapter;
-import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmModel;
-import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.FarmerExploreplantsAdapter;
-import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.FarmerMyplantsAdapter;
-import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryAdapter;
-import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryModel;
-import com.ashish.contractedfarming.Farmer.Dashboard.Weather.HttpRequest;
-import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
-import com.ashish.contractedfarming.Farmer.News.FarmerNewsActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
+import com.ashish.contractedfarming.Farmer.Chat.FarmerChatActivity;
+import com.ashish.contractedfarming.Farmer.ConferenceAndWorkShop.FarmerCandWActivity;
+import com.ashish.contractedfarming.Farmer.Dashboard.Weather.HttpRequest;
+import com.ashish.contractedfarming.Farmer.News.FarmerNewsActivity;
+import com.ashish.contractedfarming.Farmer.Notification.FarmerNotificationActivity;
 import com.ashish.contractedfarming.MainActivity;
-import com.ashish.contractedfarming.Models.PlotModel;
 import com.ashish.contractedfarming.R;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
@@ -68,22 +53,13 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+public class FarmerDashboardActivity extends AppCompatActivity {
 
-public class FarmerDashboardActivity extends AppCompatActivity{
 
+    private static final int ADD_STORY_IMG = 2;
     FarmerDashboardAdapter adapter;
     Context context;
-
-
-
-    ImageButton newsbtn;
-    LocationManager locationManager;
-    String latitude, longitude;
-
-    private static final int REQUEST_LOCATION = 1;
-    private static final int ADD_STORY_IMG=2;
-
+    ImageButton home, newsTabButton, confTabButton, chatTabButton, notificationTabButton, currentTab;
 
 
     //Firebase Variable
@@ -95,8 +71,6 @@ public class FarmerDashboardActivity extends AppCompatActivity{
     DatabaseReference databaseReference;
 
 
-    //Weather
-    TextView  temp,humidity,windSpeed,rainfall;
 
 
 
@@ -115,7 +89,7 @@ public class FarmerDashboardActivity extends AppCompatActivity{
         setContentView(R.layout.activity_farmer_dashboard);
 
 
-        toolbar =findViewById(R.id.farmer_dash_toolbar);
+        toolbar = findViewById(R.id.farmer_dash_toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -125,13 +99,13 @@ public class FarmerDashboardActivity extends AppCompatActivity{
 
         context = FarmerDashboardActivity.this;
 
-        auth= FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
 
-        database= FirebaseDatabase.getInstance();
-        databaseReference= database.getReference();
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference();
 
-        tabLayout= findViewById(R.id.farmer_tabs_layout);
-        viewPager= findViewById(R.id.farmer_view_pager);
+        tabLayout = findViewById(R.id.farmer_tabs_layout);
+        viewPager = findViewById(R.id.farmer_view_pager);
 
 
         tabLayout.addTab(tabLayout.newTab().setText("Dashboard"));
@@ -141,11 +115,11 @@ public class FarmerDashboardActivity extends AppCompatActivity{
         tabLayout.addTab(tabLayout.newTab().setText("My Plants"));
         //tabLayout.addTab(tabLayout.newTab().setText("My Requests"));
 
-        profile_img=findViewById(R.id.dash_farmer_profile);
-        profile_name= findViewById(R.id.dash_farmer_name);
+        profile_img = findViewById(R.id.dash_farmer_profile);
+        profile_name = findViewById(R.id.dash_farmer_name);
 
-       for(int i=0; i < tabLayout.getTabCount(); i++) {
-            View tab = ((ViewGroup)tabLayout.getChildAt(0)).getChildAt(i);
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            View tab = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(i);
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
             p.setMargins(0, 0, 50, 0);
 
@@ -153,35 +127,78 @@ public class FarmerDashboardActivity extends AppCompatActivity{
         }
 
 
+        context = getBaseContext();
 
 
-        newsbtn = findViewById(R.id.farmer_news_tab);
+        home = findViewById(R.id.farmer_home_tab);
+        newsTabButton = findViewById(R.id.farmer_news_tab);
+        confTabButton = findViewById(R.id.farmer_conference_tab);
+        chatTabButton = findViewById(R.id.farmer_message_tab);
+        notificationTabButton = findViewById(R.id.farmer_notification_icon);
 
+        currentTab = home;
 
+        currentTab.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
 
+        home.setOnClickListener(view -> {
+            //currentTab.setBackgroundColor(Color.TRANSPARENT);
+            //home.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+            // Intent intent = new Intent(context,FarmerDashboardActivity.class);
+            //startActivity(intent);
+            //finish();
+            //overridePendingTransition( R.anim.slide_out_left,R.anim.slide_in_right);
+        });
 
+        newsTabButton.setOnClickListener(view -> {
+            currentTab.setBackgroundColor(Color.TRANSPARENT);
+            newsTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+            Intent intent = new Intent(context, FarmerNewsActivity.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        });
 
-        newsbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(FarmerDashboardActivity.this, FarmerNewsActivity.class);
-                startActivity(intent);
-            }
+        confTabButton.setOnClickListener(view -> {
+            currentTab.setBackgroundColor(Color.TRANSPARENT);
+            confTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+            Intent intent = new Intent(context, FarmerCandWActivity.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        });
+
+        chatTabButton.setOnClickListener(view -> {
+            currentTab.setBackgroundColor(Color.TRANSPARENT);
+            chatTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+            Intent intent = new Intent(context, FarmerChatActivity.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        });
+
+        notificationTabButton.setOnClickListener(view -> {
+            currentTab.setBackgroundColor(Color.TRANSPARENT);
+            notificationTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+            Intent intent = new Intent(context, FarmerNotificationActivity.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
         });
 
 
         //sets up weather
-       // run();
+        // run();
 
         //getGPS();
         //sets up story
 
-       // initStory();
+        // initStory();
         //sets up Explore plants
 
-       // initExplorePlants();
+        // initExplorePlants();
         //initMyPlants();
-      //  initMyFarm();
+        //  initMyFarm();
 
         adapter = new FarmerDashboardAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -206,7 +223,6 @@ public class FarmerDashboardActivity extends AppCompatActivity{
 
             }
         });
-
 
 
         databaseReference.child("users").child("farmer").child(auth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -243,60 +259,11 @@ public class FarmerDashboardActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Fragment fragment = adapter.getItem(viewPager.getCurrentItem());
-        ((Fragment) fragment).onActivityResult(requestCode, resultCode, data);
+        fragment.onActivityResult(requestCode, resultCode, data);
         //Log.d("Image data  ", String.valueOf(data));
     }
 
 
-
-
-
-    public void getGPS(){
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            OnGPS();
-        } else {
-            getLocation();
-        }
-    }
-
-    private void OnGPS() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Enable GPS").setCancelable(false).setPositiveButton("Yes", new  DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                getLocation();
-            }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-    private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-        } else {
-            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (locationGPS != null) {
-                double lat = locationGPS.getLatitude();
-                double longi = locationGPS.getLongitude();
-                latitude = String.valueOf(lat);
-                longitude = String.valueOf(longi);
-
-                run();
-                Log.d("Your Location: ", "Latitude: " + latitude + " " + "Longitude: " + longitude);
-            } else {
-                Toast.makeText(this, "Unable to find location.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -307,66 +274,20 @@ public class FarmerDashboardActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
-            case R.id.menu_profile :
-            // do something
-            Toast.makeText(context, "Profile", Toast.LENGTH_SHORT).show();
-            break;
+        switch (id) {
+            case R.id.menu_profile:
+                // do something
+                Toast.makeText(context, "Profile", Toast.LENGTH_SHORT).show();
+                break;
 
             case R.id.menu_logout:
                 auth.signOut();
-                startActivity(new Intent(FarmerDashboardActivity.this,MainActivity.class));
+                startActivity(new Intent(FarmerDashboardActivity.this, MainActivity.class));
                 finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void run() {
-        //CITY1 = CITY.getText().toString();
-        new weatherTask().execute();
-    }
 
-    class weatherTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-
-        }
-
-        protected String doInBackground(String args[]) {
-            String response = HttpRequest.excuteGet("https://api.openweathermap.org/data/2.5/weather?lat="+latitude + "&lon=" +longitude+ "&appid=73cbebdd0322acd49bda6ede059b2b18");
-            return response;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            temp= findViewById(R.id.weather_data_temprature);
-            humidity=findViewById(R.id.weather_data_hunidity);
-            windSpeed= findViewById(R.id.weather_data_wind_speed);
-            rainfall= findViewById(R.id.weather_data_rainfall);
-
-            try {
-                JSONObject jsonObj = new JSONObject(result);
-
-                Log.d("weather data",jsonObj.toString());
-                JSONObject main = jsonObj.getJSONObject("main");
-                JSONObject sys = jsonObj.getJSONObject("sys");
-                JSONObject wind = jsonObj.getJSONObject("wind");
-                JSONObject weather = jsonObj.getJSONArray("weather").getJSONObject(0);
-
-                temp.setText(String.format("%.02f",(Float.parseFloat(main.getString("temp"))- 273.15) )+ "°C");
-                humidity.setText(main.getString("humidity")+"%");
-                windSpeed.setText(wind.getString("speed")+" m/s");
-                rainfall.setText("NAN");
-
-
-            } catch (JSONException e) {
-                Log.d("Weather Error",e.toString());
-            }
-
-        }
-    }
 }
