@@ -51,11 +51,22 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:layout_marginTop="15dp"/>
+    <TextView
+        android:id="@+id/resendotp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Or Click Here To Resend OTP"
+        android:layout_below="@id/changenumber"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"/>
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/changenumber"
+        android:layout_below="@id/resendotp"
         android:id="@+id/verifyotp"
         android:layout_centerHorizontal="true"
         android:textColor="@color/white"

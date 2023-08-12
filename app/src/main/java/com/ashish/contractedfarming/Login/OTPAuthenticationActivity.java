@@ -23,10 +23,12 @@ import com.ashish.contractedfarming.Manager.NewManager.NewManagerUploadActivity;
 import com.ashish.contractedfarming.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,8 +36,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.TimeUnit;
+
 public class OTPAuthenticationActivity extends AppCompatActivity {
-    TextView mchangenumber;
+    TextView mchangenumber,resendOTP;
     EditText mgetotp;
     android.widget.Button mverifyotp;
     String enteredotp;
@@ -46,6 +50,9 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
 
     FirebaseDatabase database ;
     DatabaseReference databaseReference ;
+    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+    String coderecieved;
+    String phonenumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +65,14 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
         context= getBaseContext();
 
         mchangenumber = findViewById(R.id.changenumber);
+        resendOTP = findViewById(R.id.resendotp);
         mverifyotp = findViewById(R.id.verifyotp);
         mgetotp = findViewById(R.id.getotp);
         mprogressbarofotpauth = findViewById(R.id.progressbarofotpauth);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        coderecieved = getIntent().getStringExtra("otp");
+        phonenumber = getIntent().getStringExtra("phone");
 
         mchangenumber.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +83,50 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
             }
         });
 
+        resendOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mprogressbarofotpauth.setVisibility(View.VISIBLE);
+
+
+
+                phonenumber = "+91" + phonenumber;
+
+                PhoneAuthOptions options = PhoneAuthOptions.newBuilder(firebaseAuth)
+                        .setPhoneNumber(phonenumber)
+                        .setTimeout(60L, TimeUnit.SECONDS)
+                        .setActivity(OTPAuthenticationActivity.this)
+                        .setCallbacks(mCallbacks)
+                        .build();
+                PhoneAuthProvider.verifyPhoneNumber(options);
+            }
+        });
+
+
+        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                //how to automatically fetch code here
+            }
+
+            @Override
+            public void onVerificationFailed(@NonNull FirebaseException e) {
+                mprogressbarofotpauth.setVisibility(View.INVISIBLE);
+                Toast.makeText(OTPAuthenticationActivity.this,"Sending OTP failed, try again!",Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                super.onCodeSent(s, forceResendingToken);
+                Toast.makeText(getApplicationContext(), "OTP is Sent", Toast.LENGTH_SHORT).show();
+                mprogressbarofotpauth.setVisibility(View.INVISIBLE);
+                coderecieved=s;
+
+
+            }
+        };
+
         mverifyotp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +135,7 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Enter your OTP First ", Toast.LENGTH_SHORT).show();
                 } else {
                     mprogressbarofotpauth.setVisibility(View.VISIBLE);
-                    String coderecieved = getIntent().getStringExtra("otp");
+
                     PhoneAuthCredential credential = PhoneAuthProvider.getCredential(coderecieved, enteredotp);
                     signInWithPhoneAuthCredential(credential);
 

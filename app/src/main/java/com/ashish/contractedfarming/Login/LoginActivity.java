@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                 String number;
                 number = mgetphonenumber.getText().toString();
                 if (number.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please Enter YOur number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please Enter Your number", Toast.LENGTH_SHORT).show();
                 } else if (number.length() < 10) {
                     Toast.makeText(getApplicationContext(), "Please Enter correct number", Toast.LENGTH_SHORT).show();
                 } else {
@@ -140,7 +140,9 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
-
+                mprogressbarofmain.setVisibility(View.INVISIBLE);
+                Toast.makeText(LoginActivity.this,"Sending OTP failed, try again!",Toast.LENGTH_SHORT).show();
+                msendotp.setText("Try Again");
             }
 
             @Override
@@ -151,6 +153,8 @@ public class LoginActivity extends AppCompatActivity {
                 codesent = s;
                 Intent intent = new Intent(LoginActivity.this, OTPAuthenticationActivity.class);
                 intent.putExtra("otp", codesent);
+                intent.putExtra("phone", phonenumber);
+
                 startActivity(intent);
             }
         };
