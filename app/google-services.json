@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "955261374654-4nlbn0tpv4n6uk4tdagtnvdv0ipqj48h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ashish.contractedfarming",
+            "certificate_hash": "70eb3a55151eccc3caa7134efe14ee48142db410"
+          }
+        },
+        {
+          "client_id": "955261374654-s7vugcs9t89i69ev68qhr633tnimimdt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ashish.contractedfarming",
+            "certificate_hash": "5b376bab4f893f3edd336e71b128f4e8bbf8d69e"
+          }
+        },
+        {
           "client_id": "955261374654-h08vpjaep40j86td2dfgaiprbprn3h1l.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -59,6 +59,14 @@ public class FarmerPlantModel {
     public FarmerPlantModel() {
     }
 
+    public FarmerPlantModel(String id, String plant_img_url, String farm_img_url, String farm_name, String plant_name) {
+        this.id = id;
+        this.plant_img_url = plant_img_url;
+        this.farm_img_url = farm_img_url;
+        this.farm_name = farm_name;
+        this.plant_name = plant_name;
+    }
+
     public FarmerPlantModel(String id, String plot_id, String plant_id, String approval_admin, String approval_manager, String final_approval, String date_added, String date_accepted, String planted_time, String plant_img_url, String plant_name, String farm_img_url, String farm_name) {
         this.id = id;
         this.plot_id = plot_id;

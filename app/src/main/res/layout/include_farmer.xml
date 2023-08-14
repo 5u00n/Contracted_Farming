@@ -470,7 +470,7 @@
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
@@ -500,8 +500,10 @@
                         android:background="@drawable/bg_black_shade"
                         app:layout_constraintBottom_toBottomOf="@+id/addPlantImg"
                         app:layout_constraintEnd_toEndOf="@+id/addPlantImg"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/addPlantImg"
-                        app:layout_constraintTop_toTopOf="@+id/addPlantImg" />
+                        app:layout_constraintTop_toTopOf="@+id/addPlantImg"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <View
                         android:id="@+id/view9"
@@ -544,7 +546,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/farmer_myplantsrv"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginLeft="20dp" />
             </LinearLayout>
@@ -602,66 +604,6 @@
     </LinearLayout>
 
 
-    <!--
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:id="@+id/newspic"
-                android:layout_width="89dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="536dp"
-
-                android:scaleType="center"
-                android:src="@drawable/farmernews"
-                app:layout_constraintEnd_toEndOf="parent"
-
-                app:layout_constraintHorizontal_bias="0.07"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:id="@+id/myfarm"
-                android:layout_width="82dp"
-                android:layout_height="79dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="580dp"
-                android:scaleType="center"
-                android:src="@drawable/myfarmpic"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--
-      <androidx.constraintlayout.utils.widget.ImageFilterView
-                  android:id="@+id/candw"
-                  android:layout_width="84dp"
-                  android:layout_height="72dp"
-                  android:layout_marginStart="8dp"
-                  android:layout_marginTop="560dp"
-                  android:scaleType="center"
-                  android:src="@drawable/candwpic"
-                  app:layout_constraintEnd_toEndOf="parent"
-
-                  app:layout_constraintHorizontal_bias="0.739"
-                  app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--
-      <androidx.constraintlayout.utils.widget.ImageFilterView
-                  android:id="@+id/myplants"
-                  android:layout_width="85dp"
-                  android:layout_height="87dp"
-                  android:layout_marginTop="496dp"
-                  android:layout_marginEnd="8dp"
-                  android:scaleType="center"
-                  android:src="@drawable/myplantspics"
-                  app:layout_constraintEnd_toEndOf="parent"
-
-                  app:layout_constraintHorizontal_bias="1.0"
-                  app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintTop_toTopOf="parent" />-->
 
 
 </ScrollView>

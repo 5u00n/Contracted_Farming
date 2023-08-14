@@ -73,12 +73,12 @@ public class FarmerMyplantsActivity extends AppCompatActivity {
 
 
 
-        FarmerMyplantsAdapter adapter = new FarmerMyplantsAdapter(list,this);
+       // FarmerMyplantsAdapter adapter = new FarmerMyplantsAdapter(list,this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
 
         rv1.setLayoutManager(layoutManager);
         rv1.setNestedScrollingEnabled(false);
-        rv1.setAdapter(adapter);
+        //rv1.setAdapter(adapter);
        // rv1.setHasFixedSize(true);
 
 

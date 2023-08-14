@@ -71,6 +71,7 @@ public class OTPAuthenticationActivity extends AppCompatActivity {
         mprogressbarofotpauth = findViewById(R.id.progressbarofotpauth);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
         coderecieved = getIntent().getStringExtra("otp");
         phonenumber = getIntent().getStringExtra("phone");
 

@@ -45,6 +45,7 @@ import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.FarmerMyplantsAdap
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.Weather.HttpRequest;
+import com.ashish.contractedfarming.Models.FarmerPlantModel;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -64,31 +65,20 @@ import java.util.Objects;
 
 public class FarmerHomeFragment extends Fragment {
 
-    ViewPager viewPager;
-
     private static final int ADD_STORY_IMG = 2;
+    private static final int REQUEST_LOCATION = 1;
+    ViewPager viewPager;
     Uri imageUri = null;
-
     Context context;
-
     FirebaseDatabase database;
     DatabaseReference reference;
-
     FirebaseAuth auth;
-
-
     ImageView story_img;
-
     TextView username, user_img;
-
-
     RecyclerView farmerstoryRV, explorePlantsRv, myPlantsRv, myFarmRv;
     //Story Section
     ConstraintLayout constraintLayout;
-
-
     LocationManager locationManager;
-    private static final int REQUEST_LOCATION = 1;
     String latitude, longitude;
     //Weather
     TextView temp, humidity, windSpeed, rainfall;
@@ -119,7 +109,7 @@ public class FarmerHomeFragment extends Fragment {
         reference = database.getReference();
         auth = FirebaseAuth.getInstance();
 
-        viewPager=getActivity().findViewById(R.id.farmer_view_pager);
+        viewPager = getActivity().findViewById(R.id.farmer_view_pager);
 
 
         farmerstoryRV = v.findViewById(R.id.farmerstoryRV);
@@ -141,9 +131,6 @@ public class FarmerHomeFragment extends Fragment {
         v.findViewById(R.id.farmer_dash_explore_expand_button).setOnClickListener(view -> viewPager.setCurrentItem(2));
         v.findViewById(R.id.farmer_dash_my_farm_button).setOnClickListener(view -> viewPager.setCurrentItem(3));
         v.findViewById(R.id.farmer_dash_my_plant_button).setOnClickListener(view -> viewPager.setCurrentItem(4));
-
-
-
 
 
         constraintLayout.setOnClickListener(v1 -> {
@@ -220,8 +207,8 @@ public class FarmerHomeFragment extends Fragment {
                     if (snapshot.child("users").child("farmer").child(auth.getUid()).child("plot").exists()) {
                         initMyFarm(snapshot.child("users").child("farmer").child(auth.getUid()).child("plot"));
                     }
-                    if (snapshot.child("users").child("farmer").child(auth.getUid()).child("my_plants").child("accepted").exists()) {
-                        initMyPlants(snapshot.child("users").child("farmer").child(auth.getUid()).child("my_plants").child("accepted"));
+                    if (snapshot.child("users").child("farmer").child(auth.getUid()).child("farmer_plants").exists()) {
+                        initMyPlants(snapshot.child("users").child("farmer").child(auth.getUid()).child("farmer_plants"));
                     }
                     if (snapshot.child("Story").child(auth.getUid()).exists()) {
                         initStory(snapshot.child("Story").child(auth.getUid()));
@@ -234,14 +221,15 @@ public class FarmerHomeFragment extends Fragment {
 
             }
         });
+        getGPS();
     }
 
 
     public void initMyPlants(DataSnapshot myPlants) {
-        ArrayList<AdminPlantsModel> myplantList = new ArrayList<>();
+        ArrayList<FarmerPlantModel> myplantList = new ArrayList<>();
 
         for (DataSnapshot p_ds : myPlants.getChildren()) {
-            myplantList.add(new AdminPlantsModel(p_ds.child("id").getValue().toString(), p_ds.child("name").getValue().toString(), p_ds.child("imgurl").getValue().toString()));
+            myplantList.add(new FarmerPlantModel(p_ds.child("id").getValue().toString(), p_ds.child("plant_img_url").getValue().toString(), p_ds.child("farm_img_url").getValue().toString(),p_ds.child("farm_name").getValue().toString(),p_ds.child("plant_name").getValue().toString()));
 
         }
         FarmerMyplantsAdapter adapter3 = new FarmerMyplantsAdapter(myplantList, context);
@@ -291,9 +279,13 @@ public class FarmerHomeFragment extends Fragment {
 
 
         farmerstoryList = new ArrayList<>();
+        ArrayList<String> userCheck = new ArrayList<>();
         if (storyDS.hasChildren())
             for (DataSnapshot ds : storyDS.getChildren()) {
-                farmerstoryList.add(new FarmerStoryModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("user_img_url").getValue().toString(), ds.child("img_url").getValue().toString(), ds.child("story_text").getValue().toString(), ds.child("story_time").getValue().toString()));
+                if (!userCheck.contains(ds.child("username").getValue().toString())) {
+                    farmerstoryList.add(new FarmerStoryModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("user_img_url").getValue().toString(), ds.child("img_url").getValue().toString(), ds.child("story_text").getValue().toString(), ds.child("story_time").getValue().toString()));
+                    userCheck.add(ds.child("username").getValue().toString());
+                }
             }
 
         FarmerStoryAdapter adapter1 = new FarmerStoryAdapter(farmerstoryList, context);
@@ -342,7 +334,7 @@ public class FarmerHomeFragment extends Fragment {
             } else {
                 // Handle failures
                 // ...
-                Log.d("FarmerHomeFragment","File Upload Failed");
+                Log.d("FarmerHomeFragment", "File Upload Failed");
             }
         });
 
@@ -361,7 +353,7 @@ public class FarmerHomeFragment extends Fragment {
 
 
     public void getGPS() {
-        locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             OnGPS();
         } else {
@@ -430,7 +422,6 @@ public class FarmerHomeFragment extends Fragment {
         protected void onPostExecute(String result) {
 
 
-
             try {
                 JSONObject jsonObj = new JSONObject(result);
 
@@ -453,7 +444,6 @@ public class FarmerHomeFragment extends Fragment {
 
         }
     }
-
 
 
 }

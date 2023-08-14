@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
         firebaseAuth= FirebaseAuth.getInstance();
+        //firebaseAuth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
 
 
         viewApp= findViewById(R.id.login_gotojustview);
