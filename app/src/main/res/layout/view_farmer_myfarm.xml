@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="220dp">
+    android:layout_height="220dp"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -11,16 +12,26 @@
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="20dp">
         <LinearLayout
-
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_myfarm"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Farm Name : "
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginVertical="10dp"
+                android:id="@+id/farmer_addfarm_plot_name"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
                 android:orientation="horizontal"
                 android:paddingLeft="40dp"
                 android:weightSum="2">
@@ -84,8 +95,6 @@
                             android:textStyle="bold" />
 
                         <TextView
-
-
                             android:id="@+id/farmer_addfarm_village"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -272,18 +281,19 @@
                 </LinearLayout>
 
                 <TextView
+
                     android:id="@+id/farmer_addfarm_userUID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="userUID - "
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/farmer_addfarm_plotID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="plotID - "
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
 
 
             </LinearLayout>

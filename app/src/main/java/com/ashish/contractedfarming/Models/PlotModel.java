@@ -2,7 +2,7 @@ package com.ashish.contractedfarming.Models;
 
 
 public class PlotModel {
-    String plot_img_url,plotID, plotName,userUID, area, village, taluka, dist, state, gat_no, sarvay_no,_7_12,_8a,_7_12_url,_8a_url,approval;
+    String plot_img_url,plotID, plotName,userUID, area, village, taluka, dist, state, gat_no, sarvay_no,_7_12,_8a,_7_12_url,_8a_url,approval,plant_id,plant_name;
 
     public PlotModel(String plotID, String plotName,String userUID,String plot_img_url,String area, String village, String taluka, String dist, String state, String gat_no, String sarvay_no, String _7_12, String _8a, String _7_12_url, String _8a_url) {
         this.plotID = plotID;
@@ -20,6 +20,22 @@ public class PlotModel {
         this._8a_url = _8a_url;
         this.plot_img_url=plot_img_url;
         this.plotName=plotName;
+    }
+
+    public String getPlant_id() {
+        return plant_id;
+    }
+
+    public void setPlant_id(String plant_id) {
+        this.plant_id = plant_id;
+    }
+
+    public String getPlant_name() {
+        return plant_name;
+    }
+
+    public void setPlant_name(String plant_name) {
+        this.plant_name = plant_name;
     }
 
     public PlotModel(String plot_img_url, String plotID, String plotName, String area, String village, String approval) {

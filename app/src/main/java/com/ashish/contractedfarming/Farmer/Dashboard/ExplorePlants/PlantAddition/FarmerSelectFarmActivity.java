@@ -112,7 +112,6 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
 
                         }
                     }
-
                     listView.setAdapter(new FarmerSelectFarmListViewAdapter(FarmerSelectFarmActivity.this,plotModels));
                     }
             }

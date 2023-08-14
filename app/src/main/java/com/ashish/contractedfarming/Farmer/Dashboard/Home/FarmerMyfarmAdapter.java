@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FragmentHelper;
+package com.ashish.contractedfarming.Farmer.Dashboard.Home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,33 +6,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmModel;
 import com.ashish.contractedfarming.R;
 
 import java.util.ArrayList;
 
-public class FarmerFragmentMyFarmAdapter  extends RecyclerView.Adapter<FarmerFragmentMyFarmAdapter.viewHolder>{
-    ArrayList<FarmerMyfarmModel> list ;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class FarmerMyfarmAdapter extends RecyclerView.Adapter<FarmerMyfarmAdapter.viewHolder> {
+    ArrayList<FarmerMyfarmModel> list;
     Context context;
 
-    public FarmerFragmentMyFarmAdapter(ArrayList<FarmerMyfarmModel> list, Context context) {
+
+    public FarmerMyfarmAdapter(ArrayList<FarmerMyfarmModel> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public FarmerFragmentMyFarmAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.view_farmer_myfarm,parent,false);
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.view_farmer_myfarm, parent, false);
 
-        return new FarmerFragmentMyFarmAdapter.viewHolder(view);
+        return new viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FarmerFragmentMyFarmAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull viewHolder holder, int position) {
 
         FarmerMyfarmModel model = list.get(position);
         holder.plot_name.setText("Farm Name : "+model.getPlotName());
@@ -46,6 +48,8 @@ public class FarmerFragmentMyFarmAdapter  extends RecyclerView.Adapter<FarmerFra
         holder.plant_name.setText(model.getPlant());
         holder.userUID.setText(model.getUserUID());
         holder.plotID.setText(model.getPlotID());
+
+
     }
 
     @Override
@@ -53,7 +57,7 @@ public class FarmerFragmentMyFarmAdapter  extends RecyclerView.Adapter<FarmerFra
         return list.size();
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder{
+    public class viewHolder extends RecyclerView.ViewHolder {
         TextView plot_name, area, village, taluka, district, state, gatno, survayno, plant_name, userUID, plotID;
 
         public viewHolder(@NonNull View itemView) {
@@ -71,7 +75,6 @@ public class FarmerFragmentMyFarmAdapter  extends RecyclerView.Adapter<FarmerFra
             plotID = itemView.findViewById(R.id.farmer_addfarm_plotID);
         }
     }
-
 
 
 }

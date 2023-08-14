@@ -38,10 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
-import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.FarmerExploreplantsAdapter;
-import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.FarmerMyfarmModel;
-import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.FarmerMyplantsAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.FarmerStoryModel;
 import com.ashish.contractedfarming.Farmer.Dashboard.Weather.HttpRequest;
@@ -263,8 +260,11 @@ public class FarmerHomeFragment extends Fragment {
 
         for (DataSnapshot fds : myFarm.getChildren()) {
             FarmerMyfarmModel fm = new FarmerMyfarmModel(fds.child("plotID").getValue().toString(), fds.child("userUID").getValue().toString(), fds.child("area").getValue().toString(), fds.child("village").getValue().toString(), fds.child("taluka").getValue().toString(), fds.child("dist").getValue().toString(), fds.child("state").getValue().toString(), fds.child("gat_no").getValue().toString(), fds.child("sarvay_no").getValue().toString(), "Nil");
-            if (fds.child("plant").exists()) {
-                fm.setPlant(fds.child("plant").getValue().toString());
+            if (fds.child("plant_name").exists()) {
+                fm.setPlant(fds.child("plant_name").getValue().toString());
+            }
+            if (fds.child("plotName").exists()) {
+                fm.setPlotName(fds.child("plotName").getValue().toString());
             }
             myfarmList.add(fm);
             // myfarmList.add(new FarmerMyfarmModel("1", "11", "1", "pune", "pune", "pune", "maha", "55", "10", "tree"));

@@ -1,7 +1,7 @@
 package com.ashish.contractedfarming.Farmer.Dashboard.MyFarm;
 
 public class FarmerMyfarmModel {
-    String plotID,userUID,area,vill,taluka,dist,state,gatno,survayno,plant;
+    String plotID,plotName,userUID,area,vill,taluka,dist,state,gatno,survayno,plant,plant_name,plant_id;
 
     public FarmerMyfarmModel(String plotID, String userUID, String area, String vill, String taluka, String dist, String state, String gatno, String survayno, String plant) {
 
@@ -15,6 +15,30 @@ public class FarmerMyfarmModel {
         this.gatno = gatno;
         this.survayno = survayno;
         this.plant = plant;
+    }
+
+    public String getPlotName() {
+        return plotName;
+    }
+
+    public void setPlotName(String plotName) {
+        this.plotName = plotName;
+    }
+
+    public String getPlant_name() {
+        return plant_name;
+    }
+
+    public void setPlant_name(String plant_name) {
+        this.plant_name = plant_name;
+    }
+
+    public String getPlant_id() {
+        return plant_id;
+    }
+
+    public void setPlant_id(String plant_id) {
+        this.plant_id = plant_id;
     }
 
     public String getPlotID() {

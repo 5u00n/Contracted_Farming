@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants;
+package com.ashish.contractedfarming.Farmer.Dashboard.Home;
 
 import android.content.Context;
 import android.content.Intent;

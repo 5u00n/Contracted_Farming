@@ -1,14 +1,12 @@
-package com.ashish.contractedfarming.Farmer.Dashboard.MyPlants;
+package com.ashish.contractedfarming.Farmer.Dashboard.Home;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ashish.contractedfarming.Admin.Dashboard.Plant.AdminPlantsModel;
 import com.ashish.contractedfarming.Models.FarmerPlantModel;
 import com.ashish.contractedfarming.R;
 import com.squareup.picasso.Picasso;
@@ -17,7 +15,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class FarmerMyplantsAdapter extends RecyclerView.Adapter<FarmerMyplantsAdapter.viewHolder> {
