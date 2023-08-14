@@ -82,7 +82,7 @@ public class FarmerDashboardActivity extends AppCompatActivity {
     ViewPager viewPager;
 
     ImageView profile_img;
-    TextView profile_name;
+    TextView profile_name,p_location,p_img_url;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +117,9 @@ public class FarmerDashboardActivity extends AppCompatActivity {
 
         profile_img = findViewById(R.id.dash_farmer_profile);
         profile_name = findViewById(R.id.dash_farmer_name);
+        p_location=findViewById(R.id.dash_farmer_location);
+        p_img_url=findViewById(R.id.dash_farmer_img_url);
+
 
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             View tab = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(i);
@@ -153,6 +156,10 @@ public class FarmerDashboardActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             newsTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerNewsActivity.class);
+
+            intent.putExtra("f_name",profile_name.getText());
+            intent.putExtra("f_img_src",p_img_url.getText());
+            intent.putExtra("f_location",p_location.getText());
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -162,6 +169,9 @@ public class FarmerDashboardActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             confTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerCandWActivity.class);
+            intent.putExtra("f_name",profile_name.getText());
+            intent.putExtra("f_img_src",p_img_url.getText());
+            intent.putExtra("f_location",p_location.getText());
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -171,6 +181,9 @@ public class FarmerDashboardActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             chatTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerChatActivity.class);
+            intent.putExtra("f_name",profile_name.getText());
+            intent.putExtra("f_img_src",p_img_url.getText());
+            intent.putExtra("f_location",p_location.getText());
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -180,6 +193,9 @@ public class FarmerDashboardActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             notificationTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerNotificationActivity.class);
+            intent.putExtra("f_name",profile_name.getText());
+            intent.putExtra("f_img_src",p_img_url.getText());
+            intent.putExtra("f_location",p_location.getText());
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -229,6 +245,7 @@ public class FarmerDashboardActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 profile_name.setText(snapshot.child("username").getValue().toString());
+                p_img_url.setText(snapshot.child("img_url").getValue().toString());
                 Picasso.get().load(snapshot.child("img_url").getValue().toString()).into(profile_img);
             }
 

@@ -62,7 +62,8 @@ public class MyFarmFragment extends Fragment {
                         if (fds.child("plotName").exists()) {
                             fm.setPlotName(fds.child("plotName").getValue().toString());
                         }
-                        farmerFarm_List.add(fm); }
+                        farmerFarm_List.add(fm);
+                    }
 
                 FarmerFragmentMyFarmAdapter adapter1 = new FarmerFragmentMyFarmAdapter(farmerFarm_List, getContext());
                 LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

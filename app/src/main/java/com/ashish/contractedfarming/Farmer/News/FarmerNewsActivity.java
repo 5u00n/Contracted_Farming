@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +33,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -50,10 +55,30 @@ public class FarmerNewsActivity extends AppCompatActivity {
 
 
     FirebaseAuth auth;
+    FirebaseDatabase database;
+    DatabaseReference reference;
+
+
+    String f_name, f_img_src,f_location;
+    ImageView profile_img;
+    TextView profile_name,p_location;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_news);
+
+
+        f_name=getIntent().getExtras().getString("f_name");
+        f_img_src=getIntent().getExtras().getString("f_img_src");
+        f_location=getIntent().getExtras().getString("f_location");
+
+        profile_img = findViewById(R.id.dash_farmer_profile);
+        profile_name = findViewById(R.id.dash_farmer_name);
+        p_location=findViewById(R.id.dash_farmer_location);
+
+        Picasso.get().load(f_img_src).into(profile_img);
+        profile_name.setText(f_name);
+        p_location.setText(f_location);
 
 
         auth = FirebaseAuth.getInstance();
@@ -67,8 +92,8 @@ public class FarmerNewsActivity extends AppCompatActivity {
         toolbar.setSubtitle("");
 
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("news");
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("news");
 
         rv = findViewById(R.id.farmer_news_rv);
         list = new ArrayList<>();
@@ -77,18 +102,20 @@ public class FarmerNewsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.removeAll(list);
                 for (DataSnapshot ds : snapshot.getChildren()) {
+
                     list.add(new AdminNewsModel(ds.child("id").getValue().toString(), ds.child("topic").getValue().toString(), ds.child("date").getValue().toString(), ds.child("data").getValue().toString(), ds.child("imgurl").getValue().toString()));
                 }
-                if (getBaseContext() != null) {
-                    FarmerNewsAdapter adapter = new FarmerNewsAdapter(FarmerNewsActivity.this, list);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                Log.d("news data", new Gson().toJson(list.get(0)));
 
-                    if (adapter != null) {
-                        rv.setLayoutManager(layoutManager);
-                        rv.setAdapter(adapter);
-                    }
-                }
-                ;
+
+                FarmerNewsAdapter adapter = new FarmerNewsAdapter(FarmerNewsActivity.this, list);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+
+
+                rv.setLayoutManager(layoutManager);
+                rv.setAdapter(adapter);
+
+
             }
 
             @Override
@@ -134,6 +161,9 @@ public class FarmerNewsActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             confTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerCandWActivity.class);
+            intent.putExtra("f_name",f_name);
+            intent.putExtra("f_img_src",f_img_src);
+            intent.putExtra("f_location",f_location);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -143,6 +173,9 @@ public class FarmerNewsActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             chatTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerChatActivity.class);
+            intent.putExtra("f_name",f_name);
+            intent.putExtra("f_img_src",f_img_src);
+            intent.putExtra("f_location",f_location);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -152,6 +185,9 @@ public class FarmerNewsActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             notificationTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerNotificationActivity.class);
+            intent.putExtra("f_name",f_name);
+            intent.putExtra("f_img_src",f_img_src);
+            intent.putExtra("f_location",f_location);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

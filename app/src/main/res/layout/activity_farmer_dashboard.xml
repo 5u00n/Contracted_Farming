@@ -44,6 +44,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/dash_farmer_img_url"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+                <TextView
                     android:id="@+id/dash_farmer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,11 +59,12 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
                   <TextView
+                        android:id="@+id/dash_farmer_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="location"
-                      android:paddingLeft="10dp"
+                        android:paddingLeft="10dp"
                         android:textColorHighlight="#279D5B"
                         android:textSize="12sp"
                         android:textStyle="bold" />

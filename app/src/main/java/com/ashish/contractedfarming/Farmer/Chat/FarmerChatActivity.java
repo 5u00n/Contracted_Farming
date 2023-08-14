@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashish.contractedfarming.Farmer.ConferenceAndWorkShop.FarmerCandWActivity;
@@ -21,6 +23,7 @@ import com.ashish.contractedfarming.Farmer.Notification.FarmerNotificationActivi
 import com.ashish.contractedfarming.MainActivity;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 public class FarmerChatActivity extends AppCompatActivity {
     Context context;
@@ -32,10 +35,28 @@ public class FarmerChatActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
 
+    String f_name, f_img_src,f_location;
+    ImageView profile_img;
+    TextView profile_name,p_location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_chat);
+
+
+
+        f_name=getIntent().getExtras().getString("f_name");
+        f_img_src=getIntent().getExtras().getString("f_img_src");
+        f_location=getIntent().getExtras().getString("f_location");
+
+        profile_img = findViewById(R.id.dash_farmer_profile);
+        profile_name = findViewById(R.id.dash_farmer_name);
+        p_location=findViewById(R.id.dash_farmer_location);
+
+        Picasso.get().load(f_img_src).into(profile_img);
+        profile_name.setText(f_name);
+        p_location.setText(f_location);
 
         auth = FirebaseAuth.getInstance();
 
@@ -74,6 +95,9 @@ public class FarmerChatActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             newsTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerNewsActivity.class);
+            intent.putExtra("f_name",f_name);
+            intent.putExtra("f_img_src",f_img_src);
+            intent.putExtra("f_location",f_location);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -83,6 +107,9 @@ public class FarmerChatActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             confTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerCandWActivity.class);
+            intent.putExtra("f_name",f_name);
+            intent.putExtra("f_img_src",f_img_src);
+            intent.putExtra("f_location",f_location);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -101,6 +128,9 @@ public class FarmerChatActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             notificationTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerNotificationActivity.class);
+            intent.putExtra("f_name",f_name);
+            intent.putExtra("f_img_src",f_img_src);
+            intent.putExtra("f_location",f_location);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

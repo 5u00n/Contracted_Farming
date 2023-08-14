@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashish.contractedfarming.Farmer.Chat.FarmerChatActivity;
@@ -17,6 +19,7 @@ import com.ashish.contractedfarming.Farmer.News.FarmerNewsActivity;
 import com.ashish.contractedfarming.MainActivity;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,12 +42,31 @@ public class FarmerNotificationActivity extends AppCompatActivity {
     String text[] = {"Important...", "Task Panding...", "Water time"};
     // int img[] = {R.drawable.profilicon, R.drawable.profilicon, R.drawable.profilicon};
 
+    String f_name, f_img_src,f_location;
+
+    ImageView profile_img;
+    TextView profile_name,p_location;
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
 
         setContentView(R.layout.activity_farmer_notification);
+
+        f_name=getIntent().getExtras().getString("f_name");
+        f_img_src=getIntent().getExtras().getString("f_img_src");
+        f_location=getIntent().getExtras().getString("f_location");
+
+        profile_img = findViewById(R.id.dash_farmer_profile);
+        profile_name = findViewById(R.id.dash_farmer_name);
+        p_location=findViewById(R.id.dash_farmer_location);
+
+        Picasso.get().load(f_img_src).into(profile_img);
+        profile_name.setText(f_name);
+        p_location.setText(f_location);
+
+
         auth = FirebaseAuth.getInstance();
         toolbar = findViewById(R.id.farmer_dash_toolbar);
         setSupportActionBar(toolbar);
@@ -84,6 +106,9 @@ public class FarmerNotificationActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             newsTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerNewsActivity.class);
+            intent.putExtra("f_name",f_name);
+            intent.putExtra("f_img_src",f_img_src);
+            intent.putExtra("f_location",f_location);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -93,6 +118,9 @@ public class FarmerNotificationActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             confTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerCandWActivity.class);
+            intent.putExtra("f_name",f_name);
+            intent.putExtra("f_img_src",f_img_src);
+            intent.putExtra("f_location",f_location);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -102,6 +130,9 @@ public class FarmerNotificationActivity extends AppCompatActivity {
             currentTab.setBackgroundColor(Color.TRANSPARENT);
             chatTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
             Intent intent = new Intent(context, FarmerChatActivity.class);
+            intent.putExtra("f_name",f_name);
+            intent.putExtra("f_img_src",f_img_src);
+            intent.putExtra("f_location",f_location);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
