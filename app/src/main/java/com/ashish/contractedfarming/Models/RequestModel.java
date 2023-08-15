@@ -15,6 +15,14 @@ public class RequestModel {
         this.stared = stared;
     }
 
+    public RequestModel(String id, String send_to, String type, String date_of_creation, String checked) {
+        this.id = id;
+        this.send_to = send_to;
+        this.type = type;
+        this.date_of_creation = date_of_creation;
+        this.checked = checked;
+    }
+
     public String getId() {
         return id;
     }

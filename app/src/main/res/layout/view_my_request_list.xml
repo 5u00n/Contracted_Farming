@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="82dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/farmer_my_request_views_id"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="20dp"
+        android:fadingEdgeLength="2dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="20dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/farmer_my_request_views_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="1.5dp"
+                    android:text="To:                     "/>
+                <TextView
+                    android:id="@+id/farmer_my_request_views_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="1.5dp"
+                    android:text="Request Type: "/>
+
+
+            </LinearLayout>
+            <View
+                android:layout_weight="0.005"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/shape_rectangle"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+                android:layout_weight="1"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="20dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/farmer_my_request_views_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="1.5dp"
+                    android:text="Date: "/>
+                <TextView
+                    android:id="@+id/farmer_my_request_view_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="1.5dp"
+                    android:text="Status: "/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

@@ -11,6 +11,7 @@ import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.ExplorePlants
 import com.ashish.contractedfarming.Farmer.Dashboard.Home.FarmerHomeFragment;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyFarm.MyFarmFragment;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.MyPlantsFragment;
+import com.ashish.contractedfarming.Farmer.Dashboard.MyRequest.MyRequestFragment;
 import com.ashish.contractedfarming.Farmer.Dashboard.Story.StoryFragment;
 
 public class FarmerDashboardAdapter extends FragmentPagerAdapter {
@@ -37,6 +38,8 @@ public class FarmerDashboardAdapter extends FragmentPagerAdapter {
                 return new MyFarmFragment();
             case 4:
                 return new MyPlantsFragment();
+            case 5:
+                return new MyRequestFragment();
             default:
                 return new FarmerHomeFragment();
         }
