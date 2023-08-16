@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view_chats_card"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="5dp"
+        app:cardCornerRadius="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/view_chats_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="-5dp">
+
+
+        <TextView
+            android:id="@+id/view_chats_nameofuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/view_chats_cardviewofuser"
+            android:text="Name Display Here"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+
+        <TextView
+            android:id="@+id/view_chats_statusofuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_chats_nameofuser"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@id/view_chats_cardviewofuser"
+            android:text="Status Displays here"
+            android:textColor="#6a6a6a"
+            android:textSize="12sp">
+
+        </TextView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/view_chats_cardviewofuser"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            app:cardCornerRadius="55dp">
+
+
+            <ImageView
+                android:id="@+id/view_chats_imageviewofuser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background">
+
+            </ImageView>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -48,12 +49,13 @@ public class AddPlotActivity extends AppCompatActivity {
     StorageReference storageReference;
 
 
-    EditText plotName,plot_img_edittext,_7_12_edittext, _8a_edittext, area, village, taluka, dist, gat_no, sarvay_no;
+    EditText plotName,_7_12_edittext, _8a_edittext, area, village, taluka, dist, gat_no, sarvay_no;
+
 
     ImageButton upload_712,upload_8a,upload_plot_img;
 
 
-    TextView _712_url,_8a_url,plot_img_url;
+    TextView _712_url,_8a_url,plot_img_url,plot_img_text;;
     Button submit,addPlot,cancel;
     ImageButton add;
     ListView lv;
@@ -95,9 +97,10 @@ public class AddPlotActivity extends AppCompatActivity {
                 plotID=firebaseAuth.getUid()+"__"+time_stamp;
 
 
+                //plot_img_text=dialog.findViewById(R.id.prompt_add_plot_text)
 
                 plotName = dialog.findViewById(R.id.prompt_add_plot_name);
-                plot_img_edittext=dialog.findViewById(R.id.prompt_add_plot_edittext);
+                plot_img_text=dialog.findViewById(R.id.prompt_add_plot_text);
                 _7_12_edittext = dialog.findViewById(R.id.prompt_add_7_12);
                 _8a_edittext = dialog.findViewById(R.id.prompt_add_8a);
                 area = dialog.findViewById(R.id.prompt_addplot_area);
@@ -157,7 +160,7 @@ public class AddPlotActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
 
-                        if(plotName.getText().toString().isEmpty()||plot_img_edittext.getText().toString().isEmpty()|| _7_12_edittext.getText().toString().isEmpty() || _8a_edittext.getText().toString().isEmpty() || area.getText().toString().isEmpty() || village.getText().toString().isEmpty() || taluka.getText().toString().isEmpty() || dist.getText().toString().isEmpty() || gat_no.getText().toString().isEmpty() || sarvay_no.getText().toString().isEmpty()){
+                        if(plotName.getText().toString().isEmpty()||plot_img_text.getText().toString().isEmpty()|| _7_12_edittext.getText().toString().isEmpty() || _8a_edittext.getText().toString().isEmpty() || area.getText().toString().isEmpty() || village.getText().toString().isEmpty() || taluka.getText().toString().isEmpty() || dist.getText().toString().isEmpty() || gat_no.getText().toString().isEmpty() || sarvay_no.getText().toString().isEmpty()){
                             Toast.makeText(AddPlotActivity.this, "Field Empty Please Fill!", Toast.LENGTH_SHORT).show();
                         }else {
                             databaseReference.child("users").child("new-farmer").child(firebaseAuth.getUid()).child("plot").child(plotID).setValue(new PlotModel(plotID,plotName.getText().toString(),firebaseAuth.getUid(),plot_img_url.getText().toString(),area.getText().toString(),village.getText().toString(),taluka.getText().toString(),dist.getText().toString(),"Maharashtra",gat_no.getText().toString(),sarvay_no.getText().toString(),_7_12_edittext.getText().toString(),_8a_edittext.getText().toString(),_712_url.getText().toString(),_8a_url.getText().toString()));
@@ -226,7 +229,7 @@ public class AddPlotActivity extends AppCompatActivity {
         }
         if (requestCode == 3 && resultCode == RESULT_OK) {
             sendImagetoStorage("plot_img",data.getData());
-            plot_img_edittext.setText((System.currentTimeMillis() / 1000)+" Farm img");
+            plot_img_text.setText((System.currentTimeMillis() / 1000)+" plot img");
         }
 
 
@@ -237,8 +240,10 @@ public class AddPlotActivity extends AppCompatActivity {
 
     private void sendImagetoStorage(String filetype, Uri imguri) {
 
+        FirebaseStorage storage= FirebaseStorage.getInstance();
+        StorageReference storageReference= storage.getReference("users").child("farmer").child(firebaseAuth.getUid()).child("plot").child(plotID);
+        StorageReference imageref = storageReference.child("image"+filetype+".png");
 
-        StorageReference imageref = storageReference.child("plot").child(plotID).child("image"+filetype+".png");
 
         UploadTask uploadTask = imageref.putFile(imguri);
         final Uri[] downloadUri = new Uri[1];

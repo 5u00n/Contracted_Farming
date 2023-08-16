@@ -166,7 +166,7 @@ public class AdminSpecificChatActivity extends AppCompatActivity {
         recieverroom = mrecieveruid + msenderuid;
 
 
-        DatabaseReference databaseReference = firebaseDatabase.getReference( "usersz").child("chats").child(senderroom).child("messages");
+        DatabaseReference databaseReference = firebaseDatabase.getReference( "users").child("chats").child(senderroom).child("messages");
         messagesAdapter = new MessagesAdapter(AdminSpecificChatActivity.this, messagesArrayList);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

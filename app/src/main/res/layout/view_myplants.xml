@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/farmer_myplant_plant_img_bg"
                 android:scaleType="centerCrop"
-                android:alpha="0.4"
+
                 />
 
         <LinearLayout
