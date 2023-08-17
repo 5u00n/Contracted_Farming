@@ -82,7 +82,7 @@ public class PlantFragment extends Fragment {
                         arrayList.add(new AdminPlantsModel(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("imgurl").getValue().toString()));
                     }
                     if (context!=null) {
-                        adapter[0] = new AdminPlantsAdapter(getContext(), arrayList);
+                        adapter[0] = new AdminPlantsAdapter(context, arrayList);
                     }
                     if (adapter[0] != null) {
                         listView.setAdapter(adapter[0]);

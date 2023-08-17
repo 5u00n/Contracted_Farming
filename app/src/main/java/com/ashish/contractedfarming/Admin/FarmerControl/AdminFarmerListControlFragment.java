@@ -61,7 +61,7 @@ public class AdminFarmerListControlFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                     }
-                    AdminFarmerAdapter adapter = new AdminFarmerAdapter(getContext(), arrayList);
+                    AdminFarmerAdapter adapter = new AdminFarmerAdapter(context, arrayList);
                     if (adapter != null) {
                         listView.setAdapter(adapter);
                     }

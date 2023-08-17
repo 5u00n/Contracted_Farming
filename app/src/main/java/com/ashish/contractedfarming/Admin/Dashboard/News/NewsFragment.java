@@ -80,7 +80,7 @@ NewsFragment extends Fragment {
                         listView.setAdapter(adapter);
                     }
                 }
-                ;
+
             }
 
             @Override

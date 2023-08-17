@@ -3,6 +3,7 @@ package com.ashish.contractedfarming.Admin.FarmerControl;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +60,7 @@ public class AdminNewfarmerControlFragment extends Fragment {
 
                 if (snapshot.exists()) {
                     if (!searchView.hasFocus()) {
+                        Log.d("New farmers Data",new Gson().toJson(snapshot.getValue()));
                         arrayList.removeAll(arrayList);
                         for (DataSnapshot ds : snapshot.getChildren()) {
 

@@ -59,13 +59,6 @@ public class MessagesAdapter extends RecyclerView.Adapter {
             viewHolder.timeofmessage.setText(messages.getCurrenttime());
         }
 
-
-
-
-
-
-
-
     }
 
 
