@@ -12,22 +12,33 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ashish.contractedfarming.Admin.Dashboard.News.AdminNewsModel;
 import com.ashish.contractedfarming.Farmer.Chat.FarmerChatActivity;
 import com.ashish.contractedfarming.Farmer.ConferenceAndWorkShop.FarmerCandWActivity;
 import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
 import com.ashish.contractedfarming.Farmer.News.FarmerNewsActivity;
+import com.ashish.contractedfarming.Farmer.News.FarmerNewsAdapter;
 import com.ashish.contractedfarming.MainActivity;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class FarmerNotificationActivity extends AppCompatActivity {
 
@@ -44,14 +55,16 @@ public class FarmerNotificationActivity extends AppCompatActivity {
 
     String f_name, f_img_src,f_location;
 
+    RecyclerView rv;
     ImageView profile_img;
     TextView profile_name,p_location;
 
+    FirebaseDatabase database;
+    DatabaseReference reference;
+    ArrayList<FarmerNotificationModel> list ;
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_farmer_notification);
 
         f_name=getIntent().getExtras().getString("f_name");
@@ -77,10 +90,56 @@ public class FarmerNotificationActivity extends AppCompatActivity {
         toolbar.setSubtitle("");
 
         //  lv = findViewById(R.id.farmer_notigication_list);
-        ArrayList<FarmerNotificationModel> list = new ArrayList<>();
+        //= new ArrayList<>();
 
 
         context = getBaseContext();
+
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference();
+
+        rv = findViewById(R.id.farmer_notification_rv);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()) {
+
+                    DataSnapshot notification_snaps=snapshot.child("users").child("farmer").child(auth.getUid()).child("notifications");
+                    //DataSnapshot sender_snaps= snapshot.child("all-users").child()
+                    list= new ArrayList<>();
+                    for (DataSnapshot ds : notification_snaps.getChildren()) {
+                        list.add(new FarmerNotificationModel(ds.child("creator").getValue().toString(), ds.child("message").getValue().toString(), ds.child("date_created").getValue().toString(), ds.child("type").getValue().toString()));
+                    }
+
+                    Collections.sort(list, new Comparator<FarmerNotificationModel>() {
+                        @Override
+                        public int compare(FarmerNotificationModel o1, FarmerNotificationModel o2) {
+                            return o1.getDate_created().compareTo(o2.getDate_created());
+                        }
+                    });
+
+
+                    FarmerNotificationAdapter adapter = new FarmerNotificationAdapter(FarmerNotificationActivity.this, list);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+
+
+                    rv.setLayoutManager(layoutManager);
+                    rv.setAdapter(adapter);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
 
 
         home = findViewById(R.id.farmer_home_tab);

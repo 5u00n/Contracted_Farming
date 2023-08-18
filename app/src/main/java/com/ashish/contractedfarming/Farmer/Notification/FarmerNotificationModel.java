@@ -1,36 +1,44 @@
 package com.ashish.contractedfarming.Farmer.Notification;
 
 public class FarmerNotificationModel {
-    String name,text;
-    int img;
+    String creator,message,date_created,type;
 
-    public FarmerNotificationModel(String name, String text, int img) {
-        this.name = name;
-        this.text = text;
-        this.img = img;
+    public FarmerNotificationModel(String creator, String message, String date_created, String type) {
+        this.creator = creator;
+        this.message = message;
+        this.date_created = date_created;
+        this.type = type;
     }
 
-    public String getName() {
-        return name;
+    public String getCreator() {
+        return creator;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
-    public String getText() {
-        return text;
+    public String getMessage() {
+        return message;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public int getImg() {
-        return img;
+    public String getDate_created() {
+        return date_created;
     }
 
-    public void setImg(int img) {
-        this.img = img;
+    public void setDate_created(String date_created) {
+        this.date_created = date_created;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
