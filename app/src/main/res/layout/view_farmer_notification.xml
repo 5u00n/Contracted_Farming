@@ -8,6 +8,8 @@
     android:outlineAmbientShadowColor="@color/black"
     app:cardCornerRadius="7dp"
     app:cardUseCompatPadding="true"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginVertical="5dp"
     app:elevation="0dp"
     android:id="@+id/view_farmer_notification_cardview"
     android:layout_height="wrap_content">
@@ -23,24 +25,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/view_farmer_notification_from"
-                android:layout_width="90dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginRight="10dp"/>
 
             <TextView
                 android:id="@+id/view_farmer_notification_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.02"
                 android:text="dd mmm yyyy"
-                android:textSize="16dp" />
+                android:textStyle="bold"/>
 
         </LinearLayout>
 

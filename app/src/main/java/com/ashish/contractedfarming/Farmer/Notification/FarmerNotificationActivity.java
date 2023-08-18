@@ -110,7 +110,7 @@ public class FarmerNotificationActivity extends AppCompatActivity {
                     //DataSnapshot sender_snaps= snapshot.child("all-users").child()
                     list= new ArrayList<>();
                     for (DataSnapshot ds : notification_snaps.getChildren()) {
-                        list.add(new FarmerNotificationModel(ds.child("creator").getValue().toString(), ds.child("message").getValue().toString(), ds.child("date_created").getValue().toString(), ds.child("type").getValue().toString()));
+                        list.add(new FarmerNotificationModel(snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("usertype").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("username").getValue().toString(), ds.child("message").getValue().toString(), ds.child("date_created").getValue().toString(), ds.child("type").getValue().toString()));
                     }
 
                     Collections.sort(list, new Comparator<FarmerNotificationModel>() {
@@ -122,6 +122,34 @@ public class FarmerNotificationActivity extends AppCompatActivity {
 
 
                     FarmerNotificationAdapter adapter = new FarmerNotificationAdapter(FarmerNotificationActivity.this, list);
+
+
+
+                    adapter.setOnItemClickListener(new FarmerNotificationAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClicked(String notification_type) {
+                            switch (notification_type) {
+                                case "farms":
+                                    gotoHome("farms");
+                                    break;
+                                case "farmer_plants":
+                                    gotoHome("farmer_plants");
+                                    break;
+                                case "plants":
+                                    gotoHome("plants");
+                                    break;
+                                case "posts":
+                                    gotoHome();
+                                    break;
+                                case "conference":
+                                    gotoConf();
+                                    break;
+                                case "news":
+                                    gotoNews();
+                                    break;
+                            }
+                        }
+                    });
                     LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
 
 
@@ -153,36 +181,15 @@ public class FarmerNotificationActivity extends AppCompatActivity {
         currentTab.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
 
         home.setOnClickListener(view -> {
-            currentTab.setBackgroundColor(Color.TRANSPARENT);
-            home.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
-            Intent intent = new Intent(context, FarmerDashboardActivity.class);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            gotoHome();
         });
 
         newsTabButton.setOnClickListener(view -> {
-            currentTab.setBackgroundColor(Color.TRANSPARENT);
-            newsTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
-            Intent intent = new Intent(context, FarmerNewsActivity.class);
-            intent.putExtra("f_name",f_name);
-            intent.putExtra("f_img_src",f_img_src);
-            intent.putExtra("f_location",f_location);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            gotoNews();
         });
 
         confTabButton.setOnClickListener(view -> {
-            currentTab.setBackgroundColor(Color.TRANSPARENT);
-            confTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
-            Intent intent = new Intent(context, FarmerCandWActivity.class);
-            intent.putExtra("f_name",f_name);
-            intent.putExtra("f_img_src",f_img_src);
-            intent.putExtra("f_location",f_location);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            gotoConf();
         });
 
         chatTabButton.setOnClickListener(view -> {
@@ -208,6 +215,50 @@ public class FarmerNotificationActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void gotoHome(){
+        currentTab.setBackgroundColor(Color.TRANSPARENT);
+        home.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+        Intent intent = new Intent(context, FarmerDashboardActivity.class);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    public void gotoHome(String intText){
+        currentTab.setBackgroundColor(Color.TRANSPARENT);
+        home.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+        Intent intent = new Intent(context, FarmerDashboardActivity.class);
+        intent.putExtra("tab_open",intText);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    public void gotoConf(){
+        currentTab.setBackgroundColor(Color.TRANSPARENT);
+        confTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+        Intent intent = new Intent(context, FarmerCandWActivity.class);
+        intent.putExtra("f_name",f_name);
+        intent.putExtra("f_img_src",f_img_src);
+        intent.putExtra("f_location",f_location);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+
+    public void gotoNews(){
+        currentTab.setBackgroundColor(Color.TRANSPARENT);
+        newsTabButton.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+        Intent intent = new Intent(context, FarmerNewsActivity.class);
+        intent.putExtra("f_name",f_name);
+        intent.putExtra("f_img_src",f_img_src);
+        intent.putExtra("f_location",f_location);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override

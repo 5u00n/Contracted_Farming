@@ -31,8 +31,6 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.viewHo
     }
 
 
-
-
     public ChatUserAdapter(Context context,ArrayList<ChatUsersModel> chatUsersModelArrayList){
         this.chatUsersModelArrayList=chatUsersModelArrayList;
         this.context=context;
@@ -66,7 +64,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.viewHo
             public void onClick(View view) {
                 if (mListener != null) {
                     mListener.onItemClicked(chatUsersModel.getId()); // Pass the ID or relevant data
-                    //Log.d("FROM USER LIST ADAPTER ",chatUsersModel.getId()+" "+chatUsersModel.getName());
+
                 }
             }
         });

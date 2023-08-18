@@ -64,8 +64,6 @@ public class FarmerDashboardActivity extends AppCompatActivity {
 
     //Firebase Variable
     FirebaseAuth auth;
-    FirebaseStorage storage;
-    StorageReference storageReference;
 
     FirebaseDatabase database;
     DatabaseReference databaseReference;
@@ -73,10 +71,6 @@ public class FarmerDashboardActivity extends AppCompatActivity {
 
 
 
-
-    ImageView story_img;
-
-    AppBarLayout appBarLayout;
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -254,6 +248,31 @@ public class FarmerDashboardActivity extends AppCompatActivity {
 
             }
         });
+
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                String tabOpen = extras.getString("tab_open");
+                if (tabOpen != null) {
+                    switch (tabOpen){
+                        case "farms":
+                            viewPager.setCurrentItem(3);
+                            break;
+                        case "plants":
+                            viewPager.setCurrentItem(2);
+                            break;
+                        case "farmer_plants":
+                            viewPager.setCurrentItem(4);
+                            break;
+                    }
+                }
+            }
+        }
+
+
+
     }
 
 
