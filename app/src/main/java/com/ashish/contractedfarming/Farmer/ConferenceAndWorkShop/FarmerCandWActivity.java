@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
@@ -13,21 +14,37 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.ashish.contractedfarming.Admin.Dashboard.News.AdminNewsModel;
 import com.ashish.contractedfarming.Farmer.Chat.FarmerChatActivity;
 import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
 import com.ashish.contractedfarming.Farmer.News.FarmerNewsActivity;
+import com.ashish.contractedfarming.Farmer.News.FarmerNewsAdapter;
 import com.ashish.contractedfarming.Farmer.Notification.FarmerNotificationActivity;
 import com.ashish.contractedfarming.MainActivity;
+import com.ashish.contractedfarming.Models.ConferenceModel;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class FarmerCandWActivity extends AppCompatActivity {
     ListView lv;
@@ -40,10 +57,20 @@ public class FarmerCandWActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     FirebaseAuth auth;
+    FirebaseDatabase database;
+    DatabaseReference reference;
+
 
     String f_name, f_img_src,f_location;
     ImageView profile_img;
     TextView profile_name,p_location;
+
+
+    RecyclerView recyclerViewToday,recyclerViewUpcoming,recyclerViewPast;
+    ArrayList<ConferenceModel> listToday,listUpcoming,listPast ;
+
+    Calendar dateToday;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,13 +100,89 @@ public class FarmerCandWActivity extends AppCompatActivity {
         toolbar.setTitle("");
         toolbar.setSubtitle("");
 
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("conf-workshop");
 
 
         //lv = findViewById(R.id.farmer_conferance_list);
-        ArrayList<FarmerCandWModel> list = new ArrayList<>();
 
 
-        context= getBaseContext();
+
+        context = getBaseContext();
+
+        dateToday=Calendar.getInstance();
+
+        recyclerViewToday = findViewById(R.id.farmer_conf_rv_current);
+        recyclerViewUpcoming = findViewById(R.id.farmer_conf_rv_future);
+        recyclerViewPast = findViewById(R.id.farmer_conf_rv_over);
+
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listToday = new ArrayList<>();
+                listUpcoming = new ArrayList<>();
+                listPast = new ArrayList<>();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    if ((new SimpleDateFormat("dd mm yyyy").format(Long.parseLong(ds.child("conf_date").getValue().toString()) * 1000L)).equals(new SimpleDateFormat("dd mm yyyy").format(dateToday.getTime()))) {
+                        listToday.add(new ConferenceModel(ds.child("conf_id").getValue().toString(), ds.child("conf_topic").getValue().toString(), ds.child("by_name").getValue().toString(), ds.child("conf_date").getValue().toString(), ds.child("conf_venue").getValue().toString(), ds.child("conf_img_url").getValue().toString(), ds.child("created_date").getValue().toString()));
+                    } else if ((new Date(Long.parseLong(ds.child("conf_date").getValue().toString()) * 1000L)).before(dateToday.getTime())) {
+                        listUpcoming.add(new ConferenceModel(ds.child("conf_id").getValue().toString(), ds.child("conf_topic").getValue().toString(), ds.child("by_name").getValue().toString(), ds.child("conf_date").getValue().toString(), ds.child("conf_venue").getValue().toString(), ds.child("conf_img_url").getValue().toString(), ds.child("created_date").getValue().toString()));
+                    } else {
+                        listPast.add(new ConferenceModel(ds.child("conf_id").getValue().toString(), ds.child("conf_topic").getValue().toString(), ds.child("by_name").getValue().toString(), ds.child("conf_date").getValue().toString(), ds.child("conf_venue").getValue().toString(), ds.child("conf_img_url").getValue().toString(), ds.child("created_date").getValue().toString()));
+                    }
+                }
+
+
+                Collections.sort(listToday, new Comparator<ConferenceModel>() {
+                    @Override
+                    public int compare(ConferenceModel o1, ConferenceModel o2) {
+                        return o1.getConf_date().compareTo(o2.getConf_date());
+                    }
+                });
+
+                Collections.sort(listUpcoming, new Comparator<ConferenceModel>() {
+                    @Override
+                    public int compare(ConferenceModel o1, ConferenceModel o2) {
+                        return o1.getConf_date().compareTo(o2.getConf_date());
+                    }
+                });
+
+                Collections.sort(listPast, new Comparator<ConferenceModel>() {
+                    @Override
+                    public int compare(ConferenceModel o1, ConferenceModel o2) {
+                        return o1.getConf_date().compareTo(o2.getConf_date());
+                    }
+                });
+
+
+
+                FarmerCandWAdapter adapterToday = new FarmerCandWAdapter(FarmerCandWActivity.this, listToday);
+                FarmerCandWAdapter adapterUpcoming = new FarmerCandWAdapter(FarmerCandWActivity.this, listUpcoming);
+                FarmerCandWAdapter adapterPast = new FarmerCandWAdapter(FarmerCandWActivity.this, listPast);
+
+                LinearLayoutManager layoutManagerToday = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                LinearLayoutManager layoutManagerUpcoming = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                LinearLayoutManager layoutManagerPast = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+
+
+                recyclerViewToday.setLayoutManager(layoutManagerToday);
+                recyclerViewUpcoming.setLayoutManager(layoutManagerUpcoming);
+                recyclerViewPast.setLayoutManager(layoutManagerPast);
+
+                recyclerViewToday.setAdapter(adapterToday);
+                recyclerViewUpcoming.setAdapter(adapterUpcoming);
+                recyclerViewPast.setAdapter(adapterPast);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
 
@@ -150,6 +253,10 @@ public class FarmerCandWActivity extends AppCompatActivity {
             overridePendingTransition( R.anim.slide_in_right,R.anim.slide_out_left);
 
         });
+
+
+
+
 
 
     }

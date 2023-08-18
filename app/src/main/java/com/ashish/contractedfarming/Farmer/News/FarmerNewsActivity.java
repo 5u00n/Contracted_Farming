@@ -97,6 +97,8 @@ public class FarmerNewsActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("news");
 
+        context = getBaseContext();
+
         rv = findViewById(R.id.farmer_news_rv);
         list = new ArrayList<>();
         reference.addValueEventListener(new ValueEventListener() {
@@ -107,7 +109,6 @@ public class FarmerNewsActivity extends AppCompatActivity {
 
                     list.add(new AdminNewsModel(ds.child("id").getValue().toString(), ds.child("topic").getValue().toString(), ds.child("date").getValue().toString(), ds.child("data").getValue().toString(), ds.child("imgurl").getValue().toString()));
                 }
-                Log.d("news data", new Gson().toJson(list.get(0)));
 
                 Collections.sort(list, new Comparator<AdminNewsModel>() {
                     @Override
@@ -135,7 +136,7 @@ public class FarmerNewsActivity extends AppCompatActivity {
         });
 
 
-        context = getBaseContext();
+
 
 
         home = findViewById(R.id.farmer_home_tab);

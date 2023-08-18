@@ -1,15 +1,16 @@
 package com.ashish.contractedfarming.Models;
 
-public class ConferenceModels {
+public class ConferenceModel {
 
-    String conf_id, conf_topic,conf_date,conf_venue,conf_img_url,created_date;
+    String conf_id, conf_topic,by_name,conf_date,conf_venue,conf_img_url,created_date;
 
-    public ConferenceModels(String conf_id, String conf_topic, String conf_date, String conf_venue, String creator_img_url, String created_date) {
+    public ConferenceModel(String conf_id, String conf_topic, String by_name, String conf_date, String conf_venue, String conf_img_url, String created_date) {
         this.conf_id = conf_id;
         this.conf_topic = conf_topic;
+        this.by_name = by_name;
         this.conf_date = conf_date;
         this.conf_venue = conf_venue;
-        this.conf_img_url = creator_img_url;
+        this.conf_img_url = conf_img_url;
         this.created_date = created_date;
     }
 
@@ -29,6 +30,14 @@ public class ConferenceModels {
         this.conf_topic = conf_topic;
     }
 
+    public String getBy_name() {
+        return by_name;
+    }
+
+    public void setBy_name(String by_name) {
+        this.by_name = by_name;
+    }
+
     public String getConf_date() {
         return conf_date;
     }
@@ -45,12 +54,12 @@ public class ConferenceModels {
         this.conf_venue = conf_venue;
     }
 
-    public String getCreator_img_url() {
+    public String getConf_img_url() {
         return conf_img_url;
     }
 
-    public void setCreator_img_url(String creator_img_url) {
-        this.conf_img_url = creator_img_url;
+    public void setConf_img_url(String conf_img_url) {
+        this.conf_img_url = conf_img_url;
     }
 
     public String getCreated_date() {
