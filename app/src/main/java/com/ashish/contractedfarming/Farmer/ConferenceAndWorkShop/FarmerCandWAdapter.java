@@ -50,7 +50,7 @@ public class FarmerCandWAdapter extends RecyclerView.Adapter<FarmerCandWAdapter.
             holder.conf_img.setImageResource(R.drawable.logo);
         }
         holder.conf_title.setText(model.getConf_topic());
-        holder.conf_by.setText(model.getBy_name());
+        holder.conf_by.setText("Hosted By : "+model.getBy_name());
 
         holder.conf_date.setText(new SimpleDateFormat("dd MMM yyyy hh:mm a").format(Long.parseLong(model.getConf_date()) * 1000L));
 

@@ -124,12 +124,14 @@ public class FarmerCandWActivity extends AppCompatActivity {
                 listUpcoming = new ArrayList<>();
                 listPast = new ArrayList<>();
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    if ((new SimpleDateFormat("dd mm yyyy").format(Long.parseLong(ds.child("conf_date").getValue().toString()) * 1000L)).equals(new SimpleDateFormat("dd mm yyyy").format(dateToday.getTime()))) {
+                    //Log.d("Date comp",(new SimpleDateFormat("dd MMM yyyy").format(Long.parseLong(ds.child("conf_date").getValue().toString()) * 1000L))+ "    " +(new SimpleDateFormat("dd MMM yyyy").format(dateToday.getTime())));
+                    if ((new SimpleDateFormat("dd MMM yyyy").format(Long.parseLong(ds.child("conf_date").getValue().toString()) * 1000L)).equals(new SimpleDateFormat("dd MMM yyyy").format(dateToday.getTime()))) {
+
                         listToday.add(new ConferenceModel(ds.child("conf_id").getValue().toString(), ds.child("conf_topic").getValue().toString(), ds.child("by_name").getValue().toString(), ds.child("conf_date").getValue().toString(), ds.child("conf_venue").getValue().toString(), ds.child("conf_img_url").getValue().toString(), ds.child("created_date").getValue().toString()));
                     } else if ((new Date(Long.parseLong(ds.child("conf_date").getValue().toString()) * 1000L)).before(dateToday.getTime())) {
-                        listUpcoming.add(new ConferenceModel(ds.child("conf_id").getValue().toString(), ds.child("conf_topic").getValue().toString(), ds.child("by_name").getValue().toString(), ds.child("conf_date").getValue().toString(), ds.child("conf_venue").getValue().toString(), ds.child("conf_img_url").getValue().toString(), ds.child("created_date").getValue().toString()));
-                    } else {
                         listPast.add(new ConferenceModel(ds.child("conf_id").getValue().toString(), ds.child("conf_topic").getValue().toString(), ds.child("by_name").getValue().toString(), ds.child("conf_date").getValue().toString(), ds.child("conf_venue").getValue().toString(), ds.child("conf_img_url").getValue().toString(), ds.child("created_date").getValue().toString()));
+                    } else {
+                        listUpcoming.add(new ConferenceModel(ds.child("conf_id").getValue().toString(), ds.child("conf_topic").getValue().toString(), ds.child("by_name").getValue().toString(), ds.child("conf_date").getValue().toString(), ds.child("conf_venue").getValue().toString(), ds.child("conf_img_url").getValue().toString(), ds.child("created_date").getValue().toString()));
                     }
                 }
 
