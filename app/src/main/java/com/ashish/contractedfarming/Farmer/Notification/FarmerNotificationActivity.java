@@ -110,7 +110,7 @@ public class FarmerNotificationActivity extends AppCompatActivity {
                     //DataSnapshot sender_snaps= snapshot.child("all-users").child()
                     list= new ArrayList<>();
                     for (DataSnapshot ds : notification_snaps.getChildren()) {
-                        list.add(new FarmerNotificationModel(snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("usertype").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("username").getValue().toString(), ds.child("message").getValue().toString(), ds.child("date_created").getValue().toString(), ds.child("type").getValue().toString()));
+                        list.add(new FarmerNotificationModel(ds.child("not_id").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("usertype").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("username").getValue().toString(), ds.child("message").getValue().toString(), ds.child("date_created").getValue().toString(), ds.child("type").getValue().toString(),ds.child("seen").getValue().toString()));
                     }
 
                     Collections.sort(list, new Comparator<FarmerNotificationModel>() {
@@ -127,7 +127,8 @@ public class FarmerNotificationActivity extends AppCompatActivity {
 
                     adapter.setOnItemClickListener(new FarmerNotificationAdapter.OnItemClickListener() {
                         @Override
-                        public void onItemClicked(String notification_type) {
+                        public void onItemClicked(String not_id,String notification_type) {
+                            reference.child("users").child("farmer").child(auth.getUid()).child("notifications").child(not_id).child("seen").setValue("true");
                             switch (notification_type) {
                                 case "farms":
                                     gotoHome("farms");

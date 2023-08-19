@@ -1,14 +1,24 @@
 package com.ashish.contractedfarming.Farmer.Notification;
 
 public class FarmerNotificationModel {
-    String creator_type,creator,message,date_created,type;
+    String not_id,creator_type,creator,message,date_created,type,seen;
 
-    public FarmerNotificationModel(String creator_type,String creator, String message, String date_created, String type) {
+    public FarmerNotificationModel(String not_id,String creator_type,String creator, String message, String date_created, String type,String seen) {
+        this.not_id=not_id;
         this.creator_type=creator_type;
         this.creator = creator;
         this.message = message;
         this.date_created = date_created;
         this.type = type;
+        this.seen=seen;
+    }
+
+    public String getNot_id() {
+        return not_id;
+    }
+
+    public void setNot_id(String not_id) {
+        this.not_id = not_id;
     }
 
     public String getCreator_type() {
@@ -49,5 +59,13 @@ public class FarmerNotificationModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getSeen() {
+        return seen;
+    }
+
+    public void setSeen(String seen) {
+        this.seen = seen;
     }
 }

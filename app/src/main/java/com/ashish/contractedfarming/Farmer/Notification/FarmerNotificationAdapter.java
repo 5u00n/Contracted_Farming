@@ -2,6 +2,7 @@ package com.ashish.contractedfarming.Farmer.Notification;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -58,6 +60,12 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
 
         holder.date.setText(new SimpleDateFormat("dd MMM yyyy hh:mm a").format(Long.parseLong(model.getDate_created()) * 1000L));
 
+        if(model.seen.equals("false")){
+            holder.ll.setBackgroundColor(Color.GRAY);
+        }else{
+            holder.ll.setBackgroundColor(Color.TRANSPARENT);
+        }
+
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +73,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
 
                 if (mListener != null) {
                     Log.d("Notification clicked",model.getType());
-                    mListener.onItemClicked(model.getType()); // Pass the ID or relevant data
+                    mListener.onItemClicked(model.getNot_id(),model.getType()); // Pass the ID or relevant data
                 }
 
             }
@@ -83,15 +91,19 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
         TextView creator, message, date;
         CardView cardView;
 
+        LinearLayout ll;
+
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.view_farmer_notification_cardview);
             creator = itemView.findViewById(R.id.view_farmer_notification_from);
             message = itemView.findViewById(R.id.view_farmer_notification_txt);
             date = itemView.findViewById(R.id.view_farmer_notification_date);
+
+            ll= itemView.findViewById(R.id.view_farmer_notification_ll);
         }
     }
     public interface OnItemClickListener {
-        void onItemClicked(String notification_type);
+        void onItemClicked(String not_id,String notification_type);
     }
 }
