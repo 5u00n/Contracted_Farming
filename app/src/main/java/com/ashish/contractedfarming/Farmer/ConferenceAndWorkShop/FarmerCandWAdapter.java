@@ -3,6 +3,8 @@ package com.ashish.contractedfarming.Farmer.ConferenceAndWorkShop;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,33 +59,62 @@ public class FarmerCandWAdapter extends RecyclerView.Adapter<FarmerCandWAdapter.
         holder.conf_address.setText(model.getConf_venue());
 
 
+        holder.share_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareIntent(model);
+            }
+        });
 
-        /*holder.cardView.setOnClickListener(new View.OnClickListener() {
+
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LayoutInflater li = LayoutInflater.from(context);
-                View promptsView = li.inflate(R.layout.popup_news, null);
+                View promptsView = li.inflate(R.layout.popup_conference, null);
 
 
-                TextView id, topic, date, data, imgurl;
+                TextView title, by,at,date;
                 ImageView imageView;
-                id = promptsView.findViewById(R.id.popup_news_id);
-                topic = promptsView.findViewById(R.id.popup_news_title);
-                date = promptsView.findViewById(R.id.popup_news_time);
-                data = promptsView.findViewById(R.id.popup_news_description);
+
+                ImageButton share,copy;
 
 
-                imageView = promptsView.findViewById(R.id.popup_news_img);
+                title = promptsView.findViewById(R.id.popup_conf_text_topic);
+                 by= promptsView.findViewById(R.id.popup_conf_text_by);
+                at = promptsView.findViewById(R.id.popup_conf_text_at);
+                date = promptsView.findViewById(R.id.popup_conf_text_date);
+
+
+                imageView = promptsView.findViewById(R.id.popup_conf_img);
+
+                share=promptsView.findViewById(R.id.popup_conf_img_button_share);
+                copy=promptsView.findViewById(R.id.popup_conf_img_button_copy);
+
+
+                share.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        shareIntent(model);
+
+                    }
+                });
 
 
 
-                data.setText(model.getData());
-                date.setText(new SimpleDateFormat("dd MMM yyyy hh:mm a").format(Long.parseLong(model.getDate()) * 1000L));
+                title.setText(model.getConf_topic());
+                date.setText(new SimpleDateFormat("dd MMM yyyy hh:mm a").format(Long.parseLong(model.getConf_date()) * 1000L));
 
-                Picasso.get().load(model.getImgurl()).into(imageView);
+                if(model.getConf_img_url()!=" ") {
+                    Picasso.get().load(model.getConf_img_url()).into(imageView);
+                }else {
+                    holder.conf_img.setImageResource(R.drawable.logo);
+                }
 
 
-                topic.setText(model.getTopic());
+                at.setText("On : "+model.getConf_venue());
+                by.setText("Hosted By : "+model.getBy_name());
                 //topic.setVisibility(View.GONE);
 
 
@@ -106,7 +137,7 @@ public class FarmerCandWAdapter extends RecyclerView.Adapter<FarmerCandWAdapter.
                 // show it
                 alertDialog.show();
             }
-        });*/
+        });
 
 
     }
@@ -135,5 +166,23 @@ public class FarmerCandWAdapter extends RecyclerView.Adapter<FarmerCandWAdapter.
             share_button = itemView.findViewById(R.id.view_conf_img_button_share);
             copy_button = itemView.findViewById(R.id.view_conf_img_button_share);
         }
+    }
+
+
+    public void shareIntent(ConferenceModel model){
+        //Uri imageUri = Uri.parse(pictureFile.getAbsolutePath());
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+        //Target whatsapp:
+        //shareIntent.setPackage("com.whatsapp");
+        //Add text and then Image URI
+        shareIntent.putExtra(Intent.EXTRA_TITLE, model.getConf_topic());
+        shareIntent.putExtra(Intent.EXTRA_TEXT,model.getConf_topic()+"\n"+ "By : "+model.getBy_name()+"\n"+ model.getConf_venue()+"\n"+ new SimpleDateFormat("dd MMM yyyy hh:mm a").format(Long.parseLong(model.getConf_date()) * 1000L));
+        //shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(model.getConf_img_url()));
+        //shareIntent.setData(Uri.parse(model.getConf_img_url()));
+        //shareIntent.setType("image/jpeg");
+        shareIntent.setType("text/plain");
+        //shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        context.startActivity(Intent.createChooser(shareIntent, model.getConf_topic()));
     }
 }

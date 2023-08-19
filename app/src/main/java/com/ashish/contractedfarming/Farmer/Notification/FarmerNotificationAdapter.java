@@ -61,7 +61,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
         holder.date.setText(new SimpleDateFormat("dd MMM yyyy hh:mm a").format(Long.parseLong(model.getDate_created()) * 1000L));
 
         if(model.seen.equals("false")){
-            holder.ll.setBackgroundColor(Color.GRAY);
+            holder.ll.setBackgroundResource(R.color.md_theme_dark_onSurfaceVariant);
         }else{
             holder.ll.setBackgroundColor(Color.TRANSPARENT);
         }

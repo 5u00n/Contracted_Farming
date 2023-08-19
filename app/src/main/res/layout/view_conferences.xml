@@ -95,6 +95,7 @@
             <ImageButton
                 android:id="@+id/view_conf_img_button_copy"
                 android:layout_width="40dp"
+                android:visibility="gone"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:src="@drawable/baseline_content_copy_24" />
