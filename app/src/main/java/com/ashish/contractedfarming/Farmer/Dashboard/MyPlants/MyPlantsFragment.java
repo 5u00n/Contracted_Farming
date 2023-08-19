@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.FragmentHelper.FarmerFragmentMyPlantsAdapter;
 import com.ashish.contractedfarming.Models.FarmerPlantModel;
@@ -41,6 +42,8 @@ public class MyPlantsFragment extends Fragment {
 
     ArrayList<FarmerPlantModel> farmerPlantModelArrayList;
 
+    CheckBox all,accepted,on_hold,rejected;
+
 
     public MyPlantsFragment() {
     }
@@ -52,6 +55,10 @@ public class MyPlantsFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_my_plants, container, false);
 
         recyclerView=v.findViewById(R.id.farmer_my_plant_fragment_recycle_view);
+        all=v.findViewById(R.id.farmer_my_plant_fragment_all_checkbox);
+        accepted=v.findViewById(R.id.farmer_my_plant_fragment_accepted_checkbox);
+        on_hold=v.findViewById(R.id.farmer_my_plant_fragment_on_hold_checkbox);
+        rejected=v.findViewById(R.id.farmer_my_plant_fragment_rejected_checkbox);
         auth=FirebaseAuth.getInstance();
         database= FirebaseDatabase.getInstance();
         reference= database.getReference();

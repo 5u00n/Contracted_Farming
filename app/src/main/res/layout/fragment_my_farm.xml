@@ -17,6 +17,7 @@
 
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginTop="90dp"
@@ -29,26 +30,15 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="All"
-            android:id="@+id/farmer_my_farm_fragment_all_checkbox"/>
+            android:text="Has Plant"
+            android:id="@+id/farmer_my_farm_fragment_has_plant_checkbox"/>
         <CheckBox
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Accepted"
-            android:id="@+id/farmer_my_farm_fragment_accepted_checkbox"/>
-        <CheckBox
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="On Hold"
-            android:id="@+id/farmer_my_farm_fragment_on_hold_checkbox"/>
-        <CheckBox
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rejected"
-            android:id="@+id/farmer_my_farm_fragment_rejected_checkbox"/>
+            android:text="Has No Plant"
+            android:id="@+id/farmer_my_farm_fragment_no_plant_checkbox"/>
+
 
     </LinearLayout>
 
