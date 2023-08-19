@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.PlantPopUp.PlantPopViewPagerAdapter;
+import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
 import com.ashish.contractedfarming.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -51,6 +52,7 @@ public class FarmerExplorePlantsActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(getBaseContext(), FarmerDashboardActivity.class).putExtra("tab_open","plants"));
                 finish();
             }
         });
