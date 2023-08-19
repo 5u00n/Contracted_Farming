@@ -4,9 +4,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
+import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.ExplorePlantsFragment;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyPlants.FragmentHelper.FarmerFragmentMyPlantsAdapter;
 import com.ashish.contractedfarming.Models.FarmerPlantModel;
 import com.ashish.contractedfarming.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,6 +48,8 @@ public class MyPlantsFragment extends Fragment {
 
     CheckBox all,accepted,on_hold,rejected;
 
+    FloatingActionButton floatingActionButton;
+
 
     public MyPlantsFragment() {
     }
@@ -53,6 +59,8 @@ public class MyPlantsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_my_plants, container, false);
+
+        floatingActionButton=v.findViewById(R.id.farmer_my_plant_fragment_add_floating_action_button);
 
         recyclerView=v.findViewById(R.id.farmer_my_plant_fragment_recycle_view);
         all=v.findViewById(R.id.farmer_my_plant_fragment_all_checkbox);
@@ -99,6 +107,14 @@ public class MyPlantsFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewPager vp=getActivity().findViewById(R.id.farmer_view_pager);
+                vp.setCurrentItem(2);
             }
         });
         return v;
