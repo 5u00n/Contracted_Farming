@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ashish.contractedfarming.Models.ChatUsersModel;
+import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.R;
 import com.squareup.picasso.Picasso;
 
@@ -25,6 +26,16 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.viewHo
     ArrayList<ChatUsersModel> chatUsersModelArrayList;
 
     private OnItemClickListener mListener;
+    public void filterList(ArrayList<ChatUsersModel> filterlist) {
+        // below line is to add our filtered
+        // list in our course array list.
+        chatUsersModelArrayList = filterlist;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
+    }
+
+
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
@@ -52,7 +63,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.viewHo
         holder.id.setText(chatUsersModel.getId());
         holder.name.setText(chatUsersModel.getName());
         holder.status.setText(chatUsersModel.getStatus());
-
+        holder.user_img.setImageResource(R.drawable.logo);
         if(chatUsersModel.getImage()==null || chatUsersModel.getImage().equals("") || chatUsersModel.getImage().equals(" ")) {
             holder.user_img.setImageResource(R.drawable.logo);
         }else {

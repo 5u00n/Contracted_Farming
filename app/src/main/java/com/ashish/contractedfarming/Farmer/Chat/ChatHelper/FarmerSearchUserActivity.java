@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.ashish.contractedfarming.Farmer.News.FarmerNewsActivity;
 import com.ashish.contractedfarming.Farmer.News.FarmerNewsAdapter;
 import com.ashish.contractedfarming.Models.ChatUsersModel;
+import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -162,6 +163,62 @@ public class FarmerSearchUserActivity extends AppCompatActivity {
                     farmerRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
                     managerRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
                     adminRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+
+
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String query) {
+                            return false;
+                        }
+
+
+
+                        @Override
+                        public boolean onQueryTextChange(String newText) {
+
+                            ArrayList<ChatUsersModel> filteredlistFramer = new ArrayList<>();
+                            ArrayList<ChatUsersModel> filteredlistManager = new ArrayList<>();
+                            ArrayList<ChatUsersModel> filteredlistAdmin = new ArrayList<>();
+
+                            // running a for loop to compare elements.
+                            for (ChatUsersModel item :farmerArrayList ) {
+                                // checking if the entered string matched with any item of our recycler view.
+                                if (item.getName().toLowerCase().contains(newText.toLowerCase())) {
+                                    // if the item is matched we are
+                                    // adding it to our filtered list.
+                                    filteredlistFramer.add(item);
+                                }
+                            }
+                                for (ChatUsersModel item :managerArrayList ) {
+                                    // checking if the entered string matched with any item of our recycler view.
+                                    if (item.getName().toLowerCase().contains(newText.toLowerCase())) {
+                                        // if the item is matched we are
+                                        // adding it to our filtered list.
+                                        filteredlistManager.add(item);
+                                    }
+                                }
+                                    for (ChatUsersModel item :adminArrayList ) {
+                                        // checking if the entered string matched with any item of our recycler view.
+                                        if (item.getName().toLowerCase().contains(newText.toLowerCase())) {
+                                            // if the item is matched we are
+                                            // adding it to our filtered list.
+                                            filteredlistAdmin.add(item);
+                                        }
+                            }
+                            if (!filteredlistFramer.isEmpty()) {
+                                farmerAdapter.filterList(filteredlistFramer);
+                            }
+                            if (!filteredlistManager.isEmpty()) {
+                                managerAdapter.filterList(filteredlistManager);
+                            }
+                            if (!filteredlistAdmin.isEmpty()) {
+                                adminAdapter.filterList(filteredlistAdmin);
+                            }
+
+
+                            return false;
+                        }
+                    });
 
                     farmerRecycler.setAdapter(farmerAdapter);
                     managerRecycler.setAdapter(managerAdapter);

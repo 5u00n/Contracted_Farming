@@ -248,6 +248,10 @@ public class FarmerChatActivity extends AppCompatActivity {
                 auth.signOut();
                 startActivity(new Intent(context, MainActivity.class));
                 finish();
+
+            case R.id.menu_search:
+                startActivityForResult(new Intent(context, FarmerSearchUserActivity.class),2006);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
