@@ -26,10 +26,8 @@ public class AdminMessageAdpter extends FragmentPagerAdapter {
 
         switch(position){
             case 0:
-                return new AdminChatRequestFragment();
-            case 1:
                 return new AdminChatListFragment();
-            case 2:
+            case 1:
                 return new AdminChatStatusFragment();
 
         }

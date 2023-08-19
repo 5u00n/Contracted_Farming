@@ -1,5 +1,6 @@
 package com.ashish.contractedfarming.Admin.Chat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,10 +9,14 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
 import com.ashish.contractedfarming.Admin.Notification.AdminNotificationActivity;
+import com.ashish.contractedfarming.Farmer.Chat.ChatHelper.FarmerSearchUserActivity;
+import com.ashish.contractedfarming.Farmer.Chat.ChatHelper.FarmerSpecificChatActivity;
+import com.ashish.contractedfarming.Farmer.Chat.FarmerChatActivity;
 import com.ashish.contractedfarming.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -24,21 +29,35 @@ public class AdminMessageActivity extends AppCompatActivity {
     TabLayout tabLayout, tabLayoutNav;
     ViewPager viewPager;
 
+    Context context;
+
     FirebaseDatabase database;
     DatabaseReference reference;
 
     FloatingActionButton floatingActionButton;
+    AdminMessageAdpter adminMessageAdpter;
+
+    ImageView message, noti, home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_message);
+        context=getBaseContext();
 
-        ImageView message, noti, home;
+
         message = findViewById(R.id.admin_message_tab);
         noti = findViewById(R.id.admin_notification_tab);
         home = findViewById(R.id.admin_home_tab);
         floatingActionButton= findViewById(R.id.admin_addchat_floating);
+
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(context, FarmerSearchUserActivity.class),2006);
+            }
+        });
 
 
         message.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
@@ -71,17 +90,16 @@ public class AdminMessageActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.admin_message_view_pager);
 
         TabLayout tabLayout = findViewById(R.id.admin_message_tabs_layout);
-
-        tabLayout.addTab(tabLayout.newTab().setText("Request"));
         tabLayout.addTab(tabLayout.newTab().setText("Chats"));
         tabLayout.addTab(tabLayout.newTab().setText("Status"));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
-        viewPager.setAdapter(new AdminMessageAdpter(getSupportFragmentManager(), tabLayout.getTabCount()));
+        adminMessageAdpter= new AdminMessageAdpter(getSupportFragmentManager(), tabLayout.getTabCount());
+
+        viewPager.setAdapter(adminMessageAdpter);
         viewPager.getCurrentItem();
-        viewPager.setCurrentItem(1);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -141,5 +159,18 @@ public class AdminMessageActivity extends AppCompatActivity {
 
     }
     */
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if(requestCode==2006 && resultCode==2006){
+        String receiver_id=data.getStringExtra("receiver_id");
+        startActivity(new Intent(AdminMessageActivity.this, FarmerSpecificChatActivity.class).putExtra("receiver_id",receiver_id));
+    }
+
+    //Log.d("Image data  ", String.valueOf(data));
+}
+
+
 
 }

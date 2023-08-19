@@ -61,7 +61,6 @@ public class FarmerChatActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference reference;
-    ArrayList<ChatUsersModel> firebaseModels;
 
     ArrayList<ChatUsersModel> chatUsersModelArrayList;
 

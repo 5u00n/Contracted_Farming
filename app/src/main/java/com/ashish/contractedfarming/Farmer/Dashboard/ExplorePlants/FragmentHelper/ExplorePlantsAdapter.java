@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ashish.contractedfarming.Farmer.Chat.ChatHelper.ChatUserAdapter;
 import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.PlantAddition.FarmerExplorePlantsActivity;
 import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.R;
@@ -69,13 +70,10 @@ public class ExplorePlantsAdapter extends RecyclerView.Adapter<ExplorePlantsAdap
             @Override
             public void onClick(View view) {
                 //Toast.makeText(context, holder.name.getText(), Toast.LENGTH_SHORT).show();
+                if (mListener != null) {
+                    mListener.onItemClicked(model); // Pass the ID or relevant data
 
-                Intent i = new Intent(context, FarmerExplorePlantsActivity.class);
-                i.putExtra("plant_id",model.getId());
-                i.putExtra("plant_url",model.getImgurl());
-                i.putExtra("plant_name",model.getName());
-                context.startActivity(i);
-
+                }
 
             }
         });
@@ -101,9 +99,6 @@ public class ExplorePlantsAdapter extends RecyclerView.Adapter<ExplorePlantsAdap
         public viewHolder(@NonNull View itemView) {
             super(itemView);
 
-
-
-
             cardView= itemView.findViewById(R.id.view_plant_main_layout);
             id= itemView.findViewById(R.id.farmer_plant_id);
             name= itemView.findViewById(R.id.farmer_plant_name_text);
@@ -113,5 +108,15 @@ public class ExplorePlantsAdapter extends RecyclerView.Adapter<ExplorePlantsAdap
 
 
         }
+    }
+
+    private ExplorePlantsAdapter.OnItemClickListener mListener;
+
+    public void setOnItemClickListener(ExplorePlantsAdapter.OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClicked(PlantModel model);
     }
 }

@@ -1,6 +1,7 @@
 package com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.FragmentHelper.ExplorePlantsAdapter;
+import com.ashish.contractedfarming.Farmer.Dashboard.ExplorePlants.PlantAddition.FarmerExplorePlantsActivity;
 import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -137,6 +139,19 @@ public class ExplorePlantsFragment extends Fragment {
                             return false;
                         }
                     });
+
+                     adapter[0].setOnItemClickListener(new ExplorePlantsAdapter.OnItemClickListener() {
+                         @Override
+                         public void onItemClicked(PlantModel model) {
+                             Intent i = new Intent(context, FarmerExplorePlantsActivity.class);
+                             i.putExtra("plant_id",model.getId());
+                             i.putExtra("plant_url",model.getImgurl());
+                             i.putExtra("plant_name",model.getName());
+                             context.startActivity(i);
+                             getActivity().finish();
+
+                         }
+                     });
                 }
 
             }

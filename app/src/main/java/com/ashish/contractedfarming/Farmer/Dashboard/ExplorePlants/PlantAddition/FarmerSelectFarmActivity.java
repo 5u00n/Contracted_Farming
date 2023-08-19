@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
 import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
 import com.ashish.contractedfarming.Models.FarmerPlantModel;
 import com.ashish.contractedfarming.Models.PlantModel;
@@ -306,6 +307,7 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
                                 reference.child("farmer_plants").child(auth.getUid()).child("farmer-plants_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_"+time_stamp).setValue(new FarmerPlantModel("farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_"+time_stamp,plot_ids.get(i),plant_id,"waiting","waiting","waiting",time_stamp,"Waiting","Waiting",plant_img_url,plant_name,plot_urls.get(i),plot_names.get(i)));
                             }
                             dialog.dismiss();
+                            startActivity(new Intent(getBaseContext(), FarmerDashboardActivity.class).putExtra("tab_open","farmer_plants"));
                             finish();
 
                         }
