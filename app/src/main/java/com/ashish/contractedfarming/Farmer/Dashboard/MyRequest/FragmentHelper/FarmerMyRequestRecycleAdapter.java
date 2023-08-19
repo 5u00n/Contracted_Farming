@@ -40,7 +40,8 @@ public class FarmerMyRequestRecycleAdapter extends RecyclerView.Adapter<FarmerMy
     public void onBindViewHolder(@NonNull FarmerMyRequestRecycleAdapter.viewHolder holder, int position) {
         RequestModel model = list.get(position);
 
-        holder.type.setText("REQUEST TYPE :   "+model.getType().replace("_request","").toUpperCase());
+        String[] req_type=model.getType().toUpperCase().split("_");
+        holder.type.setText("REQUEST TYPE :   "+req_type[0]+" ( "+req_type[2]+" ) ");
         holder.sent_to.setText("SENT TO : "+model.getSend_to().toUpperCase());
         holder.date.setText("DATE :  "+ new SimpleDateFormat("dd MMM yyyy").format(Long.parseLong(model.getDate_of_creation()) * 1000L));
         holder.id.setText(model.getId());
