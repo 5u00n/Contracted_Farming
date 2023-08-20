@@ -207,8 +207,8 @@ public class FarmerHomeFragment extends Fragment {
                     if (snapshot.child("users").child("farmer").child(auth.getUid()).child("farmer_plants").exists()) {
                         initMyPlants(snapshot.child("users").child("farmer").child(auth.getUid()).child("farmer_plants"));
                     }
-                    if (snapshot.child("Story").child(auth.getUid()).exists()) {
-                        initStory(snapshot.child("Story").child(auth.getUid()));
+                    if (snapshot.child("Story").hasChildren()) {
+                        initStory(snapshot.child("Story"));
                     }
                 }
             }
@@ -275,17 +275,20 @@ public class FarmerHomeFragment extends Fragment {
         myFarmRv.setAdapter(adapter4);
     }
 
-    public void initStory(DataSnapshot storyDS) {
-
-
+    public void initStory(DataSnapshot usersDS) {
         farmerstoryList = new ArrayList<>();
         ArrayList<String> userCheck = new ArrayList<>();
-        if (storyDS.hasChildren())
-            for (DataSnapshot ds : storyDS.getChildren()) {
-                if (!userCheck.contains(ds.child("username").getValue().toString())) {
-                    farmerstoryList.add(new FarmerStoryModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("user_img_url").getValue().toString(), ds.child("img_url").getValue().toString(), ds.child("story_text").getValue().toString(), ds.child("story_time").getValue().toString()));
-                    userCheck.add(ds.child("username").getValue().toString());
+        if (usersDS.hasChildren())
+            for (DataSnapshot ds_U : usersDS.getChildren()) {
+                if(ds_U.hasChildren()){
+                    for(DataSnapshot ds:ds_U.getChildren()){
+                        if (!userCheck.contains(ds.child("username").getValue().toString())) {
+                            farmerstoryList.add(new FarmerStoryModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("user_img_url").getValue().toString(), ds.child("img_url").getValue().toString(), ds.child("story_text").getValue().toString(), ds.child("story_time").getValue().toString()));
+                            userCheck.add(ds.child("username").getValue().toString());
+                        }
+                    }
                 }
+
             }
 
         FarmerStoryAdapter adapter1 = new FarmerStoryAdapter(farmerstoryList, context);

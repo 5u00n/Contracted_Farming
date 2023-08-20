@@ -14,7 +14,7 @@
                 android:layout_height="match_parent"
                 android:paddingHorizontal="25dp"
                 android:paddingVertical="15dp"
-                android:text="Select Plants from Below"
+                android:text="Select Plants"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
