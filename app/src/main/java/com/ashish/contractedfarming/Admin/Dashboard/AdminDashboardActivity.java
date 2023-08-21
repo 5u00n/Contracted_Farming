@@ -17,6 +17,7 @@ import com.ashish.contractedfarming.Admin.Chat.AdminMessageActivity;
 import com.ashish.contractedfarming.Admin.Notification.AdminNotificationActivity;
 import com.ashish.contractedfarming.R;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,6 +37,8 @@ public class AdminDashboardActivity extends AppCompatActivity {
     CardView farmer,agent;
     ImageView message, noti, home;
 
+    FirebaseAuth auth;
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -43,6 +46,10 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference();
+
+        auth=FirebaseAuth.getInstance();
+
+        database.getReference().child("all-users").child(auth.getUid()).child("online_status").setValue("online");
 
 
         tabLayout = findViewById(R.id.tabs_layout);
@@ -87,7 +94,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Plant"));
         tabLayout.addTab(tabLayout.newTab().setText("Farmer"));
         tabLayout.addTab(tabLayout.newTab().setText("Manager"));
-        tabLayout.addTab(tabLayout.newTab().setText("Conf.."));
+        tabLayout.addTab(tabLayout.newTab().setText("Conference"));
 
         tabLayout.addTab(tabLayout.newTab().setText("Requests"));
 
@@ -136,5 +143,25 @@ public class AdminDashboardActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+       // database.getReference().child("all-users").child(auth.getUid()).child("online_status").setValue("online");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+       // database.getReference().child("all-users").child(auth.getUid()).child("online_status").setValue("offline");
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("offline");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("online");
     }
 }

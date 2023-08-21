@@ -98,6 +98,8 @@ public class FarmerChatActivity extends AppCompatActivity {
         database= FirebaseDatabase.getInstance();
         reference=database.getReference();
 
+        reference.child("all-users").child(auth.getUid()).child("online_status").setValue("online");
+
         initBottomNav();
         initAddChats();
         initChats();
@@ -254,5 +256,17 @@ public class FarmerChatActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("offline");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("online");
     }
 }

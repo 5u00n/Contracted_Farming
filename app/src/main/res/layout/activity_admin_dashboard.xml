@@ -12,7 +12,13 @@
         app:tabTextAppearance="@style/MineCustomTabText"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabMode="auto"
+        app:tabContentStart="30dp"
+        app:tabPaddingEnd="20dp"
+        app:tabPaddingStart="20dp"
+        app:tabMinWidth="100dp"
+        app:tabIndicatorColor="@android:color/transparent"/>
 
 
     <androidx.viewpager.widget.ViewPager

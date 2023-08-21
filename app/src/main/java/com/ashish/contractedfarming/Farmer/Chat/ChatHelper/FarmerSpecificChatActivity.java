@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,7 +53,7 @@ public class FarmerSpecificChatActivity extends AppCompatActivity {
     CardView send_message_cardview;
     androidx.appcompat.widget.Toolbar toolbar_of_specific_chat;
     ImageView specific_user_image;
-    TextView specific_username;
+    TextView specific_username,specific_status;
 
     private String entered_message;
     Intent intent;
@@ -107,6 +108,7 @@ public class FarmerSpecificChatActivity extends AppCompatActivity {
         send_message_button = findViewById(R.id.imageviewsendmessage);
         toolbar_of_specific_chat = findViewById(R.id.toolbarofspecificchat);
         specific_username = findViewById(R.id.Nameofspecificuser);
+        specific_status=findViewById(R.id.Statusofspeficuser);
         specific_user_image = findViewById(R.id.specificuserimageinimageview);
         back_button_specific_chat = findViewById(R.id.backbuttonofspecificchat);
 
@@ -145,6 +147,7 @@ public class FarmerSpecificChatActivity extends AppCompatActivity {
 
 
         DatabaseReference databaseReference = firebaseDatabase.getReference( );
+        firebaseDatabase.getReference().child("all-users").child(firebaseAuth.getUid()).child("online_status").setValue("online");
         DatabaseReference chatReference= databaseReference.child("chats").child(sender_room).child("messages");
 
         messagesAdapter = new MessagesAdapter(context, messagesArrayList);
@@ -155,6 +158,15 @@ public class FarmerSpecificChatActivity extends AppCompatActivity {
 
                 DataSnapshot usersSnapshot= snapshot.child("all-users").child(receiver_uid);
                 specific_username.setText(usersSnapshot.child("username").getValue().toString());
+                String status=usersSnapshot.child("online_status").getValue().toString();
+                specific_status.setText(status);
+                if(status.equals("online")){
+                    //specific_status.setTextColor(Color.parseColor("#86D992"));
+                    specific_status.setTextColor(Color.BLACK);
+                }else {
+                    specific_status.setTextColor(Color.GRAY);
+                }
+
                 if(!usersSnapshot.child("img_url").exists() || usersSnapshot.child("img_url").getValue().toString().equals("") || usersSnapshot.child("img_url").getValue().toString().equals(" ")) {
                     specific_user_image.setImageResource(R.drawable.logo);
                 }else {
@@ -239,6 +251,7 @@ public class FarmerSpecificChatActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         messagesAdapter.notifyDataSetChanged();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("online");
     }
 
     @Override
@@ -248,6 +261,15 @@ public class FarmerSpecificChatActivity extends AppCompatActivity {
             messagesAdapter.notifyDataSetChanged();
         }
     }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("offline");
+    }
+
+
 
 
 

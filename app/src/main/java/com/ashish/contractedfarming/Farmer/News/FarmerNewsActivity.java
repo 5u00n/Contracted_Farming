@@ -232,4 +232,17 @@ public class FarmerNewsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseDatabase.getInstance().getReference("all-users").child(auth.getUid()).child("online_status").setValue("offline");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseDatabase.getInstance().getReference("all-users").child(auth.getUid()).child("online_status").setValue("online");
+    }
 }

@@ -153,6 +153,8 @@ public class AdminSpecificChatActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+
+        firebaseDatabase.getReference().child("all-users").child(firebaseAuth.getUid()).child("online_status").setValue("online");
         calendar = Calendar.getInstance();
         simpleDateFormat = new SimpleDateFormat("hh:mm a");
 

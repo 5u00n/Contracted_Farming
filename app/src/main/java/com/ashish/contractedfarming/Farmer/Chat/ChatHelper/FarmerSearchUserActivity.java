@@ -60,6 +60,8 @@ public class FarmerSearchUserActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("all-users");
+
+        database.getReference().child("all-users").child(auth.getUid()).child("online_status").setValue("online");
         searchView = findViewById(R.id.farmer_search_user_search_button);
 
         initNavbar();
@@ -117,14 +119,17 @@ public class FarmerSearchUserActivity extends AppCompatActivity {
 
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         if(!ds.child("userUID").getValue().toString().equals(auth.getUid())) {
-                            if (ds.child("usertype").getValue().toString().contains("farmer")) {
-                                farmerArrayList.add(new ChatUsersModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("img_url").getValue().toString(), ds.child("online_status").getValue().toString()));
-                            }
-                            if (ds.child("usertype").getValue().toString().equals("manager")) {
-                                managerArrayList.add(new ChatUsersModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("img_url").getValue().toString(), ds.child("online_status").getValue().toString()));
-                            }
-                            if (ds.child("usertype").getValue().toString().contains("admin")) {
-                                adminArrayList.add(new ChatUsersModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("img_url").getValue().toString(), ds.child("online_status").getValue().toString()));
+
+                            if (ds.child("usertype").exists()) {
+                                if (ds.child("usertype").getValue().toString().contains("farmer")) {
+                                    farmerArrayList.add(new ChatUsersModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("img_url").getValue().toString(), ds.child("online_status").getValue().toString()));
+                                }
+                                if (ds.child("usertype").getValue().toString().equals("manager")) {
+                                    managerArrayList.add(new ChatUsersModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("img_url").getValue().toString(), ds.child("online_status").getValue().toString()));
+                                }
+                                if (ds.child("usertype").getValue().toString().contains("admin")) {
+                                    adminArrayList.add(new ChatUsersModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("img_url").getValue().toString(), ds.child("online_status").getValue().toString()));
+                                }
                             }
                         }
                     }
@@ -238,4 +243,19 @@ public class FarmerSearchUserActivity extends AppCompatActivity {
         super.onBackPressed();
         setResult(0);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("offline");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("online");
+    }
+
+
+
 }

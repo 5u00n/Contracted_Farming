@@ -1,6 +1,7 @@
 package com.ashish.contractedfarming.Farmer.Chat.ChatHelper;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +63,15 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.viewHo
 
         holder.id.setText(chatUsersModel.getId());
         holder.name.setText(chatUsersModel.getName());
+
+
         holder.status.setText(chatUsersModel.getStatus());
+        if(chatUsersModel.getStatus().equals("online")){
+            holder.status.setTextColor( Color.parseColor("#86D992"));
+        }else {
+            holder.status.setTextColor(Color.GRAY);
+        }
+
         holder.user_img.setImageResource(R.drawable.logo);
         if(chatUsersModel.getImage()==null || chatUsersModel.getImage().equals("") || chatUsersModel.getImage().equals(" ")) {
             holder.user_img.setImageResource(R.drawable.logo);

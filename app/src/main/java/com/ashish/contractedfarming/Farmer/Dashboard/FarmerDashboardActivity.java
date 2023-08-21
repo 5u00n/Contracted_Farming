@@ -98,6 +98,8 @@ public class FarmerDashboardActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
 
+        databaseReference.child("all-users").child(auth.getUid()).child("online_status").setValue("online");
+
         tabLayout = findViewById(R.id.farmer_tabs_layout);
         viewPager = findViewById(R.id.farmer_view_pager);
 
@@ -325,5 +327,15 @@ public class FarmerDashboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("offline");
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("online");
+    }
 }

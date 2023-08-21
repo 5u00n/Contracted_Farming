@@ -20,6 +20,7 @@ import com.ashish.contractedfarming.Farmer.Chat.FarmerChatActivity;
 import com.ashish.contractedfarming.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,6 +38,8 @@ public class AdminMessageActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     AdminMessageAdpter adminMessageAdpter;
 
+    FirebaseAuth auth;
+
     ImageView message, noti, home;
 
     @Override
@@ -44,6 +47,10 @@ public class AdminMessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_message);
         context=getBaseContext();
+
+        database=FirebaseDatabase.getInstance();
+        auth= FirebaseAuth.getInstance();
+        database.getReference().child("all-users").child(auth.getUid()).child("online_status").setValue("online");
 
 
         message = findViewById(R.id.admin_message_tab);
@@ -171,6 +178,30 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     //Log.d("Image data  ", String.valueOf(data));
 }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //database.getReference().child("all-users").child(auth.getUid()).child("online_status").setValue("offline");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //database.getReference().child("all-users").child(auth.getUid()).child("online_status").setValue("offline");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("offline");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("online");
+    }
 
 
 }
