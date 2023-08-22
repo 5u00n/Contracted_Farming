@@ -42,8 +42,11 @@ public class FragmentManagerProfileIdentity extends Fragment {
             Picasso.get().load(snapshot.child("verification").child("pan_url").getValue().toString()).into(pan_img);
         }
 
-        aadhaar_no.setText("Aadhaar No. :"+snapshot.child("verification").child("aadhaar_no").getValue().toString());
-        pan_no.setText("PAN no. :"+snapshot.child("verification").child("pan_no").getValue().toString());
+        if(snapshot.child("verification").exists()) {
+            aadhaar_no.setText("Aadhaar No. :" + snapshot.child("verification").child("aadhaar_no").getValue().toString());
+            pan_no.setText("PAN no. :" + snapshot.child("verification").child("pan_no").getValue().toString());
+
+        }
 
         return v;
 

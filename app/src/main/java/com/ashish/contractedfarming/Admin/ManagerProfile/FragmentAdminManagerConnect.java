@@ -58,7 +58,13 @@ public class FragmentAdminManagerConnect extends Fragment {
 
                             if (ds.child("approved_num").exists()) {
                                 if (Integer.parseInt(ds.child("approved_num").getValue().toString()) < 2) {
-                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+
+                                    AdminManagerModel model;
+                                    model= new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), "", ds.child("img_url").getValue().toString());
+                                    if(ds.child("address").child("village").exists()){
+                                        model.setPlace(ds.child("address").child("village").getValue().toString());
+                                    }
+                                    arrayList.add(model);
                                 }
                             }
                         }

@@ -54,12 +54,15 @@ public class FragmentMangerProfileInfo extends Fragment {
         name.setText(snapshot.child("username").getValue().toString());
         id.setText(snapshot.child("userUID").getValue().toString());
         mob_no.setText(snapshot.child("mob_no").getValue().toString());
-        vill.setText("Village :   "+snapshot.child("address").child("village").getValue().toString());
-        cir.setText("Circle :   "+snapshot.child("address").child("circle").getValue().toString());
-        taluka.setText("Taluka :   "+snapshot.child("address").child("taluka").getValue().toString());
-        dist.setText("District :   "+snapshot.child("address").child("dist").getValue().toString());
-        stat.setText("State :   "+snapshot.child("address").child("state").getValue().toString());
-        pin.setText("PIN :   "+snapshot.child("address").child("pin").getValue().toString());
+
+        if(snapshot.child("address").exists()) {
+            vill.setText("Village :   " + snapshot.child("address").child("village").getValue().toString());
+            cir.setText("Circle :   " + snapshot.child("address").child("circle").getValue().toString());
+            taluka.setText("Taluka :   " + snapshot.child("address").child("taluka").getValue().toString());
+            dist.setText("District :   " + snapshot.child("address").child("dist").getValue().toString());
+            stat.setText("State :   " + snapshot.child("address").child("state").getValue().toString());
+            pin.setText("PIN :   " + snapshot.child("address").child("pin").getValue().toString());
+        }
 
         return v;
     }

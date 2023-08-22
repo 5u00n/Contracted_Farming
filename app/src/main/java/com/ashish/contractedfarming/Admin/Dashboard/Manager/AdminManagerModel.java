@@ -3,6 +3,8 @@ package com.ashish.contractedfarming.Admin.Dashboard.Manager;
 public class AdminManagerModel {
     String name, place, id,imgurl;
 
+    public AdminManagerModel() {
+    }
 
     public AdminManagerModel(String id, String name, String place, String imgurl) {
         this.name = name;
