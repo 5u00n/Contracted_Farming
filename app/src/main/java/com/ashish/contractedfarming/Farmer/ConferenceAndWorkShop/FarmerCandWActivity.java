@@ -47,7 +47,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class FarmerCandWActivity extends AppCompatActivity {
-    ListView lv;
     Context context;
 
 
