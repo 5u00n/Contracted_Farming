@@ -90,13 +90,12 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
         tabLayout.addTab(tabLayout.newTab().setText("All"));
         tabLayout.addTab(tabLayout.newTab().setText("News"));
-        //tabLayout.addTab(tabLayout.newTab().setText("Conference"));
+        tabLayout.addTab(tabLayout.newTab().setText("Conference"));
+        tabLayout.addTab(tabLayout.newTab().setText("Requests"));
         tabLayout.addTab(tabLayout.newTab().setText("Plant"));
         tabLayout.addTab(tabLayout.newTab().setText("Farmer"));
         tabLayout.addTab(tabLayout.newTab().setText("Manager"));
-        tabLayout.addTab(tabLayout.newTab().setText("Conference"));
 
-        tabLayout.addTab(tabLayout.newTab().setText("Requests"));
 
 
 
