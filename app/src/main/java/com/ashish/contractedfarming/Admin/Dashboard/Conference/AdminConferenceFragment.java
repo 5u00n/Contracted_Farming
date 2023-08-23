@@ -296,5 +296,5 @@ public class AdminConferenceFragment extends Fragment {
         return date;
     }
 
-}
+
 }
