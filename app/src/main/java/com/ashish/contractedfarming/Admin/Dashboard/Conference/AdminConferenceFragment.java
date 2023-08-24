@@ -3,6 +3,8 @@ package com.ashish.contractedfarming.Admin.Dashboard.Conference;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,8 +22,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 
 import com.ashish.contractedfarming.Admin.Dashboard.News.AdminNewsModel;
 import com.ashish.contractedfarming.Farmer.ConferenceAndWorkShop.FarmerCandWAdapter;
@@ -31,6 +36,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +47,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,6 +72,8 @@ public class AdminConferenceFragment extends Fragment {
     private static int PICK_IMAGE = 123;
     Uri imageUri = null;
 
+    ImageView imguri;
+
     public AdminConferenceFragment() {
     }
 
@@ -76,6 +85,7 @@ public class AdminConferenceFragment extends Fragment {
 
 
 
+        auth=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
         reference = database.getReference("conf-workshop");
@@ -165,7 +175,7 @@ public class AdminConferenceFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 LayoutInflater li = LayoutInflater.from(getContext());
-                View promptsView = li.inflate(R.layout.prompt_add_news, null);
+                View promptsView = li.inflate(R.layout.prompt_add_conf, null);
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -174,25 +184,93 @@ public class AdminConferenceFragment extends Fragment {
 
                 //final EditText userInput = (EditText) promptsView.findViewById(R.id.editTextDialogUserInput);
 
-                final EditText title, disc;
-                final ImageView imguri;
+                final EditText title, venue,host_name;
+                final Button select_date,select_time;
+
+                select_date =promptsView.findViewById(R.id.prompt_add_conf_date);
+                select_time =promptsView.findViewById(R.id.prompt_add_conf_time);
 
 
-                title = promptsView.findViewById(R.id.prompt_add_news_title);
-                disc = promptsView.findViewById(R.id.prompt_add_news_disc);
+                title = promptsView.findViewById(R.id.prompt_add_conf_title);
+                venue = promptsView.findViewById(R.id.prompt_add_conf_venue);
+                host_name = promptsView.findViewById(R.id.prompt_add_conf_host_name);
 
-                imguri = promptsView.findViewById(R.id.prompt_add_news_image);
+                imguri = promptsView.findViewById(R.id.prompt_add_conf_image);
 
 
                 imguri.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (imageUri != null) {
-                            imguri.setImageURI(imageUri);
-                        } else {
+                      //  if (imageUri != null) {
+                        //    imguri.setImageURI(imageUri);
+                       // } else {
                             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                             startActivityForResult(intent, PICK_IMAGE);
-                        }
+                        //}
+                    }
+                });
+
+
+                select_date.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final Calendar c = Calendar.getInstance();
+
+                        // on below line we are getting
+                        // our day, month and year.
+                        int year = c.get(Calendar.YEAR);
+                        int month = c.get(Calendar.MONTH);
+                        int day = c.get(Calendar.DAY_OF_MONTH);
+
+                        // on below line we are creating a variable for date picker dialog.
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                                // on below line we are passing context.
+                                context,
+                                new DatePickerDialog.OnDateSetListener() {
+                                    @Override
+                                    public void onDateSet(DatePicker view, int year,
+                                                          int monthOfYear, int dayOfMonth) {
+                                        // on below line we are setting date to our edit text.
+                                        select_date.setText(dayOfMonth + "-" + ((monthOfYear + 1)<10?"0"+(monthOfYear + 1):(monthOfYear + 1)) + "-" + year);
+
+                                    }
+                                },
+                                // on below line we are passing year,
+                                // month and day for selected date in our date picker.
+                                year, month, day);
+                        // at last we are calling show to
+                        // display our date picker dialog.
+                        datePickerDialog.show();
+                    }
+                });
+
+
+
+
+                select_time.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final Calendar c = Calendar.getInstance();
+
+                        // on below line we are getting
+                        // our day, month and year.
+                        int hour = c.get(Calendar.HOUR);
+                        int min = c.get(Calendar.MINUTE);
+
+
+                        TimePickerDialog timePickerDialog= new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                                if(i>12) {
+                                    select_time.setText((i-12<10?"0"+(i-12):(i-12)) + " : "+(i1<10?"0" + i1:i1)+ " PM");
+                                }else {
+                                    select_time.setText((i<10?"0"+1:i) + " : "+(i1<10?"0" + i1:i1)+ " AM");
+                                }
+                            }
+                        },hour,min,false);
+                        // on below line we are creating a variable for date picker dialog.
+
+                        timePickerDialog.show();
                     }
                 });
 
@@ -203,14 +281,25 @@ public class AdminConferenceFragment extends Fragment {
                         // get user input and set it to result
                         // edit text
                         //result.setText(userInput.getText());
-                        if ((title.getText().toString().isEmpty() || disc.getText().toString().isEmpty())) {
+                        if ((title.getText().toString().isEmpty() || venue.getText().toString().isEmpty()) || (host_name.getText().toString().isEmpty() || select_date.getText().toString().isEmpty()) || select_time.getText().toString().isEmpty()) {
                             // disable positive button
                             //dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                         } else {
                             // do something with the input
 
-                            Log.d("Dialog ", "__" + title.getText().length() + "--");
-                            sendImagetoStorage(new AdminNewsModel(String.valueOf((System.currentTimeMillis() / 1000)), title.getText().toString(), String.valueOf((System.currentTimeMillis() / 1000)), disc.getText().toString(), ""), imageUri);
+                            //Log.d("Dialog ", "__" + title.getText().length() + "--");
+
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH : mm a");
+                            long timestampSec=0;
+
+                            try {
+                                Date date = dateFormat.parse(select_date.getText().toString()+" "+select_time.getText().toString());
+                                timestampSec = date.getTime()/1000;
+                                sendImagetoStorage(new ConferenceModel("conf_"+auth.getUid()+"_"+String.valueOf((System.currentTimeMillis() / 1000)), title.getText().toString(), host_name.getText().toString(),String.valueOf(timestampSec),venue.getText().toString(),"",String.valueOf((System.currentTimeMillis() / 1000))), imageUri);
+                            } catch (ParseException e) {
+                                Log.d("Parsing Error ",e.toString());
+                            }
+
                         }
 
                     }
@@ -239,18 +328,19 @@ public class AdminConferenceFragment extends Fragment {
 
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
             imageUri = data.getData();
+            imguri.setImageURI(imageUri);
             Log.d("Img Uri ------", data.getData().toString());
         }
 
 
     }
 
-    private void sendImagetoStorage(AdminNewsModel pm, Uri imguri) {
+    private void sendImagetoStorage(ConferenceModel pm, Uri imguri) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         //StorageReference imageref = storageRef.child("Images").child(firebaseAuth.getUid()).child("Profile Pic");
 
-        StorageReference imageref = storageRef.child("ConferenceAndWorkshop").child(pm.getId()).child("image");
+        StorageReference imageref = storageRef.child("ConferenceAndWorkshop").child(pm.getConf_id()).child("image");
 
         UploadTask uploadTask = imageref.putFile(imguri);
         final Uri[] downloadUri = new Uri[1];
@@ -269,7 +359,7 @@ public class AdminConferenceFragment extends Fragment {
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
                     downloadUri[0] = task.getResult();
-                    pm.setImgurl(downloadUri[0].toString());
+                    pm.setConf_img_url(downloadUri[0].toString());
                     sendToRealtimeDatabase(pm);
 
                 } else {
@@ -282,10 +372,10 @@ public class AdminConferenceFragment extends Fragment {
 
     }
 
-    public void sendToRealtimeDatabase(AdminNewsModel pm) {
+    public void sendToRealtimeDatabase(ConferenceModel pm) {
         FirebaseDatabase storage = FirebaseDatabase.getInstance();
-        DatabaseReference reference = storage.getReference("news");
-        reference.child(pm.getId()).setValue(pm);
+        DatabaseReference reference = storage.getReference("conf-workshop");
+        reference.child(pm.getConf_id()).setValue(pm);
 
     }
 

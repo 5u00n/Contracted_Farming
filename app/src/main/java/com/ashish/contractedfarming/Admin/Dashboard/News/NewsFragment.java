@@ -48,6 +48,7 @@ public class
 NewsFragment extends Fragment {
     private static int PICK_IMAGE = 123;
     Uri imageUri = null;
+    ImageView imguri;
 
     public NewsFragment() {
 
@@ -104,7 +105,7 @@ NewsFragment extends Fragment {
                 //final EditText userInput = (EditText) promptsView.findViewById(R.id.editTextDialogUserInput);
 
                 final EditText title, disc;
-                final ImageView imguri;
+
 
 
                 title = promptsView.findViewById(R.id.prompt_add_news_title);
@@ -116,12 +117,10 @@ NewsFragment extends Fragment {
                 imguri.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (imageUri != null) {
-                            imguri.setImageURI(imageUri);
-                        } else {
+
                             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                             startActivityForResult(intent, PICK_IMAGE);
-                        }
+
                     }
                 });
 
@@ -232,7 +231,8 @@ NewsFragment extends Fragment {
 
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
             imageUri = data.getData();
-            Log.d("Img Uri ------", data.getData().toString());
+            imguri.setImageURI(imageUri);
+            //Log.d("Img Uri ------", data.getData().toString());
         }
 
 
