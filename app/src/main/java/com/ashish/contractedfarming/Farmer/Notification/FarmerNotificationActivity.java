@@ -284,13 +284,13 @@ public class FarmerNotificationActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        FirebaseDatabase.getInstance().getReference("all-users").child(auth.getUid()).child("online_status").setValue("offline");
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("offline");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseDatabase.getInstance().getReference("all-users").child(auth.getUid()).child("online_status").setValue("online");
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("online");
     }
 }
 

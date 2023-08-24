@@ -354,7 +354,7 @@ public class AdminConferenceFragment extends Fragment {
                                 //Log.d("Notifications Logs to all users","No new users ---  "+snapshotUsers.getKey());
                                 for (DataSnapshot snapshotI : snapshotUsers.getChildren()) {
                                     if (!auth.getUid().equals(snapshotI.child("userUID").getValue().toString())) {
-                                        referenceUsers.child("users").child(snapshotUsers.getKey()).child(snapshotI.child("userUID").getValue().toString()).child("notifications").child("noti_" + pm.getConf_id()).setValue(new NotificationModel("noti_" + pm.getConf_id(), "", auth.getUid(), "created a conference for that date : " + new SimpleDateFormat("dd MMM YYYY HH:mm a").format(Long.parseLong(pm.getConf_date()) * 1000) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "conference", "false"));
+                                        referenceUsers.child("users").child(snapshotUsers.getKey()).child(snapshotI.child("userUID").getValue().toString()).child("notifications").child("noti_" + pm.getConf_id()).setValue(new NotificationModel("noti_" + pm.getConf_id(), "", auth.getUid(), "created a conference for the date : " + new SimpleDateFormat("dd MMM YYYY HH:mm a").format(Long.parseLong(pm.getConf_date()) * 1000) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "conference", "false"));
                                         //Log.d("Notifications Logs to all users",snapshotI.getKey());
                                     }
                                 }

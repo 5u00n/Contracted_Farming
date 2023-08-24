@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -15,12 +18,31 @@ import android.widget.ImageView;
 import com.ashish.contractedfarming.Admin.AdminProfile.AdminProfileActivity;
 import com.ashish.contractedfarming.Admin.Chat.AdminMessageActivity;
 import com.ashish.contractedfarming.Admin.Notification.AdminNotificationActivity;
+import com.ashish.contractedfarming.Farmer.Dashboard.MyRequest.FragmentHelper.FarmerMyRequestRecycleAdapter;
+import com.ashish.contractedfarming.Models.RequestModel;
 import com.ashish.contractedfarming.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class AdminRequestActivity extends AppCompatActivity {
 
     ImageView message, request,noti, home,profile;
     Context context;
+
+
+    FirebaseAuth auth;
+    FirebaseDatabase database;
+    DatabaseReference reference;
+
+    ArrayList<RequestModel> requestModelArrayList;
+
+    RecyclerView recyclerView;
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +52,38 @@ public class AdminRequestActivity extends AppCompatActivity {
 
         context=getBaseContext();
         initNavBottom();
+
+
+
+        auth= FirebaseAuth.getInstance();
+        database= FirebaseDatabase.getInstance();
+        reference=database.getReference();
+
+        recyclerView= findViewById(R.id.admin_request_rv);
+
+        reference.child("requests").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                requestModelArrayList = new ArrayList<>();
+                if (snapshot.hasChildren())
+                    for (DataSnapshot fds : snapshot.getChildren()) {
+                        RequestModel fm = new RequestModel(fds.child("id").getValue().toString(), fds.child("send_to").getValue().toString(), fds.child("type").getValue().toString(), fds.child("date_of_creation").getValue().toString(), fds.child("checked").getValue().toString());
+
+                        requestModelArrayList.add(fm);
+                    }
+
+                FarmerMyRequestRecycleAdapter adapter1 = new FarmerMyRequestRecycleAdapter(requestModelArrayList, context);
+                LinearLayoutManager layoutManager1 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                recyclerView.setLayoutManager(layoutManager1);
+                recyclerView.setNestedScrollingEnabled(false);
+                recyclerView.setAdapter(adapter1);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
