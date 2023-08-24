@@ -8,17 +8,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ashish.contractedfarming.Admin.Dashboard.News.AdminNewsModel;
 import com.ashish.contractedfarming.Farmer.Chat.FarmerChatActivity;
 import com.ashish.contractedfarming.Farmer.ConferenceAndWorkShop.FarmerCandWActivity;
 import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
 import com.ashish.contractedfarming.Farmer.News.FarmerNewsActivity;
-import com.ashish.contractedfarming.Farmer.News.FarmerNewsAdapter;
 import com.ashish.contractedfarming.MainActivity;
+import com.ashish.contractedfarming.Models.NotificationModel;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -58,7 +56,7 @@ public class FarmerNotificationActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference reference;
-    ArrayList<FarmerNotificationModel> list ;
+    ArrayList<NotificationModel> list ;
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -107,12 +105,12 @@ public class FarmerNotificationActivity extends AppCompatActivity {
                     //DataSnapshot sender_snaps= snapshot.child("all-users").child()
                     list= new ArrayList<>();
                     for (DataSnapshot ds : notification_snaps.getChildren()) {
-                        list.add(new FarmerNotificationModel(ds.child("not_id").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("usertype").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("username").getValue().toString(), ds.child("message").getValue().toString(), ds.child("date_created").getValue().toString(), ds.child("type").getValue().toString(),ds.child("seen").getValue().toString()));
+                        list.add(new NotificationModel(ds.child("not_id").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("usertype").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("username").getValue().toString(), ds.child("message").getValue().toString(), ds.child("date_created").getValue().toString(), ds.child("type").getValue().toString(),ds.child("seen").getValue().toString()));
                     }
 
-                    Collections.sort(list, new Comparator<FarmerNotificationModel>() {
+                    Collections.sort(list, new Comparator<NotificationModel>() {
                         @Override
-                        public int compare(FarmerNotificationModel o1, FarmerNotificationModel o2) {
+                        public int compare(NotificationModel o1, NotificationModel o2) {
                             return o1.getDate_created().compareTo(o2.getDate_created());
                         }
                     });

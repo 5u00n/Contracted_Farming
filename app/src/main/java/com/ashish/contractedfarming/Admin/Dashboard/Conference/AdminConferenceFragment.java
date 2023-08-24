@@ -28,15 +28,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 
-import com.ashish.contractedfarming.Admin.Dashboard.News.AdminNewsModel;
 import com.ashish.contractedfarming.Farmer.ConferenceAndWorkShop.FarmerCandWAdapter;
+import com.ashish.contractedfarming.Models.NotificationModel;
 import com.ashish.contractedfarming.Models.ConferenceModel;
 import com.ashish.contractedfarming.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -83,16 +82,12 @@ public class AdminConferenceFragment extends Fragment {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_admin_conference, container, false);
 
-
-
         auth=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-
         reference = database.getReference("conf-workshop");
-        referenceUsers=database.getReference("users");
+
 
         context = getContext();
-
         dateToday= Calendar.getInstance();
 
 
@@ -121,7 +116,6 @@ public class AdminConferenceFragment extends Fragment {
                     }
                 }
 
-
                 Collections.sort(listToday, new Comparator<ConferenceModel>() {
                     @Override
                     public int compare(ConferenceModel o1, ConferenceModel o2) {
@@ -143,8 +137,6 @@ public class AdminConferenceFragment extends Fragment {
                     }
                 });
 
-
-
                 FarmerCandWAdapter adapterToday = new FarmerCandWAdapter(context, listToday);
                 FarmerCandWAdapter adapterUpcoming = new FarmerCandWAdapter(context, listUpcoming);
                 FarmerCandWAdapter adapterPast = new FarmerCandWAdapter(context, listPast);
@@ -161,8 +153,6 @@ public class AdminConferenceFragment extends Fragment {
                 recyclerViewToday.setAdapter(adapterToday);
                 recyclerViewUpcoming.setAdapter(adapterUpcoming);
                 recyclerViewPast.setAdapter(adapterPast);
-
-
             }
 
             @Override
@@ -209,8 +199,6 @@ public class AdminConferenceFragment extends Fragment {
                         //}
                     }
                 });
-
-
                 select_date.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -244,9 +232,6 @@ public class AdminConferenceFragment extends Fragment {
                     }
                 });
 
-
-
-
                 select_time.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -278,20 +263,11 @@ public class AdminConferenceFragment extends Fragment {
                 // set dialog message
                 alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // get user input and set it to result
-                        // edit text
-                        //result.setText(userInput.getText());
                         if ((title.getText().toString().isEmpty() || venue.getText().toString().isEmpty()) || (host_name.getText().toString().isEmpty() || select_date.getText().toString().isEmpty()) || select_time.getText().toString().isEmpty()) {
-                            // disable positive button
-                            //dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
                         } else {
-                            // do something with the input
-
-                            //Log.d("Dialog ", "__" + title.getText().length() + "--");
-
                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH : mm a");
                             long timestampSec=0;
-
                             try {
                                 Date date = dateFormat.parse(select_date.getText().toString()+" "+select_time.getText().toString());
                                 timestampSec = date.getTime()/1000;
@@ -315,13 +291,8 @@ public class AdminConferenceFragment extends Fragment {
                 alertDialog.show();
             }
         });
-
-
-
         return v;
     }
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // In fragment class callback
@@ -331,14 +302,11 @@ public class AdminConferenceFragment extends Fragment {
             imguri.setImageURI(imageUri);
             Log.d("Img Uri ------", data.getData().toString());
         }
-
-
     }
 
     private void sendImagetoStorage(ConferenceModel pm, Uri imguri) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
-        //StorageReference imageref = storageRef.child("Images").child(firebaseAuth.getUid()).child("Profile Pic");
 
         StorageReference imageref = storageRef.child("ConferenceAndWorkshop").child(pm.getConf_id()).child("image");
 
@@ -373,12 +341,34 @@ public class AdminConferenceFragment extends Fragment {
     }
 
     public void sendToRealtimeDatabase(ConferenceModel pm) {
-        FirebaseDatabase storage = FirebaseDatabase.getInstance();
-        DatabaseReference reference = storage.getReference("conf-workshop");
-        reference.child(pm.getConf_id()).setValue(pm);
+       reference.child(pm.getConf_id()).setValue(pm);
+       referenceUsers=database.getReference();
+        referenceUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshotAll) {
+                DataSnapshot snapshot=snapshotAll.child("users");
+                if(snapshot.exists()){
+                    for(DataSnapshot snapshotUsers: snapshot.getChildren()){
+                        if(snapshotUsers.hasChildren()){
+                            if(!snapshotUsers.getKey().contains("new-")) {
+                                //Log.d("Notifications Logs to all users","No new users ---  "+snapshotUsers.getKey());
+                                for (DataSnapshot snapshotI : snapshotUsers.getChildren()) {
+                                    if (!auth.getUid().equals(snapshotI.child("userUID").getValue().toString())) {
+                                        referenceUsers.child("users").child(snapshotUsers.getKey()).child(snapshotI.child("userUID").getValue().toString()).child("notifications").child("noti_" + pm.getConf_id()).setValue(new NotificationModel("noti_" + pm.getConf_id(), "", auth.getUid(), "created a conference for that date : " + new SimpleDateFormat("dd MMM YYYY HH:mm a").format(Long.parseLong(pm.getConf_date()) * 1000) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "conference", "false"));
+                                        //Log.d("Notifications Logs to all users",snapshotI.getKey());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
     }
-
     private String getDate(long time) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(time * 1000);

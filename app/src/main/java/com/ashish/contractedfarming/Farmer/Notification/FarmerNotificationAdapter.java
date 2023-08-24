@@ -1,35 +1,28 @@
 package com.ashish.contractedfarming.Farmer.Notification;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-import com.ashish.contractedfarming.Farmer.Chat.ChatHelper.ChatUserAdapter;
+import com.ashish.contractedfarming.Models.NotificationModel;
 import com.ashish.contractedfarming.R;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotificationAdapter.viewHolder> {
     Context context;
-    ArrayList<FarmerNotificationModel> list;
+    ArrayList<NotificationModel> list;
 
     private FarmerNotificationAdapter.OnItemClickListener mListener;
 
@@ -37,7 +30,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
         mListener = listener;
     }
 
-    public FarmerNotificationAdapter(Context context, ArrayList<FarmerNotificationModel> list) {
+    public FarmerNotificationAdapter(Context context, ArrayList<NotificationModel> list) {
         this.context = context;
         this.list = list;
     }
@@ -52,7 +45,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
 
     @Override
     public void onBindViewHolder(@NonNull FarmerNotificationAdapter.viewHolder holder, int position) {
-        FarmerNotificationModel model = list.get(position);
+        NotificationModel model = list.get(position);
         //holder.newspic.setImageResource(R.drawable.news);
 
         holder.creator.setText("From : "+model.getCreator_type().toUpperCase());

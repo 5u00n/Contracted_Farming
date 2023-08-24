@@ -1,9 +1,9 @@
-package com.ashish.contractedfarming.Farmer.Notification;
+package com.ashish.contractedfarming.Models;
 
-public class FarmerNotificationModel {
-    String not_id,creator_type,creator,message,date_created,type,seen;
+public class NotificationModel {
+    public String not_id,creator_type,creator,message,date_created,type,seen;
 
-    public FarmerNotificationModel(String not_id,String creator_type,String creator, String message, String date_created, String type,String seen) {
+    public NotificationModel(String not_id, String creator_type, String creator, String message, String date_created, String type, String seen) {
         this.not_id=not_id;
         this.creator_type=creator_type;
         this.creator = creator;

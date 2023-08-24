@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,17 +14,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.ashish.contractedfarming.Admin.AdminProfile.AdminProfileActivity;
 import com.ashish.contractedfarming.Admin.Chat.AdminMessageActivity;
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
 import com.ashish.contractedfarming.Admin.Requests.AdminRequestActivity;
-import com.ashish.contractedfarming.Farmer.Notification.FarmerNotificationActivity;
 import com.ashish.contractedfarming.Farmer.Notification.FarmerNotificationAdapter;
-import com.ashish.contractedfarming.Farmer.Notification.FarmerNotificationModel;
+import com.ashish.contractedfarming.Models.NotificationModel;
 import com.ashish.contractedfarming.R;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,7 +45,7 @@ public class AdminNotificationActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference reference;
-    ArrayList<FarmerNotificationModel> list ;
+    ArrayList<NotificationModel> list ;
 
 
     @Override
@@ -77,16 +72,16 @@ public class AdminNotificationActivity extends AppCompatActivity {
 
                 if(snapshot.exists()) {
 
-                    DataSnapshot notification_snaps=snapshot.child("users").child("farmer").child(auth.getUid()).child("notifications");
+                    DataSnapshot notification_snaps=snapshot.child("users").child("admin").child(auth.getUid()).child("notifications");
                     //DataSnapshot sender_snaps= snapshot.child("all-users").child()
                     list= new ArrayList<>();
                     for (DataSnapshot ds : notification_snaps.getChildren()) {
-                        list.add(new FarmerNotificationModel(ds.child("not_id").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("usertype").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("username").getValue().toString(), ds.child("message").getValue().toString(), ds.child("date_created").getValue().toString(), ds.child("type").getValue().toString(),ds.child("seen").getValue().toString()));
+                        list.add(new NotificationModel(ds.child("not_id").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("usertype").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("username").getValue().toString(), ds.child("message").getValue().toString(), ds.child("date_created").getValue().toString(), ds.child("type").getValue().toString(),ds.child("seen").getValue().toString()));
                     }
 
-                    Collections.sort(list, new Comparator<FarmerNotificationModel>() {
+                    Collections.sort(list, new Comparator<NotificationModel>() {
                         @Override
-                        public int compare(FarmerNotificationModel o1, FarmerNotificationModel o2) {
+                        public int compare(NotificationModel o1, NotificationModel o2) {
                             return o1.getDate_created().compareTo(o2.getDate_created());
                         }
                     });
