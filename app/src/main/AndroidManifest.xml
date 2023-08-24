@@ -21,6 +21,9 @@
         android:theme="@style/Theme.ContractedFarming.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".Admin.AdminProfile.AdminProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".Farmer.Chat.ChatHelper.FarmerSpecificChatActivity"
             android:exported="false" />
         <activity
@@ -55,10 +58,10 @@
         <activity android:name=".Admin.Chat.AdminMessageActivity" />
         <activity android:name=".Admin.Chat.AdminSpecificChat.AdminSpecificChatActivity" />
         <activity android:name=".Admin.Notification.AdminNotificationActivity" />
-        <activity android:name=".Admin.ManagerProfile.AdminManagerControlActivity" />
-        <activity android:name=".Admin.FarmerControl.FarmerControlActivity" />
-        <activity android:name=".Admin.FarmerControl.Profile.FarmerProfileActivity" />
-        <activity android:name=".Admin.ManagerProfile.Profile.ManagerProfileActivity" />
+        <activity android:name=".Admin.Dashboard.Manager.ManagerProfile.AdminManagerControlActivity" />
+        <activity android:name=".Admin.Dashboard.Farmer.FarmerControl.FarmerControlActivity" />
+        <activity android:name=".Admin.Dashboard.Farmer.FarmerControl.Profile.FarmerProfileActivity" />
+        <activity android:name=".Admin.Dashboard.Manager.ManagerProfile.Profile.ManagerProfileActivity" />
         <activity
             android:name=".Manager.Dashboard.ManagerDashboardActivity"
             android:exported="false" />
@@ -73,6 +76,10 @@
             android:exported="false" />
         <activity
             android:name=".Admin.Dashboard.AdminDashboardActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".Admin.Requests.AdminRequestActivity"
             android:exported="false" />
         <activity
             android:name=".Login.SetProfileActivity"

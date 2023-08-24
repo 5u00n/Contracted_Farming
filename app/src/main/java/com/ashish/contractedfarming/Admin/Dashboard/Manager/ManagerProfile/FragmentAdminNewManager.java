@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Admin.ManagerProfile;
+package com.ashish.contractedfarming.Admin.Dashboard.Manager.ManagerProfile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Manager.AdminManagerAdapter;
 import com.ashish.contractedfarming.Admin.Dashboard.Manager.AdminManagerModel;
-import com.ashish.contractedfarming.Admin.ManagerProfile.Profile.ManagerProfileActivity;
+import com.ashish.contractedfarming.Admin.Dashboard.Manager.ManagerProfile.Profile.ManagerProfileActivity;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

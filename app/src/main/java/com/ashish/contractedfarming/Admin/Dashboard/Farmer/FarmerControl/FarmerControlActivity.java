@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Admin.FarmerControl;
+package com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerControl;
 
 import android.os.Bundle;
 

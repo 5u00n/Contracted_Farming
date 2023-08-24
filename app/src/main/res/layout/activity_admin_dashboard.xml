@@ -54,6 +54,16 @@
 
         <ImageButton
             android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:layout_margin="0dp"
+            android:id="@+id/admin_requests_tab"
+            android:layout_weight="1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/outline_upcoming_24" />
+
+        <ImageButton
+            android:background="@android:color/transparent"
             android:id="@+id/admin_message_tab"
             android:layout_weight="1"
             android:layout_width="40dp"
@@ -69,6 +79,15 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_baseline_notifications_none_24" />
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:layout_margin="0dp"
+            android:id="@+id/admin_profile_tab"
+            android:layout_weight="1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_person_black_24" />
 
 
     </LinearLayout>

@@ -5,11 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.ashish.contractedfarming.Admin.FarmerControl.AdminConnectionsFarmerFragment;
-import com.ashish.contractedfarming.Admin.FarmerControl.AdminFarmerListControlFragment;
-import com.ashish.contractedfarming.Admin.FarmerControl.AdminNewfarmerControlFragment;
-import com.ashish.contractedfarming.Admin.FarmerControl.AdminRejectedFarmerControlFragment;
-
 public class ManagerDashboardAdapter extends FragmentStatePagerAdapter {
     int totaltabs=0;
     public ManagerDashboardAdapter(@NonNull FragmentManager fm , int totaltabs) {

@@ -15,8 +15,8 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.ashish.contractedfarming.Admin.FarmerControl.FarmerControlActivity;
-import com.ashish.contractedfarming.Admin.ManagerProfile.AdminManagerControlActivity;
+import com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerControl.FarmerControlActivity;
+import com.ashish.contractedfarming.Admin.Dashboard.Manager.ManagerProfile.AdminManagerControlActivity;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

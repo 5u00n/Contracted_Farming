@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Admin.ManagerProfile;
+package com.ashish.contractedfarming.Admin.Dashboard.Manager.ManagerProfile;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

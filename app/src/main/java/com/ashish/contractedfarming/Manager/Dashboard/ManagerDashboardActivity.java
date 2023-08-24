@@ -5,7 +5,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-import com.ashish.contractedfarming.Admin.FarmerControl.FarmerControlAdapter;
 import com.ashish.contractedfarming.R;
 import com.google.android.material.tabs.TabLayout;
 

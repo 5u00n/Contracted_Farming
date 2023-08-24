@@ -13,7 +13,6 @@ import com.ashish.contractedfarming.Admin.Dashboard.Home.AdminHomeFragment;
 import com.ashish.contractedfarming.Admin.Dashboard.Manager.ManagerFragment;
 import com.ashish.contractedfarming.Admin.Dashboard.News.NewsFragment;
 import com.ashish.contractedfarming.Admin.Dashboard.Plant.PlantFragment;
-import com.ashish.contractedfarming.Admin.Dashboard.Requests.AdminRequestFragment;
 
 public class DashboardAdapter extends FragmentPagerAdapter {
 
@@ -36,12 +35,10 @@ public class DashboardAdapter extends FragmentPagerAdapter {
             case 2:
                 return new AdminConferenceFragment();
             case 3:
-                return new AdminRequestFragment();
-            case 4:
                 return new PlantFragment();
-            case 5:
+            case 4:
                 return new FarmerFragment();
-            case 6:
+            case 5:
                 return new ManagerFragment();
 
         }

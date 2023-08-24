@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Admin.FarmerControl.Profile;
+package com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerControl.Profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
