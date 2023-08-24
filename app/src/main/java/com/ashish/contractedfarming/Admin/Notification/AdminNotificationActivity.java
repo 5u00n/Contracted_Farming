@@ -5,27 +5,52 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.ashish.contractedfarming.Admin.AdminProfile.AdminProfileActivity;
 import com.ashish.contractedfarming.Admin.Chat.AdminMessageActivity;
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
 import com.ashish.contractedfarming.Admin.Requests.AdminRequestActivity;
+import com.ashish.contractedfarming.Farmer.Notification.FarmerNotificationActivity;
+import com.ashish.contractedfarming.Farmer.Notification.FarmerNotificationAdapter;
+import com.ashish.contractedfarming.Farmer.Notification.FarmerNotificationModel;
 import com.ashish.contractedfarming.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class AdminNotificationActivity extends AppCompatActivity {
 
 
-    ImageView message, request,noti, home,profile;
+    ImageView message, request,noti, home,profile,currentTab;
     Context context;
+    Toolbar toolbar;
+
+    RecyclerView rv;
+
+    FirebaseAuth auth;
+    FirebaseDatabase database;
+    DatabaseReference reference;
+    ArrayList<FarmerNotificationModel> list ;
 
 
     @Override
@@ -35,41 +60,108 @@ public class AdminNotificationActivity extends AppCompatActivity {
 
         context=getBaseContext();
 
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference();
+
+        rv = findViewById(R.id.admin_notification_rv);
+
+
         initNavBottom();
 
-        ViewPager viewPager = findViewById(R.id.admin_notification_viewpager);
-
-        TabLayout tabLayout = findViewById(R.id.notificationtabLayout);
-
-        tabLayout.addTab(tabLayout.newTab().setText("Farmer"));
-        tabLayout.addTab(tabLayout.newTab().setText("Agent"));
-
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
-        viewPager.setAdapter(new AdminNotificationAdapter(getSupportFragmentManager(),tabLayout.getTabCount()));
-        viewPager.getCurrentItem();
-
-
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()) {
+
+                    DataSnapshot notification_snaps=snapshot.child("users").child("farmer").child(auth.getUid()).child("notifications");
+                    //DataSnapshot sender_snaps= snapshot.child("all-users").child()
+                    list= new ArrayList<>();
+                    for (DataSnapshot ds : notification_snaps.getChildren()) {
+                        list.add(new FarmerNotificationModel(ds.child("not_id").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("usertype").getValue().toString(),snapshot.child("all-users").child(ds.child("creator").getValue().toString()).child("username").getValue().toString(), ds.child("message").getValue().toString(), ds.child("date_created").getValue().toString(), ds.child("type").getValue().toString(),ds.child("seen").getValue().toString()));
+                    }
+
+                    Collections.sort(list, new Comparator<FarmerNotificationModel>() {
+                        @Override
+                        public int compare(FarmerNotificationModel o1, FarmerNotificationModel o2) {
+                            return o1.getDate_created().compareTo(o2.getDate_created());
+                        }
+                    });
+
+
+                    FarmerNotificationAdapter adapter = new FarmerNotificationAdapter(context, list);
+
+
+
+                    adapter.setOnItemClickListener(new FarmerNotificationAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClicked(String not_id,String notification_type) {
+                            reference.child("users").child("farmer").child(auth.getUid()).child("notifications").child(not_id).child("seen").setValue("true");
+                            switch (notification_type) {
+                                case "farms":
+                                    gotoHome("farms");
+                                    break;
+                                case "farmer_plants":
+                                    gotoHome("farmer_plants");
+                                    break;
+                                case "plants":
+                                    gotoHome("plants");
+                                    break;
+                                case "posts":
+                                    gotoHome();
+                                    break;
+                                case "conference":
+                                    gotoConf();
+                                    break;
+                                case "news":
+                                    gotoNews();
+                                    break;
+                            }
+                        }
+                    });
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+
+
+                    rv.setLayoutManager(layoutManager);
+                    rv.setAdapter(adapter);
+                }
+
 
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
 
+
+    }
+
+    private void gotoNews() {
+    }
+
+    private void gotoConf() {
+        request.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+        currentTab.setBackgroundColor(Color.TRANSPARENT);
+        startActivity(new Intent(context, AdminRequestActivity.class));
+        finish();
+        overridePendingTransition( R.anim.slide_in_left,R.anim.slide_out_right);
+    }
+
+    private void gotoHome() {
+        home.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+        currentTab.setBackgroundColor(Color.TRANSPARENT);
+        startActivity(new Intent(context, AdminDashboardActivity.class));
+        finish();
+        overridePendingTransition( R.anim.slide_in_left,R.anim.slide_out_right);
+    }
+
+    private void gotoHome(String farms) {
+        
     }
 
     private void initNavBottom() {
@@ -81,7 +173,7 @@ public class AdminNotificationActivity extends AppCompatActivity {
 
         home = findViewById(R.id.admin_home_tab);
 
-        ImageView currentTab=noti;
+        currentTab=noti;
         currentTab.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
 
         home.setOnClickListener(new View.OnClickListener() {

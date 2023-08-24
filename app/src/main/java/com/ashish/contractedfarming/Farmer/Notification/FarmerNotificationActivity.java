@@ -47,11 +47,8 @@ public class FarmerNotificationActivity extends AppCompatActivity {
     FirebaseAuth auth;
 
     ImageButton home, newsTabButton, confTabButton, chatTabButton, notificationTabButton, currentTab;
-    ListView lv;
+
     Toolbar toolbar;
-    String name[] = {"Tomato", "parsley", "bokchoy"};
-    String text[] = {"Important...", "Task Panding...", "Water time"};
-    // int img[] = {R.drawable.profilicon, R.drawable.profilicon, R.drawable.profilicon};
 
     String f_name, f_img_src,f_location;
 
