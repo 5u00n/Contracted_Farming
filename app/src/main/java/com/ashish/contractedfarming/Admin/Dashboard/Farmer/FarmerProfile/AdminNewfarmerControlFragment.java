@@ -39,8 +39,7 @@ public class AdminNewfarmerControlFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = null;
-        v = inflater.inflate(R.layout.fragment_admin_newfarmer_control, container, false);
+        View v = inflater.inflate(R.layout.fragment_admin_newfarmer_control, container, false);
         Context context = getContext();
 
 
