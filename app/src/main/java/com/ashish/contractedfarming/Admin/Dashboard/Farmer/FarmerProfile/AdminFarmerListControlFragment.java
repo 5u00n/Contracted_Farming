@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerControl;
+package com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerProfile;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Farmer.AdminFarmerAdapter;
 import com.ashish.contractedfarming.Admin.Dashboard.Farmer.AdminFarmerModel;
-import com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerControl.Profile.FarmerProfileActivity;
+import com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerProfile.Profile.FarmerProfileActivity;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

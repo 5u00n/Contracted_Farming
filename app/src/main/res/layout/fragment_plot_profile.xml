@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".Admin.Dashboard.Farmer.FarmerControl.Profile.PlotProfileFragment">
+    tools:context=".Admin.Dashboard.Farmer.FarmerProfile.Profile.PlotProfileFragment">
 
     <ListView
         android:id="@+id/fragment_farmer_plot_list"

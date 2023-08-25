@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerControl;
+package com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerProfile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.ashish.contractedfarming.Admin.Dashboard.Farmer.AdminFarmerAdapter;
 import com.ashish.contractedfarming.Admin.Dashboard.Farmer.AdminFarmerModel;
-import com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerControl.Profile.FarmerProfileActivity;
+import com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerProfile.Profile.FarmerProfileActivity;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,29 +25,23 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- */
-public class AdminRejectedFarmerControlFragment extends Fragment {
+public class AdminConnectionsFarmerFragment extends Fragment {
 
 
-    public AdminRejectedFarmerControlFragment() {
-        // Required empty public constructor
+    public AdminConnectionsFarmerFragment() {
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_admin_connections, container, false);
 
-        View v = inflater.inflate(R.layout.fragment_admin_rejected_farmer_control, container, false);
-
-        SearchView searchView = v.findViewById(R.id.admin_farmercontrol_rej_farmer_search);
-        ListView listView = v.findViewById(R.id.fragment_admin_rej_farmer_rv);
+        SearchView searchView = v.findViewById(R.id.admin_farmercontrol_con_farmer_search);
+        ListView listView = v.findViewById(R.id.fragment_admin_con_farmer_rv);
 
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference("users").child("rej-farmer");
+        DatabaseReference reference = firebaseDatabase.getReference("users").child("new-farmer");
 
 
         List<AdminFarmerModel> arrayList = new ArrayList<>();
@@ -61,10 +55,14 @@ public class AdminRejectedFarmerControlFragment extends Fragment {
                         arrayList.removeAll(arrayList);
                         for (DataSnapshot ds : snapshot.getChildren()) {
 
-                            if (ds.child("approved_num").exists()) {
-                                arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
-                            }
 
+                                if (Integer.parseInt(ds.child("approved_num").getValue().toString()) < 3) {
+                                    if (ds.child("approved_num").exists() && ds.child("address").exists()) {
+                                    arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                }else if(Integer.parseInt(ds.child("approved_num").getValue().toString()) ==0){
+                                        arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), "", ds.child("img_url").getValue().toString()));
+                                    }
+                            }
                         }
                         if (getContext() != null) {
                             AdminFarmerAdapter adapter = new AdminFarmerAdapter(getContext(), arrayList);
@@ -85,12 +83,13 @@ public class AdminRejectedFarmerControlFragment extends Fragment {
                             arrayList.removeAll(arrayList);
                             for (DataSnapshot ds : snapshot.getChildren()) {
                                 if (ds.child("approved_num").exists()) {
-                                    if (newText.length() <= ds.child("username").toString().length()) {
-                                        if (ds.child("username").toString().toLowerCase().contains(newText.toString().toLowerCase())) {
-                                            arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                    if (Integer.parseInt(ds.child("approved_num").getValue().toString()) < 3) {
+                                        if (newText.length() <= ds.child("username").toString().length()) {
+                                            if (ds.child("username").toString().toLowerCase().contains(newText.toString().toLowerCase())) {
+                                                arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                            }
                                         }
                                     }
-
                                 }
                             }
                             AdminFarmerAdapter adapter = new AdminFarmerAdapter(getContext(), arrayList);
@@ -118,7 +117,7 @@ public class AdminRejectedFarmerControlFragment extends Fragment {
 
                 AdminFarmerAdapter ob = (AdminFarmerAdapter) adapterView.getAdapter();
                 //Log.d("Agent Clicks ", "ID : " + ob.getItem(i).getId()+ "    long: " + l);
-                startActivity(new Intent(getContext(), FarmerProfileActivity.class).putExtra("userUID", ob.getItem(i).getId()).putExtra("usertype", "rej-farmer"));
+                startActivity(new Intent(getContext(), FarmerProfileActivity.class).putExtra("userUID", ob.getItem(i).getId()).putExtra("usertype", "new-farmer").putExtra("not_completed", true));
 
             }
         });
