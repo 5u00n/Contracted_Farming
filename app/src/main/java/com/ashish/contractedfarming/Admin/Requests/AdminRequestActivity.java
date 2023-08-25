@@ -12,11 +12,13 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.ashish.contractedfarming.Admin.AdminProfile.AdminProfileActivity;
 import com.ashish.contractedfarming.Admin.Chat.AdminMessageActivity;
+import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
 import com.ashish.contractedfarming.Admin.Notification.AdminNotificationActivity;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyRequest.FragmentHelper.FarmerMyRequestRecycleAdapter;
 import com.ashish.contractedfarming.Models.RequestModel;
@@ -27,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -61,18 +64,27 @@ public class AdminRequestActivity extends AppCompatActivity {
 
         recyclerView= findViewById(R.id.admin_request_rv);
 
-        reference.child("requests").addValueEventListener(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshotAll) {
+
+                DataSnapshot snapshot=snapshotAll.child("requests");
                 requestModelArrayList = new ArrayList<>();
                 if (snapshot.hasChildren())
                     for (DataSnapshot fds : snapshot.getChildren()) {
-                        RequestModel fm = new RequestModel(fds.child("id").getValue().toString(), fds.child("send_to").getValue().toString(), fds.child("type").getValue().toString(), fds.child("date_of_creation").getValue().toString(), fds.child("checked").getValue().toString());
+                        RequestModel fm=null;
+                        if(fds.child("send_to").getValue().toString().toLowerCase().contains("admin")) {
 
-                        requestModelArrayList.add(fm);
+
+                            fm = new RequestModel(fds.child("id").getValue().toString(), fds.child("sender").getValue().toString(),snapshotAll.child("all-users").child(fds.child("sender").getValue().toString()).child("username").getValue().toString(),fds.child("send_to").getValue().toString(), fds.child("type").getValue().toString(), fds.child("type_id").getValue().toString(), fds.child("date_of_creation").getValue().toString(),fds.child("checked").getValue().toString(),fds.child("stared").getValue().toString());
+                            //Log.d("Admin Requests",new Gson().toJson(fm));
+                        }
+                        if(fm!=null) {
+                            requestModelArrayList.add(fm);
+                        }
                     }
 
-                FarmerMyRequestRecycleAdapter adapter1 = new FarmerMyRequestRecycleAdapter(requestModelArrayList, context);
+                AdminRequestRecycleAdapter adapter1 = new AdminRequestRecycleAdapter(requestModelArrayList, context);
                 LinearLayoutManager layoutManager1 = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
                 recyclerView.setLayoutManager(layoutManager1);
                 recyclerView.setNestedScrollingEnabled(false);
@@ -104,7 +116,7 @@ public class AdminRequestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 home.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
                 currentTab.setBackgroundColor(Color.TRANSPARENT);
-                startActivity(new Intent(context, AdminRequestActivity.class));
+                startActivity(new Intent(context, AdminDashboardActivity.class));
                 finish();
                 overridePendingTransition( R.anim.slide_in_left,R.anim.slide_out_right);
             }
@@ -126,11 +138,11 @@ public class AdminRequestActivity extends AppCompatActivity {
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                message.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
-                currentTab.setBackgroundColor(Color.TRANSPARENT);
-                startActivity(new Intent(context, AdminMessageActivity.class));
-                finish();
-                overridePendingTransition( R.anim.slide_in_right,R.anim.slide_out_left);
+               //message.setBackgroundDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.shape_rectangle));
+                //currentTab.setBackgroundColor(Color.TRANSPARENT);
+                //startActivity(new Intent(context, AdminMessageActivity.class));
+                //finish();
+                //overridePendingTransition( R.anim.slide_in_right,R.anim.slide_out_left);
             }
         });
 

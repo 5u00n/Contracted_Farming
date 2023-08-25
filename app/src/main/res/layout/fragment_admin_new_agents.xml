@@ -28,7 +28,9 @@
         android:layout_marginTop="46dp"
         android:id="@+id/admin_new_agent_control_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
 
 
 

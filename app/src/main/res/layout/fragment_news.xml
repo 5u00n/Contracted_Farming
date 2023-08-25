@@ -27,7 +27,9 @@
         android:id="@+id/admin_dash_news_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="48dp" />
+        android:layout_marginTop="48dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/admin_dash_news_floatinf_add"

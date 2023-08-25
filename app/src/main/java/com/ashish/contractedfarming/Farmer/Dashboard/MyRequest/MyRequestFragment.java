@@ -59,8 +59,7 @@ public class MyRequestFragment extends Fragment {
                 requestModelArrayList = new ArrayList<>();
                 if (snapshot.hasChildren())
                     for (DataSnapshot fds : snapshot.getChildren()) {
-                        RequestModel fm = new RequestModel(fds.child("id").getValue().toString(), fds.child("send_to").getValue().toString(), fds.child("type").getValue().toString(), fds.child("date_of_creation").getValue().toString(), fds.child("checked").getValue().toString());
-
+                        RequestModel fm = new RequestModel(fds.child("id").getValue().toString(), fds.child("sender_id").getValue().toString(),fds.child("sender_id").getValue().toString(), fds.child("type").getValue().toString(), fds.child("type_id").getValue().toString(), fds.child("date_of_creation").getValue().toString(),fds.child("checked").getValue().toString(),fds.child("stared").getValue().toString());
                         requestModelArrayList.add(fm);
                     }
 
