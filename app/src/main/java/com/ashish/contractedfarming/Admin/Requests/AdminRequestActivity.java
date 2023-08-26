@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.ashish.contractedfarming.Admin.AdminProfile.AdminProfileActivity;
 import com.ashish.contractedfarming.Admin.Chat.AdminMessageActivity;
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
+import com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerProfile.Profile.FarmerPlant.AdminFarmerPlantActivity;
 import com.ashish.contractedfarming.Admin.Notification.AdminNotificationActivity;
 import com.ashish.contractedfarming.Farmer.Dashboard.MyRequest.FragmentHelper.FarmerMyRequestRecycleAdapter;
 import com.ashish.contractedfarming.Models.NotificationModel;
@@ -105,6 +106,7 @@ public class AdminRequestActivity extends AppCompatActivity {
                                 reference.child("requests").child(req_id).child("checked").setValue(checked==11||checked==10?checked:checked+10);
                                 reference.child("users").child(sender_type).child(sender_id).child("requests").child(req_id).child("checked").setValue(checked==11?11:checked+10);
                                 reference.child("users").child(sender_type).child(sender_id).child("notifications").child("noti_" + req_id).setValue(new NotificationModel("noti_" + req_id, "admin", auth.getUid(), "opened your request on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "requests", "false"));
+                                startActivity(new Intent(context, AdminFarmerPlantActivity.class).putExtra("req_id",req_id));
                                 break;
                             case "user":
                                 Toast.makeText(context,"View Clicked Users ",Toast.LENGTH_SHORT).show();
@@ -198,7 +200,17 @@ public class AdminRequestActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("offline");
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("online");
+    }
 
 
 }

@@ -15,15 +15,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingVertical="20dp"
-        android:paddingHorizontal="28dp">
+        android:paddingHorizontal="20dp"
+        >
 
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
         <TextView
+            android:textSize="12sp"
             android:id="@+id/admin_request_views_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,6 +34,7 @@
 
 
         <TextView
+            android:textSize="12sp"
             android:id="@+id/admin_request_views_to"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,6 +42,7 @@
             android:text="Sender: Devid" />
 
         <TextView
+            android:textSize="12sp"
             android:id="@+id/admin_request_views_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,20 +51,22 @@
 
 
         <TextView
+            android:textSize="12sp"
             android:id="@+id/admin_request_views_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="1.5dp"
             android:text="Date: 25 Aug 2023" />
 
-        <TextView
-            android:id="@+id/admin_request_view_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="1.5dp"
-            android:text="Checked By: " />
+            <TextView
+                android:id="@+id/admin_request_view_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="1.5dp"
+                android:text="Checked By: "
+                android:textSize="12sp" />
 
-        <TextView
+            <TextView
             android:id="@+id/admin_request_views_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,6 +74,7 @@
         </LinearLayout>
 
         <ImageView
+            android:layout_marginLeft="10dp"
             android:id="@+id/admin_request_views_image_stared"
             android:layout_width="30dp"
             android:layout_height="30dp"

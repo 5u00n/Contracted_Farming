@@ -79,7 +79,9 @@ public class FarmerChatActivity extends AppCompatActivity {
         profile_name = findViewById(R.id.dash_farmer_name);
         p_location=findViewById(R.id.dash_farmer_location);
 
-        Picasso.get().load(f_img_src).into(profile_img);
+        if(!f_img_src.isEmpty()) {
+            Picasso.get().load(f_img_src).into(profile_img);
+        }
         profile_name.setText(f_name);
         p_location.setText(f_location);
 
