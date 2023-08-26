@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
 import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
 import com.ashish.contractedfarming.Models.FarmerPlantModel;
+import com.ashish.contractedfarming.Models.NotificationModel;
 import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.Models.PlotModel;
 import com.ashish.contractedfarming.Models.RequestModel;
@@ -43,19 +45,24 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class FarmerSelectFarmActivity extends AppCompatActivity {
 
+    Context context;
 
 
     FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference reference;
+
 
     Button next_button,add_newFarm;
     ImageButton back_button;
@@ -81,6 +88,8 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_select_farm);
+
+        context= getBaseContext();
 
         auth=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -302,13 +311,50 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
                             for (int i = 0; i < plot_ids.size(); i++) {
 
                                 reference.child("users").child("farmer").child(auth.getUid()).child("farmer_plants").child("farmer-plants_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_"+time_stamp).setValue(new FarmerPlantModel("farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,plot_ids.get(i),plant_id,"waiting","waiting","waiting",time_stamp,"Waiting","Waiting",plant_img_url,plant_name,plot_urls.get(i),plot_names.get(i)));
-                                reference.child("users").child("farmer").child(auth.getUid()).child("requests").child("requests_"+auth.getUid()  + "_"+time_stamp).setValue(new RequestModel("requests_"+auth.getUid()  + "_"+time_stamp,auth.getUid(),"admin,manager","plant_request_"+plant_name,"farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,time_stamp,"false","false"));
-                                reference.child("requests").child("requests_"+auth.getUid()  +"_"+ time_stamp).setValue(new RequestModel("requests_"+auth.getUid()  +"_"+ time_stamp,auth.getUid(),"admin,manager","plant_request_"+plant_name,"farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,time_stamp,"false","false"));
                                 reference.child("farmer_plants").child(auth.getUid()).child("farmer-plants_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_"+time_stamp).setValue(new FarmerPlantModel("farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_"+time_stamp,plot_ids.get(i),plant_id,"waiting","waiting","waiting",time_stamp,"Waiting","Waiting",plant_img_url,plant_name,plot_urls.get(i),plot_names.get(i)));
+
+
+
+                                reference.child("users").child("farmer").child(auth.getUid()).child("requests").child("requests_"+auth.getUid()  + "_"+time_stamp).setValue(new RequestModel("requests_"+auth.getUid()  + "_"+time_stamp,auth.getUid(),"admin,manager","plant_request_"+plant_name,"farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,time_stamp,"00","00","--"));
+                                reference.child("requests").child("requests_"+auth.getUid()  +"_"+ time_stamp).setValue(new RequestModel("requests_"+auth.getUid()  +"_"+ time_stamp,auth.getUid(),"admin,manager","plant_request_"+plant_name,"farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,time_stamp,"00","00","--"));
+
 
                                 reference.child("users").child("farmer").child(auth.getUid()).child("plot").child(plot_ids.get(i)).child("plant_name").setValue(plant_name);
                                 reference.child("plots").child(plot_ids.get(i)).child("plant_name").setValue(plant_name);
+
+
+
                             }
+
+
+                            reference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.exists()){
+                                        for(DataSnapshot snapshotU: snapshot.getChildren()){
+                                            //Log.d("USER Parents Tags :",snapshotU.getKey());
+                                            if(snapshotU.getKey().equals("admin") || snapshotU.getKey().equals("manager")){
+                                                if(snapshotU.hasChildren()){
+                                                    for(DataSnapshot snapshotUsers: snapshotU.getChildren()){
+                                                        for (int i = 0; i < plot_ids.size(); i++) {
+                                                            reference.child("users").child(snapshotU.getKey()).child(snapshotUsers.child("userUID").getValue().toString()).child("notifications").child("noti_" + "farmer-plants_" + auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_" + time_stamp).setValue(new NotificationModel("noti_" + "farmer-plants_" + auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_" + time_stamp, "Farmer", auth.getUid(), "Added new Plant for farm on date : " + new SimpleDateFormat("dd MMM YYYY HH:mm a").format(Long.parseLong(time_stamp) * 1000) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "farmer_plant", "false"));
+                                                            //Log.d("USER EFFECTED Add Plant from farmer Notification :",new Gson().toJson(snapshotUsers.getValue()));
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+                            Toast.makeText(context,"Added Your Farm Successfully",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,"Send Request for your farm to Admin and Concerned Manager ",Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                             startActivity(new Intent(getBaseContext(), FarmerDashboardActivity.class).putExtra("tab_open","farmer_plants"));
                             finish();
