@@ -122,7 +122,7 @@ public class FarmerNotificationActivity extends AppCompatActivity {
 
                     adapter.setOnItemClickListener(new FarmerNotificationAdapter.OnItemClickListener() {
                         @Override
-                        public void onItemClicked(String not_id,String notification_type) {
+                        public void onItemClicked(String not_id,String notification_type,String creator) {
                             reference.child("users").child("farmer").child(auth.getUid()).child("notifications").child(not_id).child("seen").setValue("true");
                             switch (notification_type) {
                                 case "farms":

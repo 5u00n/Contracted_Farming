@@ -15,6 +15,8 @@ import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
 import com.ashish.contractedfarming.Admin.Notification.AdminNotificationActivity;
 import com.ashish.contractedfarming.Admin.Requests.AdminRequestActivity;
 import com.ashish.contractedfarming.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AdminProfileActivity extends AppCompatActivity {
 
@@ -97,5 +99,18 @@ public class AdminProfileActivity extends AppCompatActivity {
                 //overridePendingTransition( R.anim.slide_in_right,R.anim.slide_out_left);
             }
         });
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("offline");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseDatabase.getInstance().getReference("all-users").child(FirebaseAuth.getInstance().getUid()).child("online_status").setValue("online");
     }
 }

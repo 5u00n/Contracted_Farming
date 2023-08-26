@@ -93,8 +93,8 @@ public class AdminNotificationActivity extends AppCompatActivity {
 
                     adapter.setOnItemClickListener(new FarmerNotificationAdapter.OnItemClickListener() {
                         @Override
-                        public void onItemClicked(String not_id,String notification_type) {
-                            reference.child("users").child("farmer").child(auth.getUid()).child("notifications").child(not_id).child("seen").setValue("true");
+                        public void onItemClicked(String not_id,String notification_type,String creator) {
+                            reference.child("users").child("admin").child(auth.getUid()).child("notifications").child(not_id).child("seen").setValue("true");
                             switch (notification_type) {
                                 case "farms":
                                     gotoHome("farms");
