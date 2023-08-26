@@ -15,11 +15,14 @@
             android:layout_height="match_parent">
 
             <ImageButton
+                android:id="@+id/admin_farmer_plant_back_button"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:background="@drawable/flag_transparent"
                 android:layout_width="50dp"
                 android:layout_height="50dp"/>
 
             <TextView
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginHorizontal="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="26dp"
@@ -33,152 +36,367 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Farmer Details"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="10dp">
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:cardCornerRadius="50dp">
+                    app:cardCornerRadius="50dp"
+                    android:layout_margin="5dp">
+
                     <ImageView
+                        android:id="@+id/admin_farmer_plant_farmer_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/baseline_person_24"/>
+                        android:src="@drawable/baseline_person_24" />
                 </androidx.cardview.widget.CardView>
+
                 <TextView
-                    android:layout_weight="1"
+                    android:id="@+id/admin_farmer_plant_farmer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Farmer Name"
-                    android:textSize="18dp"
-                    android:layout_marginHorizontal="25dp"/>
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_weight="1"
+                    android:text="Farmer Name" />
+
                 <Button
-                    android:layout_weight="1"
+                    android:id="@+id/admin_farmer_plant_farmer_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="See Details"/>
+                    android:text="See Details"
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:text="Plant Details"
-                android:textStyle="bold"
                 android:textSize="20dp"
-                android:layout_marginTop="30dp"/>
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="10dp">
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal">
 
                 <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/bg_img_login"/>
+                    android:id="@+id/admin_farmer_plant_plant_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/bg_img_login" />
+
                 <TextView
+                    android:id="@+id/admin_farmer_plant_plant_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Plant Name"
-                    android:textSize="18dp"
-                    android:layout_marginHorizontal="25dp"/>
+                    android:text="Plant Name" />
+
                 <Button
+                    android:id="@+id/admin_farmer_plant_plant_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="See Details"/>
+                    android:text="See Details"
+                    android:textSize="12dp" />
             </LinearLayout>
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:text="Plot / Farm"
-                android:textStyle="bold"
                 android:textSize="20dp"
-                android:layout_marginTop="30dp"/>
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="10dp">
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="5dp"
+                    android:layout_margin="5dp"
+                    >
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/bg_farm"/>
+                        android:src="@drawable/bg_farm" />
                 </androidx.cardview.widget.CardView>
+
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Farm Name"
-                    android:textSize="18dp"
-                    android:layout_marginHorizontal="25dp"/>
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_weight="1"
+                    android:text="Farm Name" />
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="See Details"/>
+                    android:text="See Details"
+                    android:textSize="12dp" />
             </LinearLayout>
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Manager Responsible"
-                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:text="Manager Details"
                 android:textSize="20dp"
-                android:layout_marginTop="30dp"/>
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="10dp">
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_margin="5dp"
                     app:cardCornerRadius="50dp">
+
                     <ImageView
+                        android:id="@+id/admin_farmer_plant_manager_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/baseline_person_24"/>
+                        android:src="@drawable/baseline_person_24" />
                 </androidx.cardview.widget.CardView>
+
                 <TextView
+                    android:id="@+id/admin_farmer_plant_manager_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Manager Name"
-                    android:textSize="18dp"
-                    android:layout_marginHorizontal="10dp"/>
+                    android:text="Manager Name" />
+
                 <Button
+                    android:id="@+id/admin_farmer_plant_manager_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="See Details"/>
+                    android:text="See Details"
+                    android:textSize="12dp"
+                    android:layout_margin="5dp"/>
             </LinearLayout>
 
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                android:layout_marginVertical="20dp"
+
+                android:layout_marginHorizontal="5dp">
+
+                <LinearLayout
+                    android:background="@color/md_theme_dark_onSurfaceVariant"
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Admin Approval"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/admin_farmer_plant_admin_approval_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_weight="1"
+                            android:text="Not Approved" />
+
+                        <Button
+                            android:id="@+id/admin_farmer_plant_admin_approval_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Approve"
+                            android:textSize="12dp" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Manager Approval"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/admin_farmer_plant_manager_approval_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_weight="1"
+                            android:text="Not Approved" />
+
+                        <Button
+                            android:id="@+id/admin_farmer_plant_manager_request_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Request"
+                            android:textSize="12dp" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="Date Added"
+                    android:textStyle="bold"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/admin_farmer_plant_added_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="dd mm yyyy"
+                    android:textSize="12dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="Final Approval"
+                    android:textStyle="bold"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/admin_farmer_plant_final_approval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="By __manager on dd mm yyy"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp">
+                <LinearLayout
+                    android:background="@color/md_theme_dark_onSurfaceVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingVertical="20dp"
+                    android:paddingHorizontal="15dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Verification"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/admin_farmer_plant_verification_picture"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/bg_farm"/>
+
+                    <TextView
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Manager Location Co-or."
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/admin_farmer_plant_verification_loc_manager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="xx.xxxxxxxx,xx.xxxxxxxxxx"
+                         />
+                    <TextView
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Farmer Location Co-or."
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/admin_farmer_plant_verification_loc_farmer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="xx.xxxxxxx , xx.xxxxxxxxx"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </ScrollView>
