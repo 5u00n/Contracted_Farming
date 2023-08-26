@@ -65,7 +65,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
             public void onClick(View view) {
 
                 if (mListener != null) {
-                    Log.d("Notification clicked",model.getType());
+                    //Log.d("Notification clicked",model.getType());
                     mListener.onItemClicked(model.getNot_id(),model.getType()); // Pass the ID or relevant data
                 }
 

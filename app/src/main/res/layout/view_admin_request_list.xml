@@ -10,6 +10,7 @@
 
 
     <LinearLayout
+        android:id="@+id/admin_request_views_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -66,7 +67,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/admin_request__image_stared"
+            android:id="@+id/admin_request_views_image_stared"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/outline_star_unclickerd_24"/>

@@ -134,6 +134,9 @@ public class FarmerNotificationActivity extends AppCompatActivity {
                                 case "plants":
                                     gotoHome("plants");
                                     break;
+                                case "requests":
+                                    gotoHome("requests");
+                                    break;
                                 case "posts":
                                     gotoHome();
                                     break;

@@ -268,6 +268,9 @@ public class FarmerDashboardActivity extends AppCompatActivity {
                         case "farmer_plants":
                             viewPager.setCurrentItem(4);
                             break;
+                        case "requests":
+                            viewPager.setCurrentItem(5);
+                            break;
                     }
                 }
             }
