@@ -3,6 +3,7 @@ package com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerProfile;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,7 @@ public class AdminFarmerListControlFragment extends Fragment {
                 if (!searchView.hasFocus()) {
                     arrayList.removeAll(arrayList);
                     for (DataSnapshot ds : snapshot.getChildren()) {
+                       //Log.d("Farmers list from Profile ",new Gson().toJson(ds.getValue()));
                         arrayList.add(new AdminFarmerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                     }
                     AdminFarmerAdapter adapter = new AdminFarmerAdapter(context, arrayList);
