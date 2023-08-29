@@ -44,6 +44,13 @@
             android:padding="20dp">
 
             <TextView
+                android:id="@+id/admin_farmer_plant_id"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:text="FarmerPlant Id" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Farmer Details"
@@ -77,6 +84,12 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_weight="1"
                     android:text="Farmer Name" />
+                <TextView
+                    android:id="@+id/admin_farmer_plant_farmer_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Farmer Id" />
 
                 <Button
                     android:id="@+id/admin_farmer_plant_farmer_button"
@@ -114,6 +127,13 @@
                     android:layout_weight="1"
                     android:text="Plant Name" />
 
+                <TextView
+                    android:id="@+id/admin_farmer_plant_plant_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Plant Id" />
+
                 <Button
                     android:id="@+id/admin_farmer_plant_plant_button"
                     android:layout_width="wrap_content"
@@ -145,6 +165,7 @@
                     >
 
                     <ImageView
+                        android:id="@+id/admin_farmer_plant_farm_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -152,13 +173,22 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:id="@+id/admin_farmer_plant_farm_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_weight="1"
                     android:text="Farm Name" />
 
+                <TextView
+                    android:id="@+id/admin_farmer_plant_farm_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Farm Id" />
+
                 <Button
+                    android:id="@+id/admin_farmer_plant_farm_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="See Details"
@@ -201,6 +231,13 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_weight="1"
                     android:text="Manager Name" />
+
+                <TextView
+                    android:id="@+id/admin_farmer_plant_manager_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Manager Id" />
 
                 <Button
                     android:id="@+id/admin_farmer_plant_manager_button"
@@ -362,7 +399,7 @@
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:id="@+id/admin_farmer_plant_verification_picture"
+                        android:id="@+id/admin_farmer_plant_verification_image"
                         android:layout_marginTop="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -373,7 +410,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Manager Location Co-or."
+                        android:text="Manager Location Co-Ord."
                         android:textSize="16sp"
                         android:textStyle="bold" />
                     <TextView
@@ -386,7 +423,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Farmer Location Co-or."
+                        android:text="Farmer Location Co-Ord."
                         android:textSize="16sp"
                         android:textStyle="bold" />
                     <TextView

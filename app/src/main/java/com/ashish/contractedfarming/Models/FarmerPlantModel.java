@@ -2,10 +2,50 @@ package com.ashish.contractedfarming.Models;
 
 public class FarmerPlantModel {
 
-    String id,plot_id,plant_id,approval_admin,approval_manager,final_approval,date_added,date_accepted,planted_time,plant_img_url,farm_img_url,farm_name,plant_name;
+    String id,plot_id,plant_id,manager_id, manager_name,approval_admin,approval_manager,final_approval,date_added,date_accepted,planted_time,plant_img_url,farm_img_url,farm_name,plant_name;
 
 
     int plant_progress;
+
+    public FarmerPlantModel() {
+    }
+
+    public FarmerPlantModel(String id, String plant_img_url, String farm_img_url, String farm_name, String plant_name) {
+        this.id = id;
+        this.plant_img_url = plant_img_url;
+        this.farm_img_url = farm_img_url;
+        this.farm_name = farm_name;
+        this.plant_name = plant_name;
+    }
+
+    public FarmerPlantModel(String id, String plot_id, String plant_id, String approval_admin, String approval_manager, String final_approval, String date_added, String date_accepted, String planted_time, String plant_img_url, String plant_name, String farm_img_url, String farm_name) {
+        this.id = id;
+        this.plot_id = plot_id;
+        this.plant_id = plant_id;
+        this.approval_admin = approval_admin;
+        this.approval_manager = approval_manager;
+        this.final_approval = final_approval;
+        this.date_added = date_added;
+        this.date_accepted = date_accepted;
+        this.planted_time = planted_time;
+        this.plant_img_url = plant_img_url;
+        this.farm_img_url = farm_img_url;
+        this.farm_name = farm_name;
+        this.plant_name = plant_name;
+    }
+
+    public FarmerPlantModel(String id, String plot_id, String plant_id, String approval_admin, String approval_manager, String final_approval, String date_added, String date_accepted) {
+        this.id = id;
+        this.plot_id = plot_id;
+        this.plant_id = plant_id;
+        this.approval_admin = approval_admin;
+        this.approval_manager = approval_manager;
+        this.final_approval = final_approval;
+        this.date_added = date_added;
+        this.date_accepted = date_accepted;
+    }
+
+
 
     public String getPlanted_time() {
         return planted_time;
@@ -54,46 +94,6 @@ public class FarmerPlantModel {
     public void setPlant_progress(int plant_progress) {
         this.plant_progress = plant_progress;
     }
-
-
-    public FarmerPlantModel() {
-    }
-
-    public FarmerPlantModel(String id, String plant_img_url, String farm_img_url, String farm_name, String plant_name) {
-        this.id = id;
-        this.plant_img_url = plant_img_url;
-        this.farm_img_url = farm_img_url;
-        this.farm_name = farm_name;
-        this.plant_name = plant_name;
-    }
-
-    public FarmerPlantModel(String id, String plot_id, String plant_id, String approval_admin, String approval_manager, String final_approval, String date_added, String date_accepted, String planted_time, String plant_img_url, String plant_name, String farm_img_url, String farm_name) {
-        this.id = id;
-        this.plot_id = plot_id;
-        this.plant_id = plant_id;
-        this.approval_admin = approval_admin;
-        this.approval_manager = approval_manager;
-        this.final_approval = final_approval;
-        this.date_added = date_added;
-        this.date_accepted = date_accepted;
-        this.planted_time = planted_time;
-        this.plant_img_url = plant_img_url;
-        this.farm_img_url = farm_img_url;
-        this.farm_name = farm_name;
-        this.plant_name = plant_name;
-    }
-
-    public FarmerPlantModel(String id, String plot_id, String plant_id, String approval_admin, String approval_manager, String final_approval, String date_added, String date_accepted) {
-        this.id = id;
-        this.plot_id = plot_id;
-        this.plant_id = plant_id;
-        this.approval_admin = approval_admin;
-        this.approval_manager = approval_manager;
-        this.final_approval = final_approval;
-        this.date_added = date_added;
-        this.date_accepted = date_accepted;
-    }
-
     public String getId() {
         return id;
     }
@@ -157,4 +157,23 @@ public class FarmerPlantModel {
     public void setDate_accepted(String date_accepted) {
         this.date_accepted = date_accepted;
     }
+
+
+    public String getManager_id() {
+        return manager_id;
+    }
+
+    public void setManager_id(String manager_id) {
+        this.manager_id = manager_id;
+    }
+
+    public String getManager_name() {
+        return manager_name;
+    }
+
+    public void setManager_name(String manager_name) {
+        this.manager_name = manager_name;
+    }
+
+
 }

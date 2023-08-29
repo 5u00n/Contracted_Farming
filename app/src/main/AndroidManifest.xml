@@ -23,9 +23,7 @@
         <activity
             android:name=".Admin.Dashboard.Farmer.FarmerProfile.Profile.FarmerPlant.AdminFarmerPlantActivity"
             android:exported="false"/>
-        <activity
-            android:name=".Admin.Requests.IndividualRequest.IndividualRequestActivity"
-            android:exported="false" />
+
         <activity
             android:name=".Admin.AdminProfile.AdminProfileActivity"
             android:exported="false" />
