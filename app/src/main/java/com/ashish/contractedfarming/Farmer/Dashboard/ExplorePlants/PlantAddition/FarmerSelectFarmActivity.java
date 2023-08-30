@@ -10,13 +10,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,10 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
-import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
 import com.ashish.contractedfarming.Models.FarmerPlantModel;
 import com.ashish.contractedfarming.Models.NotificationModel;
-import com.ashish.contractedfarming.Models.PlantModel;
 import com.ashish.contractedfarming.Models.PlotModel;
 import com.ashish.contractedfarming.Models.RequestModel;
 import com.ashish.contractedfarming.R;
@@ -45,13 +40,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class FarmerSelectFarmActivity extends AppCompatActivity {
@@ -310,15 +303,20 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
                             //Add data to data to database of user and admin send them notification
                             for (int i = 0; i < plot_ids.size(); i++) {
 
-                                reference.child("users").child("farmer").child(auth.getUid()).child("farmer_plants").child("farmer-plants_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_"+time_stamp).setValue(new FarmerPlantModel("farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,plot_ids.get(i),plant_id,"waiting","waiting","waiting",time_stamp,"Waiting","Waiting",plant_img_url,plant_name,plot_urls.get(i),plot_names.get(i)));
-                                reference.child("farmer_plants").child(auth.getUid()).child("farmer-plants_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_"+time_stamp).setValue(new FarmerPlantModel("farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_"+time_stamp,plot_ids.get(i),plant_id,"waiting","waiting","waiting",time_stamp,"Waiting","Waiting",plant_img_url,plant_name,plot_urls.get(i),plot_names.get(i)));
+                                /// adding farmer_plants data to farmer and global database
+                                String farmer_plant_id="farmer-plants_"+plot_ids.get(i) +"_"+ plant_id + "_"+time_stamp;
+                                FarmerPlantModel model=new FarmerPlantModel(farmer_plant_id,plot_ids.get(i),plant_id,"waiting","waiting","waiting",time_stamp,"Waiting","Waiting",plant_img_url,plant_name,plot_urls.get(i),plot_names.get(i));
+                                reference.child("users").child("farmer").child(auth.getUid()).child("farmer_plants").child(farmer_plant_id).setValue(model);
+                                reference.child("farmer_plants").child(farmer_plant_id).setValue(model);
 
 
+                                /// adding requests to admin and farmers database
+                                RequestModel requestModel=new RequestModel("requests_"+auth.getUid()  + "_"+time_stamp,auth.getUid(),"admin,manager","plant_request_"+plant_name,"farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,time_stamp,"00","00","--");
+                                reference.child("users").child("farmer").child(auth.getUid()).child("requests").child("requests_"+auth.getUid()  + "_"+time_stamp).setValue(requestModel);
+                                reference.child("requests").child("requests_"+auth.getUid()  +"_"+ time_stamp).setValue(requestModel);
 
-                                reference.child("users").child("farmer").child(auth.getUid()).child("requests").child("requests_"+auth.getUid()  + "_"+time_stamp).setValue(new RequestModel("requests_"+auth.getUid()  + "_"+time_stamp,auth.getUid(),"admin,manager","plant_request_"+plant_name,"farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,time_stamp,"00","00","--"));
-                                reference.child("requests").child("requests_"+auth.getUid()  +"_"+ time_stamp).setValue(new RequestModel("requests_"+auth.getUid()  +"_"+ time_stamp,auth.getUid(),"admin,manager","plant_request_"+plant_name,"farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,time_stamp,"00","00","--"));
 
-
+                                /// adding plant names to plots data
                                 reference.child("users").child("farmer").child(auth.getUid()).child("plot").child(plot_ids.get(i)).child("plant_name").setValue(plant_name);
                                 reference.child("plots").child(plot_ids.get(i)).child("plant_name").setValue(plant_name);
 

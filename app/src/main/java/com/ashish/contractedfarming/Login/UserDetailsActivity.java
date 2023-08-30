@@ -15,7 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerUploadActivity;
+import com.ashish.contractedfarming.NewFarmer.NewFarmerUploadActivity;
 import com.ashish.contractedfarming.Manager.NewManager.NewManagerUploadActivity;
 import com.ashish.contractedfarming.Models.AddressModel;
 import com.ashish.contractedfarming.R;

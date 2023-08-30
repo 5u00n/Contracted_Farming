@@ -78,7 +78,7 @@ public class AdminRequestActivity extends AppCompatActivity {
                 if (snapshot.hasChildren())
                     for (DataSnapshot fds : snapshot.getChildren()) {
                         RequestModel fm=null;
-                        Log.d("Admin Requests",new Gson().toJson(fds.getValue()));
+                        //Log.d("Admin Requests",new Gson().toJson(fds.getValue()));
                         if(fds.child("send_to").getValue().toString().toLowerCase().contains("admin")) {
 
 
@@ -95,22 +95,20 @@ public class AdminRequestActivity extends AppCompatActivity {
 
                 adapter1.setOnItemClickListener(new AdminRequestRecycleAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClicked(String type, String req_id, String sender_id,String sender_type,int checked,Boolean bool) {
-                        switch (type){
-                            case "stared":
-                                reference.child("requests").child(req_id).child("stared").setValue(bool?"00":"11");
-                                reference.child("users").child(sender_type).child(sender_id).child("requests").child(req_id).child("stared").setValue(bool?"00":"11");
-                                reference.child("users").child(sender_type).child(sender_id).child("notifications").child("noti_" + req_id).setValue(new NotificationModel("noti_" + req_id, "admin", auth.getUid(), (bool?"removed star from":"stared"+" your request on the date : ") + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "requests", "false"));
-                                break;
-                            case "plant":
-                                reference.child("requests").child(req_id).child("checked").setValue(checked==11||checked==10?checked:checked+10);
-                                reference.child("users").child(sender_type).child(sender_id).child("requests").child(req_id).child("checked").setValue(checked==11?11:checked+10);
-                                reference.child("users").child(sender_type).child(sender_id).child("notifications").child("noti_" + req_id).setValue(new NotificationModel("noti_" + req_id, "admin", auth.getUid(), "opened your request on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "requests", "false"));
-                                startActivity(new Intent(context, AdminFarmerPlantActivity.class).putExtra("req_id",req_id));
-                                break;
-                            case "user":
+                    public void onItemClicked(String type_id, String req_id, String sender_id,String sender_type,int checked,Boolean bool) {
+                        if(type_id.contains("stared")) {
+                            reference.child("requests").child(req_id).child("stared").setValue(bool ? "00" : "11");
+                            reference.child("users").child(sender_type).child(sender_id).child("requests").child(req_id).child("stared").setValue(bool ? "00" : "11");
+                            reference.child("users").child(sender_type).child(sender_id).child("notifications").child("noti_" + req_id).setValue(new NotificationModel("noti_" + req_id, "admin", auth.getUid(), (bool ? "removed star from" : "stared" + " your request on the date : ") + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "requests", "false"));
+                        }
+                        if(type_id.contains("farmer-plant")) {
+                            reference.child("requests").child(req_id).child("checked").setValue(checked == 11 || checked == 10 ? checked : checked + 10);
+                            reference.child("users").child(sender_type).child(sender_id).child("requests").child(req_id).child("checked").setValue(checked == 11 ? 11 : checked + 10);
+                            reference.child("users").child(sender_type).child(sender_id).child("notifications").child("noti_" + req_id).setValue(new NotificationModel("noti_" + req_id, "admin", auth.getUid(), "opened your request on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "requests", "false"));
+                            startActivity(new Intent(context, AdminFarmerPlantActivity.class).putExtra("farmer_plant_id", type_id));
+                        }
+                        if(type_id.contains("user")){
                                 Toast.makeText(context,"View Clicked Users ",Toast.LENGTH_SHORT).show();
-                                break;
                         }
                     }
                 });

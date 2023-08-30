@@ -41,13 +41,13 @@
             android:name=".Farmer.Dashboard.ExplorePlants.PlantAddition.FarmerExplorePlantsActivity"
             android:exported="false" />
         <activity
-            android:name=".Farmer.NewFarmer.AddPlotActivity"
+            android:name=".NewFarmer.AddPlotActivity"
             android:exported="false" />
         <activity
-            android:name=".Farmer.NewFarmer.NewFarmerApprovalWaitActivity"
+            android:name=".NewFarmer.NewFarmerApprovalWaitActivity"
             android:exported="false" />
         <activity
-            android:name=".Farmer.NewFarmer.NewFarmerUploadActivity"
+            android:name=".NewFarmer.NewFarmerUploadActivity"
             android:exported="false" />
         <activity
             android:name=".Farmer.News.FarmerNewsActivity"

@@ -103,7 +103,7 @@ public class AdminRequestRecycleAdapter extends RecyclerView.Adapter<AdminReques
             public void onClick(View view) {
                 if (mListener != null) {
                 //Log.d("Notification clicked",model.getType());
-                mListener.onItemClicked(req_type[0].toLowerCase(),model.getId(),model.getSender_id(),req_user[1].toLowerCase(),Integer.parseInt(model.getChecked()),false); // Pass the ID or relevant data
+                mListener.onItemClicked(model.getType_id(),model.getId(),model.getSender_id(),req_user[1].toLowerCase(),Integer.parseInt(model.getChecked()),false); // Pass the ID or relevant data
             }
             }
         });
@@ -140,6 +140,6 @@ public class AdminRequestRecycleAdapter extends RecyclerView.Adapter<AdminReques
     }
 
     public interface OnItemClickListener {
-        void onItemClicked(String type,String req_id,String sender_id,String sender_type,int checked,Boolean bool);
+        void onItemClicked(String type_id,String req_id,String sender_id,String sender_type,int checked,Boolean bool);
     }
 }

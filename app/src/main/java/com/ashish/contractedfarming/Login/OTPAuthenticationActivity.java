@@ -15,9 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ashish.contractedfarming.Admin.Dashboard.AdminDashboardActivity;
 import com.ashish.contractedfarming.Farmer.Dashboard.FarmerDashboardActivity;
-import com.ashish.contractedfarming.Farmer.NewFarmer.AddPlotActivity;
-import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerApprovalWaitActivity;
-import com.ashish.contractedfarming.Farmer.NewFarmer.NewFarmerUploadActivity;
+import com.ashish.contractedfarming.NewFarmer.AddPlotActivity;
+import com.ashish.contractedfarming.NewFarmer.NewFarmerApprovalWaitActivity;
+import com.ashish.contractedfarming.NewFarmer.NewFarmerUploadActivity;
 import com.ashish.contractedfarming.Manager.NewManager.ManagerApprovalWaitActivity;
 import com.ashish.contractedfarming.Manager.NewManager.NewManagerUploadActivity;
 import com.ashish.contractedfarming.R;

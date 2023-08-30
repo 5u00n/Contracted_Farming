@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Farmer.NewFarmer;
+package com.ashish.contractedfarming.NewFarmer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

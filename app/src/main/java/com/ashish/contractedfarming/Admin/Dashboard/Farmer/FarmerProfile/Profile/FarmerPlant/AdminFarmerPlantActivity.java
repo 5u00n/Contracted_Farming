@@ -1,9 +1,12 @@
 package com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerProfile.Profile.FarmerPlant;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -12,14 +15,18 @@ import android.widget.Toast;
 
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AdminFarmerPlantActivity extends AppCompatActivity {
 
 
     Context context;
-    String req_id;
+
+    String farmer_plant_id;
 
 
     ImageButton backButton;
@@ -43,16 +50,18 @@ public class AdminFarmerPlantActivity extends AppCompatActivity {
 
         context=getBaseContext();
 
-        req_id=getIntent().getExtras().getString("req_id");
+        farmer_plant_id=getIntent().getExtras().getString("farmer_plant_id");
+
+        //Log.d("farmer plant verification ",req_id);
 
 
+        auth=FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
         reference=database.getReference();
 
-
         initElements();
-
-
+        clickFunctions();
+        getDataFromFirebase();
     }
 
     void initElements(){
@@ -102,6 +111,61 @@ public class AdminFarmerPlantActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    void clickFunctions(){
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+        /*------------------ Farmer actions --**/
+
+        imageViewFarmer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        textViewFarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        buttonFarmer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+
+    }
+
+    void getDataFromFirebase(){
+        reference.child("farmer_plants").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChildren()){
+                    for(DataSnapshot snapshotFarmer: snapshot.getChildren()){
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
