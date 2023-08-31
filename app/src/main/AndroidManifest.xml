@@ -21,9 +21,11 @@
         android:theme="@style/Theme.ContractedFarming.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".Farmer.Dashboard.FarmerMyManager.FarmerManagerActivity"
+            android:exported="false" />
+        <activity
             android:name=".Admin.Dashboard.Farmer.FarmerProfile.Profile.FarmerPlant.AdminFarmerPlantActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".Admin.AdminProfile.AdminProfileActivity"
             android:exported="false" />

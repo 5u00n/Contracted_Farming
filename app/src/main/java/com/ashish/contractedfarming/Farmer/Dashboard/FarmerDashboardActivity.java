@@ -1,17 +1,9 @@
 package com.ashish.contractedfarming.Farmer.Dashboard;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,22 +15,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.ashish.contractedfarming.Farmer.Chat.FarmerChatActivity;
 import com.ashish.contractedfarming.Farmer.ConferenceAndWorkShop.FarmerCandWActivity;
-import com.ashish.contractedfarming.Farmer.Dashboard.Weather.HttpRequest;
+import com.ashish.contractedfarming.Farmer.Dashboard.FarmerMyManager.FarmerManagerActivity;
 import com.ashish.contractedfarming.Farmer.News.FarmerNewsActivity;
 import com.ashish.contractedfarming.Farmer.Notification.FarmerNotificationActivity;
 import com.ashish.contractedfarming.MainActivity;
 import com.ashish.contractedfarming.R;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -46,12 +35,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class FarmerDashboardActivity extends AppCompatActivity {
 
@@ -319,6 +303,15 @@ public class FarmerDashboardActivity extends AppCompatActivity {
             case R.id.menu_profile:
                 // do something
                 Toast.makeText(context, "Profile", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_farmer_manager:
+                // do something
+                startActivity(new Intent(context, FarmerManagerActivity.class));
+                break;
+
+            case R.id.menu_setting:
+                // do something
+                Toast.makeText(context, "Setting ", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.menu_logout:
