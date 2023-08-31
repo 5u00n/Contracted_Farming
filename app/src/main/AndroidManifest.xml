@@ -70,10 +70,10 @@
             android:name=".Manager.Dashboard.ManagerDashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".Manager.NewManager.ManagerApprovalWaitActivity"
+            android:name=".NewManager.ManagerApprovalWaitActivity"
             android:exported="false" />
         <activity
-            android:name=".Manager.NewManager.NewManagerUploadActivity"
+            android:name=".NewManager.NewManagerUploadActivity"
             android:exported="false" />
         <activity
             android:name=".Login.UserDetailsActivity"

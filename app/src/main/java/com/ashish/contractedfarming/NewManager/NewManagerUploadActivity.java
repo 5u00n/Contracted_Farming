@@ -1,4 +1,4 @@
-package com.ashish.contractedfarming.Manager.NewManager;
+package com.ashish.contractedfarming.NewManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashish.contractedfarming.Login.LoginActivity;
-import com.ashish.contractedfarming.MainActivity;
 import com.ashish.contractedfarming.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

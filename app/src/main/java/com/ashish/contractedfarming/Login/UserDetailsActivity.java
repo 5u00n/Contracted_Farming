@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ashish.contractedfarming.NewFarmer.NewFarmerUploadActivity;
-import com.ashish.contractedfarming.Manager.NewManager.NewManagerUploadActivity;
+import com.ashish.contractedfarming.NewManager.NewManagerUploadActivity;
 import com.ashish.contractedfarming.Models.AddressModel;
 import com.ashish.contractedfarming.R;
 import com.google.firebase.auth.FirebaseAuth;
