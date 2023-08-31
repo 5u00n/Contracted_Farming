@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class AdminFarmerPlantActivity extends AppCompatActivity {
 
@@ -151,14 +152,10 @@ public class AdminFarmerPlantActivity extends AppCompatActivity {
     }
 
     void getDataFromFirebase(){
-        reference.child("farmer_plants").addValueEventListener(new ValueEventListener() {
+        reference.child("farmer_plants").child(farmer_plant_id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChildren()){
-                    for(DataSnapshot snapshotFarmer: snapshot.getChildren()){
-
-                    }
-                }
+                Picasso.get().load(snapshot.child("farmer_img_url").getValue().toString()).into(imageViewFarmer);
             }
 
             @Override
