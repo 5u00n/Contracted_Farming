@@ -96,7 +96,7 @@ public class FarmerManagerActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing but close the dialog
 
-                        RequestModel requestModel=new RequestModel("requests_"+auth.getUid()  + "_"+time_stamp,auth.getUid(),"admin","newmanager_request_"+"Manager","--",time_stamp,"00","00","Please assign me a manager from my area !");
+                        RequestModel requestModel=new RequestModel("requests_"+auth.getUid()  + "_"+time_stamp,auth.getUid(),"admin","mewmanager_request_"+"Manager","new-manager",time_stamp,"00","00","Please assign me a manager from my area !");
                         reference.child("users").child("farmer").child(auth.getUid()).child("requests").child("requests_"+auth.getUid()  + "_"+time_stamp).setValue(requestModel);
                         reference.child("requests").child("requests_"+auth.getUid()  +"_"+ time_stamp).setValue(requestModel);
 
