@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +47,27 @@ public class FarmerMyRequestRecycleAdapter extends RecyclerView.Adapter<FarmerMy
         holder.date.setText("DATE :  "+ new SimpleDateFormat("dd MMM yyyy").format(Long.parseLong(model.getDate_of_creation()) * 1000L));
         holder.id.setText(model.getId());
         holder.status.setText("STATUS : "+model.getChecked());
+
+        if(model.getChecked().equals("00") || model.getChecked().equals("0") ){
+            holder.status.setText("STATUS : Not Checked");
+        }
+        if(model.getChecked().equals("01")){
+            holder.status.setText("STATUS : Manager Checked");
+        }
+        if(model.getChecked().equals("11")){
+            holder.status.setText("STATUS : Manager and Admin Checked");
+        }
+        if(model.getChecked().equals("10")){
+            holder.status.setText("STATUS : Admin Checked");
+
+        }
+
+        if(model.getStared().equals("00")){
+            holder.starImg.setImageResource(R.drawable.outline_star_unclickerd_24);
+        }else{
+            holder.starImg.setImageResource(R.drawable.baseline_star_24);
+        }
+
     }
     @Override
     public int getItemCount() {
@@ -54,6 +76,7 @@ public class FarmerMyRequestRecycleAdapter extends RecyclerView.Adapter<FarmerMy
 
     public class viewHolder extends RecyclerView.ViewHolder{
         TextView status,sent_to,date,id,type;
+        ImageView starImg;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             status= itemView.findViewById(R.id.farmer_my_request_view_status);
@@ -61,6 +84,7 @@ public class FarmerMyRequestRecycleAdapter extends RecyclerView.Adapter<FarmerMy
             type= itemView.findViewById(R.id.farmer_my_request_views_type);
             date= itemView.findViewById(R.id.farmer_my_request_views_date);
             id= itemView.findViewById(R.id.farmer_my_request_views_id);
+            starImg= itemView.findViewById(R.id.farmer_my_request_star_img);
         }
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="82dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
@@ -23,7 +23,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            >
 
             <LinearLayout
                 android:layout_weight="1"
@@ -31,7 +31,7 @@
                 android:paddingHorizontal="20dp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/farmer_my_request_views_to"
@@ -47,21 +47,6 @@
                     android:text="Request Type: "/>
 
 
-            </LinearLayout>
-            <View
-                android:layout_weight="0.005"
-                android:layout_marginVertical="10dp"
-                android:background="@drawable/shape_rectangle"
-                android:layout_width="2dp"
-                android:layout_height="match_parent"/>
-            <LinearLayout
-                android:layout_weight="1"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="20dp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/farmer_my_request_views_date"
@@ -77,7 +62,17 @@
                     android:text="Status: "/>
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/farmer_my_request_star_img"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/outline_star_unclickerd_24"/>
+
         </LinearLayout>
+
+
 
     </androidx.cardview.widget.CardView>
 
