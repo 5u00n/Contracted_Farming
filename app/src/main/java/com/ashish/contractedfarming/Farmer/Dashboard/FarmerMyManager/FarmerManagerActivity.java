@@ -106,7 +106,7 @@ public class FarmerManagerActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.exists()) {
                                     for (DataSnapshot snapshotUsers : snapshot.getChildren()) {
-                                        reference.child("users").child(snapshot.getKey()).child(snapshotUsers.child("userUID").getValue().toString()).child("notifications").child("noti_" + "manager-request_" + auth.getUid()  + "_" + time_stamp).setValue(new NotificationModel("noti_" + "manger-request_" + auth.getUid() +  "_" + time_stamp, "Farmer", auth.getUid(), "Requested for new Manager on date : " + new SimpleDateFormat("dd MMM YYYY HH:mm a").format(Long.parseLong(time_stamp) * 1000) + ". Click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "manager_request", "false"));
+                                        reference.child("users").child(snapshot.getKey()).child(snapshotUsers.child("userUID").getValue().toString()).child("notifications").child("noti_" + "manager-request_" + auth.getUid()  + "_" + time_stamp).setValue(new NotificationModel("noti_" + "manager-request_" + auth.getUid() +  "_" + time_stamp, "Farmer", auth.getUid(), "Requested for new Manager on date : " + new SimpleDateFormat("dd MMM YYYY HH:mm a").format(Long.parseLong(time_stamp) * 1000) + ". Click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "manager_request", "false"));
                                         //Log.d("USER EFFECTED Add Plant from farmer Notification :",new Gson().toJson(snapshotUsers.getValue()));
 
                                     }
