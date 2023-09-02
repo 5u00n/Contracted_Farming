@@ -1,14 +1,22 @@
 package com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerProfile.Profile;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.ashish.contractedfarming.Admin.Dashboard.Manager.AdminManagerAdapter;
+import com.ashish.contractedfarming.Admin.Dashboard.Manager.AdminManagerModel;
+import com.ashish.contractedfarming.Models.NotificationModel;
 import com.ashish.contractedfarming.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,12 +26,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 public class FarmerProfileActivity extends AppCompatActivity {
 
 
     TabLayout tabLayout;
     ViewPager viewPager;
 
+    FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference reference, reff_alluser;
 
@@ -35,10 +49,14 @@ public class FarmerProfileActivity extends AppCompatActivity {
 
     Boolean not_completed;
 
+    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_profile);
+
+        context = FarmerProfileActivity.this;
 
         confirm = findViewById(R.id.agent_verification_button_next);
         reject = findViewById(R.id.agent_verification_button_reject);
@@ -60,6 +78,8 @@ public class FarmerProfileActivity extends AppCompatActivity {
 
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        auth=FirebaseAuth.getInstance();
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("users");
@@ -134,15 +154,62 @@ public class FarmerProfileActivity extends AppCompatActivity {
                     }
                 } else {
 
-                    reference.child(usertype).child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    final Dialog dialog = new Dialog(FarmerProfileActivity.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCancelable(true);
+                    dialog.setContentView(R.layout.prompt_admin_select_manager);
+
+
+
+
+                    final ListView listView=dialog.findViewById(R.id.prompt_admin_select_manager_list);
+                    final Button buttonCancel=dialog.findViewById(R.id.prompt_admin_select_manager_cancel);
+                    List<AdminManagerModel> arrayList = new ArrayList<>();
+                    reference.child(usertype).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
-                                reference.child("farmer").child(userID).setValue(snapshot.getValue());
+                                DataSnapshot snapshotFarmer=snapshot.child("farmer").child(userID);
+                                DataSnapshot snapshotManager=snapshot.child("manager");
+
+
+                                reference.child("farmer").child(userID).setValue(snapshotFarmer.getValue());
                                 reference.child(usertype).child(userID).removeValue();
                                 reff_alluser.child(userID).child("usertype").setValue("farmer");
-                                finish();
-                            }
+
+                                ////////////////////////
+
+
+                                        if(snapshotManager.hasChildren()) {
+                                            for (DataSnapshot ds : snapshotManager.getChildren()) {
+
+                                                //Log.d("Check if manager Exist for the farmer !",ds.child("address").child("village").getValue().toString().toLowerCase()+" : "+snapshotFarmer.child("address").child("village").getValue().toString()+ds.child("address").child("village").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("village").getValue().toString().toLowerCase()));
+                                                if(ds.child("address").child("village").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("village").getValue().toString().toLowerCase())){
+                                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                                }else if(ds.child("address").child("circle").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("circle").getValue().toString().toLowerCase())){
+                                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                                } else if (ds.child("address").child("taluka").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("taluka").getValue().toString().toLowerCase())) {
+                                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                                } else if (ds.child("address").child("dist").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("dist").getValue().toString().toLowerCase())) {
+                                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                                }
+
+                                            }
+                                        }
+                                        if(context!=null) {
+                                            AdminManagerAdapter adapter = new AdminManagerAdapter(context, arrayList);
+
+                                            if (adapter != null) {
+                                                listView.setAdapter(adapter);
+                                            }
+                                        }
+                                    }
+
+
+
+
+
                         }
 
                         @Override
@@ -150,6 +217,43 @@ public class FarmerProfileActivity extends AppCompatActivity {
 
                         }
                     });
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            AdminManagerAdapter ob = (AdminManagerAdapter) adapterView.getAdapter();
+
+
+                            //Log.d("Manager Clicked !",ob.getItem(i).getId()+" , "+ob.getItem(i).getName()+ " , "+ob.getItem(i).getImgurl());
+
+                            reference.child("users").child("farmer").child(userID).child("my_manager").child("manager_id").setValue(ob.getItem(i).getId());
+                            reference.child("users").child("farmer").child(userID).child("my_manager").child("manager_name").setValue(ob.getItem(i).getName());
+                            reference.child("users").child("farmer").child(userID).child("my_manager").child("manager_img_url").setValue(ob.getItem(i).getImgurl());
+
+
+                            reference.child("users").child("manager").child(ob.getItem(i).getId()).child("my_farmers").child(userID).setValue(userID);
+
+                            String timeStamp= String.valueOf(Calendar.getInstance().getTime().getTime() / 1000);
+                            String not_id= "noti_"+auth.getUid()+timeStamp;
+                            reference.child("users").child("manager").child(ob.getItem(i).getId()).child("notifications").child(not_id ).setValue(new NotificationModel(not_id, "admin", auth.getUid(), " added new farmer under you on date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", timeStamp, "add-farmer", "false"));
+                            reference.child("users").child("farmer").child(userID).child("notifications").child(not_id).setValue(new NotificationModel(not_id, "admin", auth.getUid(), "allotted new manager " + ob.getItem(i).getName() + "to you on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", timeStamp, "manager-accept", "false"));
+
+
+                            dialog.cancel();
+
+                            ///////////////////////
+                            finish();
+                        }
+                    });
+                    buttonCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.cancel();
+                        }
+                    });
+
+
+                    dialog.show();
 
 
                 }

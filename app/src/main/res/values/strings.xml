@@ -2,7 +2,7 @@
     <string name="app_name">Contracted Farming</string>
     <string name="login">Login</string>
     <string name="enter_your_number_here">Enter Your Number Here</string>
-    <string name="click_on_send_otp_to_login_register">click on send OTP to login / register</string>
+    <string name="click_on_send_otp_to_login_register">Click on send OTP to login / register</string>
     <string name="app_will_send_otp_to_the_entered_number">App Will Send OTP To the Entered Number</string>
     <string name="login_register">Login / Register</string>
     <string name="continue_without_login">Continue Without Login</string>
@@ -15,7 +15,7 @@
     <string name="set_your_profile">Set Your Profile</string>
     <string name="farmer">Farmer</string>
     <string name="enter_your_name_here">Enter Your Name Here</string>
-    <string name="pincode">Pincode</string>
+    <string name="pincode">Pin code</string>
     <string name="save_and_next">Save and Next</string>
     <string name="circle">Circle</string>
     <string name="village">Village</string>
