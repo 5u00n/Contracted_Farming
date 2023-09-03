@@ -256,12 +256,6 @@ public class SetProfileActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
-
-
-
-
 }
 
 
