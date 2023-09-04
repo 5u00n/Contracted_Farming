@@ -2,12 +2,20 @@ package com.ashish.contractedfarming.Models;
 
 public class FarmerPlantModel {
 
-    String id,plot_id,plant_id,manager_id, manager_name,approval_admin,approval_manager,final_approval,date_added,date_accepted,planted_time,plant_img_url,farm_img_url,farm_name,plant_name;
+    String id,plot_id,plant_id,manager_id, farm_name,plant_name,manager_name,plant_img_url,farm_img_url,manager_img_url,approval_admin,approval_manager,final_approval,date_added,date_accepted,planted_time;
 
 
     int plant_progress;
 
     public FarmerPlantModel() {
+    }
+
+    public String getManager_img_url() {
+        return manager_img_url;
+    }
+
+    public void setManager_img_url(String manager_img_url) {
+        this.manager_img_url = manager_img_url;
     }
 
     public FarmerPlantModel(String id, String plant_img_url, String farm_img_url, String farm_name, String plant_name) {
@@ -34,18 +42,25 @@ public class FarmerPlantModel {
         this.plant_name = plant_name;
     }
 
-    public FarmerPlantModel(String id, String plot_id, String plant_id, String approval_admin, String approval_manager, String final_approval, String date_added, String date_accepted) {
+    public FarmerPlantModel(String id, String plot_id, String plant_id, String manager_id, String farm_name, String plant_name, String manager_name, String plant_img_url, String farm_img_url, String manager_img_url, String approval_admin, String approval_manager, String final_approval, String date_added, String date_accepted, String planted_time, int plant_progress) {
         this.id = id;
         this.plot_id = plot_id;
         this.plant_id = plant_id;
+        this.manager_id = manager_id;
+        this.farm_name = farm_name;
+        this.plant_name = plant_name;
+        this.manager_name = manager_name;
+        this.plant_img_url = plant_img_url;
+        this.farm_img_url = farm_img_url;
+        this.manager_img_url = manager_img_url;
         this.approval_admin = approval_admin;
         this.approval_manager = approval_manager;
         this.final_approval = final_approval;
         this.date_added = date_added;
         this.date_accepted = date_accepted;
+        this.planted_time = planted_time;
+        this.plant_progress = plant_progress;
     }
-
-
 
     public String getPlanted_time() {
         return planted_time;

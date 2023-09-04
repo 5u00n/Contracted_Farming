@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 public class AdminFarmerPlantActivity extends AppCompatActivity {
@@ -53,7 +54,7 @@ public class AdminFarmerPlantActivity extends AppCompatActivity {
 
         farmer_plant_id=getIntent().getExtras().getString("farmer_plant_id");
 
-        //Log.d("farmer plant verification ",req_id);
+        Log.d("farmer plant verification ",farmer_plant_id);
 
 
         auth=FirebaseAuth.getInstance();
@@ -155,7 +156,11 @@ public class AdminFarmerPlantActivity extends AppCompatActivity {
         reference.child("farmer_plants").child(farmer_plant_id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Picasso.get().load(snapshot.child("farmer_img_url").getValue().toString()).into(imageViewFarmer);
+
+                if(snapshot.exists()) {
+                    Log.d("Farmer Acceptance : ", new Gson().toJson(snapshot.getValue()));
+                    //Picasso.get().load(snapshot.child("farmer_img_url").getValue().toString()).into(imageViewFarmer);
+                }
             }
 
             @Override

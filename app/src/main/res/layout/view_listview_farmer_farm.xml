@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="wrap_content"
     android:background="@android:color/transparent"
 
 
@@ -11,7 +11,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         android:layout_marginHorizontal="20dp"
         android:id="@+id/view_select_farm_listview_card"
@@ -20,7 +20,7 @@
         <LinearLayout
             android:background="@android:color/transparent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
 
@@ -33,7 +33,7 @@
     <androidx.cardview.widget.CardView
         android:layout_marginVertical="10dp"
         android:layout_width="80dp"
-        android:layout_height="match_parent"
+        android:layout_height="80dp"
         app:cardCornerRadius="80dp">
         <ImageView
             android:scaleType="centerCrop"
@@ -47,7 +47,7 @@
         android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
             android:id="@+id/view_select_farm_listview_text_farm_name"

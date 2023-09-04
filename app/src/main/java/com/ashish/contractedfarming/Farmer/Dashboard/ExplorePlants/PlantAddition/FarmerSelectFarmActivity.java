@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -40,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -102,9 +104,12 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
 
 
         ArrayList<PlotModel> plotModels = new ArrayList<>();
-        reference.child("users").child("farmer").child(auth.getUid()).child("plot").addValueEventListener(new ValueEventListener() {
+        reference.child("users").child("farmer").child(auth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snap) {
+            public void onDataChange(@NonNull DataSnapshot snapshotF) {
+
+                DataSnapshot snap=snapshotF.child("plot");
+                //DataSnapshot snapM=snapshotF.child("my_manager");
                 plotModels.clear();
                 if(snap.exists()){
                     for(DataSnapshot snapshot:snap.getChildren() ) {
@@ -305,13 +310,11 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
 
                                 /// adding farmer_plants data to farmer and global database
                                 String farmer_plant_id="farmer-plants_"+plot_ids.get(i) +"_"+ plant_id + "_"+time_stamp;
-                                FarmerPlantModel model=new FarmerPlantModel(farmer_plant_id,plot_ids.get(i),plant_id,"waiting","waiting","waiting",time_stamp,"Waiting","Waiting",plant_img_url,plant_name,plot_urls.get(i),plot_names.get(i));
-                                reference.child("users").child("farmer").child(auth.getUid()).child("farmer_plants").child(farmer_plant_id).setValue(model);
-                                reference.child("farmer_plants").child(farmer_plant_id).setValue(model);
+
 
 
                                 /// adding requests to admin and farmers database
-                                RequestModel requestModel=new RequestModel("requests_"+auth.getUid()  + "_"+time_stamp,auth.getUid(),"admin,manager","plant_request_"+plant_name,"farmer-plant_"+auth.getUid() + "_" + plot_ids.get(i) + plant_id + time_stamp,time_stamp,"00","00","--");
+                                RequestModel requestModel=new RequestModel("requests_"+auth.getUid()  + "_"+time_stamp,auth.getUid(),"admin,manager","plant_request_"+plant_name,farmer_plant_id,time_stamp,"00","00","--");
                                 reference.child("users").child("farmer").child(auth.getUid()).child("requests").child("requests_"+auth.getUid()  + "_"+time_stamp).setValue(requestModel);
                                 reference.child("requests").child("requests_"+auth.getUid()  +"_"+ time_stamp).setValue(requestModel);
 
@@ -332,11 +335,34 @@ public class FarmerSelectFarmActivity extends AppCompatActivity {
                                         for(DataSnapshot snapshotU: snapshot.getChildren()){
                                             //Log.d("USER Parents Tags :",snapshotU.getKey());
                                             if(snapshotU.getKey().equals("admin") || snapshotU.getKey().equals("manager")){
-                                                if(snapshotU.hasChildren()){
-                                                    for(DataSnapshot snapshotUsers: snapshotU.getChildren()){
+                                                if(snapshotU.hasChildren()) {
+                                                    for (DataSnapshot snapshotUsers : snapshotU.getChildren()) {
                                                         for (int i = 0; i < plot_ids.size(); i++) {
-                                                            reference.child("users").child(snapshotU.getKey()).child(snapshotUsers.child("userUID").getValue().toString()).child("notifications").child("noti_" + "farmer-plants_" + auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_" + time_stamp).setValue(new NotificationModel("noti_" + "farmer-plants_" + auth.getUid() + "_" + plot_ids.get(i) + plant_id + "_" + time_stamp, "Farmer", auth.getUid(), "Added new Plant for farm on date : " + new SimpleDateFormat("dd MMM YYYY HH:mm a").format(Long.parseLong(time_stamp) * 1000) + ". Click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "farmer_plant", "false"));
-                                                            //Log.d("USER EFFECTED Add Plant from farmer Notification :",new Gson().toJson(snapshotUsers.getValue()));
+
+                                                            String farmer_plant_id = "farmer-plants_" + plot_ids.get(i) + "_" + plant_id + "_" + time_stamp;
+                                                            if (snapshotU.getKey().equals("manager")) {
+                                                                //Log.d("All Managers",snapshotUsers.child("my_farmers").child(auth.getUid()).exists()+" : "+auth.getUid());
+
+                                                                if (snapshotUsers.child("my_farmers").child(auth.getUid()).exists()) {
+                                                                    //Log.d("All Managers",new Gson().toJson(snapshotUsers.getValue()));
+
+                                                                    FarmerPlantModel model=new FarmerPlantModel(farmer_plant_id,plot_ids.get(i),plant_id,snapshotUsers.child("userUID").getValue().toString(),plot_names.get(i),plant_name,snapshotUsers.child("username").getValue().toString(),plant_img_url,plot_urls.get(i),snapshotUsers.child("img_url").getValue().toString(),"waiting","Waiting","Waiting",time_stamp,"waiting","waiting",0);
+                                                                    reference.child("users").child("farmer").child(auth.getUid()).child("farmer_plants").child(farmer_plant_id).setValue(model);
+                                                                    reference.child("farmer_plants").child(farmer_plant_id).setValue(model);
+
+
+                                                                    RequestModel requestModel = new RequestModel("requests_" + auth.getUid() + "_" + time_stamp, auth.getUid(), "admin,manager", "plant_request_" + plant_name, farmer_plant_id, time_stamp, "00", "00", "--");
+
+                                                                    reference.child("users").child(snapshotU.getKey()).child(snapshotUsers.child("userUID").getValue().toString()).child("requests").child("requests_" + auth.getUid() + "_" + time_stamp).setValue(requestModel);
+
+
+                                                                }
+                                                            } else {
+                                                                Log.d("All Admins",new Gson().toJson(snapshotUsers.getValue()));
+                                                                //Log.d("USER EFFECTED Add Plant from farmer Notification :",new Gson().toJson(snapshotUsers.getValue()));
+                                                                reference.child("users").child(snapshotU.getKey()).child(snapshotUsers.child("userUID").getValue().toString()).child("notifications").child("noti_" +farmer_plant_id ).setValue(new NotificationModel("noti_" + farmer_plant_id, "Farmer", auth.getUid(), "Added new Plant for farm on date : " + new SimpleDateFormat("dd MMM YYYY HH:mm a").format(Long.parseLong(time_stamp) * 1000) + ". Click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "farmer_plant", "false"));
+                                                            }
+
                                                         }
                                                     }
                                                 }
