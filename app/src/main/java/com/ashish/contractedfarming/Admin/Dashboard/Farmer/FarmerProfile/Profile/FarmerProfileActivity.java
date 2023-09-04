@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -22,12 +23,15 @@ import com.ashish.contractedfarming.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
+import com.google.common.collect.ForwardingSortedMap;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -169,53 +173,56 @@ public class FarmerProfileActivity extends AppCompatActivity {
                     final ListView listView=dialog.findViewById(R.id.prompt_admin_select_manager_list);
                     final Button buttonCancel=dialog.findViewById(R.id.prompt_admin_select_manager_cancel);
                     List<AdminManagerModel> arrayList = new ArrayList<>();
-                    reference.child(usertype).addListenerForSingleValueEvent(new ValueEventListener() {
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
-                                DataSnapshot snapshotFarmer=snapshot.child("farmer").child(userID);
+
+                                //DataSnapshot snapshotAnyFarmer=snapshot.child(usertype).child(userID);
                                 DataSnapshot snapshotManager=snapshot.child("manager");
 
+                                //Log.d(usertype,new Gson().toJson(snapshotAnyFarmer.getValue()));
+                                //Log.d("manager",new Gson().toJson(snapshotManager.getValue()));
 
-                                reference.child("farmer").child(userID).setValue(snapshotFarmer.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        reference.child(usertype).child(userID).removeValue();
-                                    }
-                                });
+
+
+                                DataSnapshot snapshotFarmer=snapshot.child(usertype).child(userID);
+
 
                                 reff_alluser.child(userID).child("usertype").setValue("farmer");
 
                                 ////////////////////////
 
 
-                                        if(snapshotManager.hasChildren()) {
-                                            for (DataSnapshot ds : snapshotManager.getChildren()) {
+                                if (snapshotManager.hasChildren()) {
+                                    for (DataSnapshot ds : snapshotManager.getChildren()) {
 
-                                                Log.d("Check if manager Exist for the farmer !",ds.child("address").child("village").getValue().toString().toLowerCase()+" : "+snapshotFarmer.child("address").child("village").getValue().toString()+ds.child("address").child("village").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("village").getValue().toString().toLowerCase()));
-                                                if(ds.child("address").child("village").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("village").getValue().toString().toLowerCase())){
-                                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
-                                                }else if(ds.child("address").child("circle").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("circle").getValue().toString().toLowerCase())){
-                                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
-                                                } else if (ds.child("address").child("taluka").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("taluka").getValue().toString().toLowerCase())) {
-                                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
-                                                } else if (ds.child("address").child("dist").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("dist").getValue().toString().toLowerCase())) {
-                                                    arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
-                                                }
-
-                                            }
+                                        //Log.d("Check if manager Exist for the farmer !", new Gson().toJson(ds.getValue()));
+                                     if (ds.child("address").child("village").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("village").getValue().toString().toLowerCase())) {
+                                            arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                        } else if (ds.child("address").child("circle").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("circle").getValue().toString().toLowerCase())) {
+                                            arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                        } else if (ds.child("address").child("taluka").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("taluka").getValue().toString().toLowerCase())) {
+                                            arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
+                                        } else if (ds.child("address").child("dist").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("dist").getValue().toString().toLowerCase())) {
+                                            arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                                         }
-                                        if(context!=null) {
-                                            AdminManagerAdapter adapter = new AdminManagerAdapter(context, arrayList);
 
-                                            if (adapter != null) {
-                                                listView.setAdapter(adapter);
-                                            }
-                                        }
+                                    }
+                                }
+                                if (context != null) {
+                                    AdminManagerAdapter adapter = new AdminManagerAdapter(context, arrayList);
+
+                                    if (adapter != null) {
+                                        listView.setAdapter(adapter);
                                     }
 
 
+                                }
 
+
+
+                            }
 
 
                         }
@@ -229,25 +236,70 @@ public class FarmerProfileActivity extends AppCompatActivity {
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            AdminManagerAdapter ob = (AdminManagerAdapter) adapterView.getAdapter();
+
+                            reference.child(usertype).child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    reference.child("farmer").child(userID).setValue(snapshot.getValue());
+                                    reference.child(usertype).child(userID).removeValue();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
 
 
-                            //Log.d("Manager Clicked !",ob.getItem(i).getId()+" , "+ob.getItem(i).getName()+ " , "+ob.getItem(i).getImgurl());
+                            });
 
-                            reference.child("users").child("farmer").child(userID).child("my_manager").child("manager_id").setValue(ob.getItem(i).getId());
-                            reference.child("users").child("farmer").child(userID).child("my_manager").child("manager_name").setValue(ob.getItem(i).getName());
-                            reference.child("users").child("farmer").child(userID).child("my_manager").child("manager_img_url").setValue(ob.getItem(i).getImgurl());
+                            reference.child("farmer").child(userID).addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                    AdminManagerAdapter ob = (AdminManagerAdapter) adapterView.getAdapter();
 
 
-                            reference.child("users").child("manager").child(ob.getItem(i).getId()).child("my_farmers").child(userID).setValue(userID);
+                                    //Log.d("Manager Clicked !",ob.getItem(i).getId()+" , "+ob.getItem(i).getName()+ " , "+ob.getItem(i).getImgurl());
 
-                            String timeStamp= String.valueOf(Calendar.getInstance().getTime().getTime() / 1000);
-                            String not_id= "noti_"+auth.getUid()+timeStamp;
-                            reference.child("users").child("manager").child(ob.getItem(i).getId()).child("notifications").child(not_id ).setValue(new NotificationModel(not_id, "admin", auth.getUid(), " added new farmer under you on date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", timeStamp, "add-farmer", "false"));
-                            reference.child("users").child("farmer").child(userID).child("notifications").child(not_id).setValue(new NotificationModel(not_id, "admin", auth.getUid(), "allotted new manager " + ob.getItem(i).getName() + "to you on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", timeStamp, "manager-accept", "false"));
+                                    reference.child("farmer").child(userID).child("my_manager").child("manager_id").setValue(ob.getItem(i).getId());
+                                    reference.child("farmer").child(userID).child("my_manager").child("manager_name").setValue(ob.getItem(i).getName());
+                                    reference.child("farmer").child(userID).child("my_manager").child("manager_img_url").setValue(ob.getItem(i).getImgurl());
+
+
+                                    reference.child("manager").child(ob.getItem(i).getId()).child("my_farmers").child(userID).setValue(userID);
+
+                                    String timeStamp= String.valueOf(Calendar.getInstance().getTime().getTime() / 1000);
+                                    String not_id= "noti_"+auth.getUid()+timeStamp;
+                                    reference.child("manager").child(ob.getItem(i).getId()).child("notifications").child(not_id ).setValue(new NotificationModel(not_id, "admin", auth.getUid(), " added new farmer under you on date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", timeStamp, "add-farmer", "false"));
+                                    reference.child("farmer").child(userID).child("notifications").child(not_id).setValue(new NotificationModel(not_id, "admin", auth.getUid(), "allotted new manager " + ob.getItem(i).getName() + "to you on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", timeStamp, "manager-accept", "false"));
+
+                                }
+
+                                @Override
+                                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                                }
+
+                                @Override
+                                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                                }
+
+                                @Override
+                                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
 
 
                             dialog.cancel();
+
+
 
                             ///////////////////////
                             finish();
