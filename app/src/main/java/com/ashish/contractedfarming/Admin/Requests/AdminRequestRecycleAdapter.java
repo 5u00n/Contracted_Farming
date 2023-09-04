@@ -49,7 +49,7 @@ public class AdminRequestRecycleAdapter extends RecyclerView.Adapter<AdminReques
         String[] req_user=model.getSender_name().toUpperCase().split("_");
         holder.type.setText("REQUEST TYPE :   "+req_type[0]+" ( "+req_type[2]+" ) ");
         holder.sent_by.setText("SENDER : "+req_user[0]+" ( "+req_user[1]+" )");
-        holder.date.setText("DATE :  "+ new SimpleDateFormat("dd MMM yyyy").format(Long.parseLong(model.getDate_of_creation()) * 1000L));
+        holder.date.setText("DATE :  "+ new SimpleDateFormat("dd MMM yyyy, hh:mm a").format(Long.parseLong(model.getDate_of_creation()) * 1000L));
         holder.id.setText(model.getId());
 
 

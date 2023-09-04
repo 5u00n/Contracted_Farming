@@ -51,6 +51,8 @@ import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class AdminRequestActivity extends AppCompatActivity {
@@ -104,6 +106,13 @@ public class AdminRequestActivity extends AppCompatActivity {
                             requestModelArrayList.add(fm);
                         }
                     }
+
+                Collections.sort(requestModelArrayList, new Comparator<RequestModel>() {
+                    @Override
+                    public int compare(RequestModel o1, RequestModel o2) {
+                        return o2.getDate_of_creation().compareTo(o1.getDate_of_creation());
+                    }
+                });
 
                 AdminRequestRecycleAdapter adapter1 = new AdminRequestRecycleAdapter(requestModelArrayList, context);
 
