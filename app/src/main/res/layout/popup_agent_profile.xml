@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
-            android:text="Agent Profile"
+            android:text="Manager Profile"
             android:textSize="22sp" />
     </androidx.cardview.widget.CardView>
 
@@ -84,29 +84,30 @@
         <LinearLayout
             android:paddingLeft="10dp"
             android:layout_marginTop="30dp"
-            android:weightSum="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
                     android:textSize="15dp"
+                    android:layout_marginVertical="5dp"
                     android:id="@+id/popup_agent_village"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Village"/>
                 <TextView
+                    android:layout_marginVertical="5dp"
                     android:textSize="15dp"
                     android:id="@+id/popup_agent_taluka"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="taluka"/>
                 <TextView
+                    android:layout_marginVertical="5dp"
                     android:textSize="15dp"
                     android:id="@+id/popup_agent_pin"
                     android:layout_width="wrap_content"
@@ -115,17 +116,18 @@
             </LinearLayout>
             <LinearLayout
                 android:paddingLeft="15dp"
-                android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:layout_marginVertical="5dp"
                     android:textSize="15dp"
                     android:id="@+id/popup_agent_circle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Circle"/>
                 <TextView
+                    android:layout_marginVertical="5dp"
                     android:textSize="15dp"
                     android:id="@+id/popup_agent_district"
                     android:layout_width="wrap_content"

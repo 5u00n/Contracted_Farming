@@ -139,14 +139,14 @@ public class FarmerManagerActivity extends AppCompatActivity {
             }
         });
 
-        reference.child("users").child("farmer").child(auth.getUid()).child("assigned_manager_id").addValueEventListener(new ValueEventListener() {
+        reference.child("users").child("farmer").child(auth.getUid()).child("my_manager").child("manager_id").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if (snapshot.exists()){
                     //Log.d("My Manager ID",snapshot.getValue().toString());
 
-                    reference.child("users").child("manager").child(snapshot.getKey().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    reference.child("users").child("manager").child(snapshot.getValue().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()){
@@ -156,9 +156,9 @@ public class FarmerManagerActivity extends AppCompatActivity {
                                 textView_managerMob.setText(snapshot.child("mob_no").getValue().toString());
                                 textView_managerVillage.setText("Village : "+snapshot.child("address").child("village").getValue().toString());
                                 textView_managerCircle.setText("Circle : "+snapshot.child("address").child("circle").getValue().toString());
-                                textView_managerName.setText("Taluka : "+snapshot.child("address").child("taluka").getValue().toString());
-                                textView_managerName.setText("District : "+snapshot.child("address").child("dist").getValue().toString());
-                                textView_managerName.setText("Pin :"+snapshot.child("address").child("pin").getValue().toString());
+                                textView_managerTaluka.setText("Taluka : "+snapshot.child("address").child("taluka").getValue().toString());
+                                textView_managerDist.setText("District : "+snapshot.child("address").child("dist").getValue().toString());
+                                textView_managerPin.setText("Pin :"+snapshot.child("address").child("pin").getValue().toString());
 
                             }
                         }
