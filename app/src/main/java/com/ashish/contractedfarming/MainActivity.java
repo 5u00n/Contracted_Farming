@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -50,19 +52,34 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout ll= findViewById(R.id.main_linear);
         ll.setVisibility(View.GONE);
 
-        if(Helpers.isInternetAvailable()) {
+        Runnable r = new Runnable() {
+            @Override
+            public void run(){
+               // goToNextActivity(); //<-- put your code in here.
+                if(!Helpers.isInternetAvailable())
+                    ll.setVisibility(View.VISIBLE);
+                else {
+                    ll.setVisibility(View.GONE);
+                }
+            }
+        };
+
+        Handler h = new Handler();
+        h.postDelayed(r, 2000);
+
+
+
+   /*     if(Helpers.isInternetAvailable()) {
             goToNextActivity();
             ll.setVisibility(View.GONE);
         }
         else {
             Toast.makeText(this, "No Internet ", Toast.LENGTH_SHORT).show();
-            if(!Helpers.isInternetAvailable())
-             ll.setVisibility(View.VISIBLE);
-            else {
-                goToNextActivity();
-                ll.setVisibility(View.GONE);
+
             }
         }
+
+    */
 
 
         // ...
@@ -79,68 +96,72 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    if (snapshot.exists() && (snapshot.child("usertype").exists() && snapshot.child("approved_num").exists())) {
+                    if(snapshot.exists()) {
+                        if (snapshot.child("usertype").exists() && snapshot.child("approved_num").exists()) {
 
-                        switch (snapshot.child("usertype").getValue().toString()) {
-                            case "farmer":
-                                intent[0] = new Intent(MainActivity.this, FarmerDashboardActivity.class);
-                                break;
-                            case "rej-farmer":
-                                intent[0] = new Intent(MainActivity.this, NewFarmerApprovalWaitActivity.class);
-                                intent[0].putExtra("status", "rejected");
-                                break;
-                            case "new-farmer":
-                                switch (snapshot.child("approved_num").getValue().toString()) {
-                                    case "0":
-                                        intent[0] = new Intent(MainActivity.this, UserDetailsActivity.class);
-                                        break;
-                                    case "1":
-                                        intent[0] = new Intent(MainActivity.this, NewFarmerUploadActivity.class);
-                                        break;
-                                    case "2":
-                                        intent[0] = new Intent(MainActivity.this, AddPlotActivity.class);
-                                        break;
-                                    case "3":
-                                        intent[0] = new Intent(MainActivity.this, NewFarmerApprovalWaitActivity.class);
-                                        intent[0].putExtra("status", "Waiting");
-                                        break;
-                                }
-                                break;
-                            case "new-manager":
-                                switch (snapshot.child("approved_num").getValue().toString()) {
-                                    case "0":
-                                        intent[0] = new Intent(MainActivity.this, UserDetailsActivity.class);
-                                        break;
-                                    case "1":
-                                        intent[0] = new Intent(MainActivity.this, NewManagerUploadActivity.class);
-                                        break;
-                                    case "2":
-                                        intent[0] = new Intent(MainActivity.this, ManagerApprovalWaitActivity.class);
-                                        intent[0].putExtra("status", "Waiting");
-                                        break;
-                                }
+                            switch (snapshot.child("usertype").getValue().toString()) {
+                                case "farmer":
+                                    intent[0] = new Intent(MainActivity.this, FarmerDashboardActivity.class);
+                                    break;
+                                case "rej-farmer":
+                                    intent[0] = new Intent(MainActivity.this, NewFarmerApprovalWaitActivity.class);
+                                    intent[0].putExtra("status", "rejected");
+                                    break;
+                                case "new-farmer":
+                                    switch (snapshot.child("approved_num").getValue().toString()) {
+                                        case "0":
+                                            intent[0] = new Intent(MainActivity.this, UserDetailsActivity.class);
+                                            break;
+                                        case "1":
+                                            intent[0] = new Intent(MainActivity.this, NewFarmerUploadActivity.class);
+                                            break;
+                                        case "2":
+                                            intent[0] = new Intent(MainActivity.this, AddPlotActivity.class);
+                                            break;
+                                        case "3":
+                                            intent[0] = new Intent(MainActivity.this, NewFarmerApprovalWaitActivity.class);
+                                            intent[0].putExtra("status", "Waiting");
+                                            break;
+                                    }
+                                    break;
+                                case "new-manager":
+                                    switch (snapshot.child("approved_num").getValue().toString()) {
+                                        case "0":
+                                            intent[0] = new Intent(MainActivity.this, UserDetailsActivity.class);
+                                            break;
+                                        case "1":
+                                            intent[0] = new Intent(MainActivity.this, NewManagerUploadActivity.class);
+                                            break;
+                                        case "2":
+                                            intent[0] = new Intent(MainActivity.this, ManagerApprovalWaitActivity.class);
+                                            intent[0].putExtra("status", "Waiting");
+                                            break;
+                                    }
 
-                                break;
-                            case "manager":
-                                intent[0] = new Intent(MainActivity.this, ManagerDashboardActivity.class);
-                                break;
-                            case "rej-manager":
-                                intent[0] = new Intent(MainActivity.this, ManagerApprovalWaitActivity.class);
-                                intent[0].putExtra("status", "rejected");
-                                break;
-                            case "admin":
-                                intent[0] = new Intent(MainActivity.this, AdminDashboardActivity.class);
-                                break;
+                                    break;
+                                case "manager":
+                                    intent[0] = new Intent(MainActivity.this, ManagerDashboardActivity.class);
+                                    break;
+                                case "rej-manager":
+                                    intent[0] = new Intent(MainActivity.this, ManagerApprovalWaitActivity.class);
+                                    intent[0].putExtra("status", "rejected");
+                                    break;
+                                case "admin":
+                                    intent[0] = new Intent(MainActivity.this, AdminDashboardActivity.class);
+                                    break;
 
+                            }
+
+                        } else {
+                            intent[0] = new Intent(MainActivity.this, SetProfileActivity.class);
                         }
-
-                    } else {
-                        intent[0] = new Intent(MainActivity.this, SetProfileActivity.class);
-                    }
-                    if (intent[0] != null) {
-                        intent[0].setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent[0]);
-                        finish();
+                        if (intent[0] != null) {
+                            intent[0].setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent[0]);
+                            finish();
+                        }
+                    }else{
+                        Log.d("NO Data","NOO Data................................");
                     }
                 }
 
@@ -149,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         } else {
+            Log.d("NO USERID","NOO USERID................................");
             SharedPreferences sharedPreferences = getSharedPreferences("APP_PREFERENCES", Context.MODE_PRIVATE);
             boolean isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true);
 
