@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -18,6 +19,8 @@ import com.ashish.contractedfarming.Admin.Dashboard.Manager.AdminManagerAdapter;
 import com.ashish.contractedfarming.Admin.Dashboard.Manager.AdminManagerModel;
 import com.ashish.contractedfarming.Models.NotificationModel;
 import com.ashish.contractedfarming.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -174,8 +177,13 @@ public class FarmerProfileActivity extends AppCompatActivity {
                                 DataSnapshot snapshotManager=snapshot.child("manager");
 
 
-                                reference.child("farmer").child(userID).setValue(snapshotFarmer.getValue());
-                                reference.child(usertype).child(userID).removeValue();
+                                reference.child("farmer").child(userID).setValue(snapshotFarmer.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        reference.child(usertype).child(userID).removeValue();
+                                    }
+                                });
+
                                 reff_alluser.child(userID).child("usertype").setValue("farmer");
 
                                 ////////////////////////
@@ -184,7 +192,7 @@ public class FarmerProfileActivity extends AppCompatActivity {
                                         if(snapshotManager.hasChildren()) {
                                             for (DataSnapshot ds : snapshotManager.getChildren()) {
 
-                                                //Log.d("Check if manager Exist for the farmer !",ds.child("address").child("village").getValue().toString().toLowerCase()+" : "+snapshotFarmer.child("address").child("village").getValue().toString()+ds.child("address").child("village").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("village").getValue().toString().toLowerCase()));
+                                                Log.d("Check if manager Exist for the farmer !",ds.child("address").child("village").getValue().toString().toLowerCase()+" : "+snapshotFarmer.child("address").child("village").getValue().toString()+ds.child("address").child("village").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("village").getValue().toString().toLowerCase()));
                                                 if(ds.child("address").child("village").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("village").getValue().toString().toLowerCase())){
                                                     arrayList.add(new AdminManagerModel(ds.child("userUID").getValue().toString(), ds.child("username").getValue().toString(), ds.child("address").child("village").getValue().toString(), ds.child("img_url").getValue().toString()));
                                                 }else if(ds.child("address").child("circle").getValue().toString().toLowerCase().contains(snapshotFarmer.child("address").child("circle").getValue().toString().toLowerCase())){
