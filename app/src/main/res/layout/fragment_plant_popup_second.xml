@@ -54,7 +54,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:text="I am working on demo application in which I am using the card view of the support library. By default, it is adding a shadow around it. I want to remove this shadow  should looks like simple."
-                android:textColor="@color/white"
+
                 android:textSize="18dp" />
         </androidx.cardview.widget.CardView>
     </androidx.cardview.widget.CardView>

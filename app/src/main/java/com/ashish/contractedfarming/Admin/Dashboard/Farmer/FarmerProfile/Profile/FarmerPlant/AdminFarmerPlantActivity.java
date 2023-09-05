@@ -273,7 +273,7 @@ public class AdminFarmerPlantActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         reference.child("farmer_plants").child(farmer_plant_id).child("approval_admin").setValue("On Hold");
-                        reference.child("users").child("farmer").child(textViewFarmer.getText().toString()).child("farmer_plants").child(farmer_plant_id).child("approval_admin").setValue("On Hold");
+                        reference.child("users").child("farmer").child(farmerId.getText().toString()).child("farmer_plants").child(farmer_plant_id).child("approval_admin").setValue("On Hold");
 
                         reference.child("users").child("farmer").child(farmerId.getText().toString()).child("notifications").child(noti_id).setValue(new NotificationModel(noti_id,"admin", auth.getUid(), "put your Plant Request on hold on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "farmer_plant", "false"));
                         reference.child("users").child("manager").child(managerId.getText().toString()).child("notifications").child(noti_id).setValue(new NotificationModel(noti_id,"admin", auth.getUid(), "put a Plant Request of "+textViewFarmer.getText().toString()+"(farmer) on hold on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "farmer_plant", "false"));

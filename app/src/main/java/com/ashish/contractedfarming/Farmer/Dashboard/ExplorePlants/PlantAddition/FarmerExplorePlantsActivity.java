@@ -132,11 +132,13 @@ public class FarmerExplorePlantsActivity extends AppCompatActivity {
             reference.child(plant_id).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    PlantPopViewPagerAdapter adapter = new PlantPopViewPagerAdapter(FarmerExplorePlantsActivity.this, snapshot);
-                    pager =findViewById(R.id.farmer_explore_plant_popup_viewpager);
-                    TabLayout tabLayout = findViewById(R.id.farmer_explore_plant_popup_tablayout);
-                    tabLayout.setupWithViewPager(pager);
-                    pager.setAdapter(adapter);
+                    if(snapshot.exists()) {
+                        PlantPopViewPagerAdapter adapter = new PlantPopViewPagerAdapter(FarmerExplorePlantsActivity.this, snapshot);
+                        pager = findViewById(R.id.farmer_explore_plant_popup_viewpager);
+                        TabLayout tabLayout = findViewById(R.id.farmer_explore_plant_popup_tablayout);
+                        tabLayout.setupWithViewPager(pager);
+                        pager.setAdapter(adapter);
+                    }
 
 
                 }
