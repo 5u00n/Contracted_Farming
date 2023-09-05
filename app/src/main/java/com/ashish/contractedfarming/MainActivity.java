@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         Handler h = new Handler();
-        h.postDelayed(r, 2000);
+        h.postDelayed(r, 4000);
 
 
 
