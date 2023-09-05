@@ -2,6 +2,7 @@ package com.ashish.contractedfarming.Admin.Dashboard.Farmer.FarmerProfile.Profil
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ public class AdminFarmerPlantActivity extends AppCompatActivity {
 
     TextView farmerPlantId,farmerId,managerId,plantId, farmId;
     Button buttonFarmer, buttonManager, buttonPlant, buttonFarm, buttonAdminApproval,buttonManagerApproval;
+
+    CardView cardViewVerification;
 
 
     FirebaseDatabase database;
@@ -106,6 +109,7 @@ public class AdminFarmerPlantActivity extends AppCompatActivity {
         textViewFinalApproval= findViewById(R.id.admin_farmer_plant_final_approval);
 
 
+        cardViewVerification= findViewById(R.id.admin_farmer_plant_verification_card);
 
         imageViewVerification= findViewById(R.id.admin_farmer_plant_verification_image);
         textViewFarmerCoordinate= findViewById(R.id.admin_farmer_plant_verification_loc_farmer);
@@ -158,8 +162,43 @@ public class AdminFarmerPlantActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if(snapshot.exists()) {
-                    Log.d("Farmer Acceptance : ", new Gson().toJson(snapshot.getValue()));
-                    //Picasso.get().load(snapshot.child("farmer_img_url").getValue().toString()).into(imageViewFarmer);
+                    //Log.d("Farmer Acceptance : ", new Gson().toJson(snapshot.getValue()));
+
+                    //Farmer Details
+                    Picasso.get().load(snapshot.child("farmer_img_url").getValue().toString()).into(imageViewFarmer);
+                    textViewFarmer.setText(snapshot.child("farmer_name").getValue().toString());
+                    farmerId.setText(snapshot.child("farmer_id").getValue().toString());
+
+                    Picasso.get().load(snapshot.child("plant_img_url").getValue().toString()).into(imageViewPlant);
+                    textViewPlant.setText(snapshot.child("plant_name").getValue().toString());
+                    plantId.setText(snapshot.child("plant_id").getValue().toString());
+
+                    Picasso.get().load(snapshot.child("farm_img_url").getValue().toString()).into(imageViewFarm);
+                    textViewFarm.setText(snapshot.child("farm_name").getValue().toString());
+                    farmId.setText(snapshot.child("plot_id").getValue().toString());
+
+
+                    Picasso.get().load(snapshot.child("manager_img_url").getValue().toString()).into(imageViewManager);
+                    textViewManger.setText(snapshot.child("manager_name").getValue().toString());
+                    managerId.setText(snapshot.child("manager_id").getValue().toString());
+
+
+                    textViewAdminApproval.setText(snapshot.child("approval_admin").getValue().toString());
+                    textViewManagerApproval.setText(snapshot.child("approval_manager").getValue().toString());
+
+                    textViewDateAdded.setText(snapshot.child("date_added").getValue().toString());
+                    textViewFinalApproval.setText("By __manager on dd mm yyy");//snapshot.child("final_approval").getValue().toString());
+
+                    if(snapshot.child("manager_loc").exists()) {
+                        cardViewVerification.setVisibility(View.VISIBLE);
+                        Picasso.get().load(snapshot.child("verification_img").getValue().toString()).into(imageViewVerification);
+                        textViewManagerCoordinate.setText(snapshot.child("manager_loc").getValue().toString());
+                        textViewFarmerCoordinate.setText(snapshot.child("farmer_loc").getValue().toString());
+                    }else {
+                        cardViewVerification.setVisibility(View.GONE);
+                    }
+
+
                 }
             }
 

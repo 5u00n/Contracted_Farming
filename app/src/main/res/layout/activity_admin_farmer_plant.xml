@@ -117,6 +117,7 @@
                     android:id="@+id/admin_farmer_plant_plant_image"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/bg_img_login" />
 
                 <TextView
@@ -379,6 +380,7 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/admin_farmer_plant_verification_card"
                 android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
