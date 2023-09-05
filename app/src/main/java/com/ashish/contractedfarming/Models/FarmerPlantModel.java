@@ -2,7 +2,7 @@ package com.ashish.contractedfarming.Models;
 
 public class FarmerPlantModel {
 
-    String id,plot_id,plant_id,manager_id, farm_name,plant_name,manager_name,plant_img_url,farm_img_url,manager_img_url,approval_admin,approval_manager,final_approval,date_added,date_accepted,planted_time;
+    String id,plot_id,plant_id,farmer_id,manager_id, farm_name,plant_name,farmer_name,manager_name,plant_img_url,farm_img_url,farmer_img_url,manager_img_url,approval_admin,approval_manager,final_approval,date_added,date_accepted,planted_time;
 
 
     int plant_progress;
@@ -42,16 +42,19 @@ public class FarmerPlantModel {
         this.plant_name = plant_name;
     }
 
-    public FarmerPlantModel(String id, String plot_id, String plant_id, String manager_id, String farm_name, String plant_name, String manager_name, String plant_img_url, String farm_img_url, String manager_img_url, String approval_admin, String approval_manager, String final_approval, String date_added, String date_accepted, String planted_time, int plant_progress) {
+    public FarmerPlantModel(String id, String plot_id, String plant_id, String farmer_id, String manager_id, String farm_name, String plant_name, String farmer_name, String manager_name, String plant_img_url, String farm_img_url, String farmer_img_url, String manager_img_url, String approval_admin, String approval_manager, String final_approval, String date_added, String date_accepted, String planted_time, int plant_progress) {
         this.id = id;
         this.plot_id = plot_id;
         this.plant_id = plant_id;
+        this.farmer_id = farmer_id;
         this.manager_id = manager_id;
         this.farm_name = farm_name;
         this.plant_name = plant_name;
+        this.farmer_name = farmer_name;
         this.manager_name = manager_name;
         this.plant_img_url = plant_img_url;
         this.farm_img_url = farm_img_url;
+        this.farmer_img_url = farmer_img_url;
         this.manager_img_url = manager_img_url;
         this.approval_admin = approval_admin;
         this.approval_manager = approval_manager;
@@ -60,6 +63,30 @@ public class FarmerPlantModel {
         this.date_accepted = date_accepted;
         this.planted_time = planted_time;
         this.plant_progress = plant_progress;
+    }
+
+    public String getFarmer_id() {
+        return farmer_id;
+    }
+
+    public void setFarmer_id(String farmer_id) {
+        this.farmer_id = farmer_id;
+    }
+
+    public String getFarmer_name() {
+        return farmer_name;
+    }
+
+    public void setFarmer_name(String farmer_name) {
+        this.farmer_name = farmer_name;
+    }
+
+    public String getFarmer_img_url() {
+        return farmer_img_url;
+    }
+
+    public void setFarmer_img_url(String farmer_img_url) {
+        this.farmer_img_url = farmer_img_url;
     }
 
     public String getPlanted_time() {
