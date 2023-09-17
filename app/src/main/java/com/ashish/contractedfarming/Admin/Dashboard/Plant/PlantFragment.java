@@ -42,6 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -79,6 +80,7 @@ public class PlantFragment extends Fragment {
                 if (!searchView.hasFocus()) {
                     arrayList.removeAll(arrayList);
                     for (DataSnapshot ds : snapshot.getChildren()) {
+                        //Log.d("Plants data :",new Gson().toJson(ds.getValue()));
                         arrayList.add(new AdminPlantsModel(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("imgurl").getValue().toString()));
                     }
                     if (context!=null) {

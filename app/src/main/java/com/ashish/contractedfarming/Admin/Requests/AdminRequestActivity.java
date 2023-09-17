@@ -130,7 +130,7 @@ public class AdminRequestActivity extends AppCompatActivity {
                         }
                         if(type_id.contains("farmer-plant")) {
                             Log.d("click requests farmer Plants",type_id+" "+req_id);
-                            reference.child("requests").child(req_id).child("checked").setValue(checked == 11 || checked == 10 ? checked : checked + 10);
+                            reference.child("requests").child(req_id).child("checked").setValue((checked == 11 || checked == 10) ? checked : checked + 10);
                             reference.child("users").child(sender_type).child(sender_id).child("requests").child(req_id).child("checked").setValue(checked == 11 || checked == 10 ? checked : checked + 10);
                             reference.child("users").child(sender_type).child(sender_id).child("notifications").child("noti_" + req_id).setValue(new NotificationModel("noti_" + req_id, "admin", auth.getUid(), "opened your request on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "requests", "false"));
                             startActivity(new Intent(context, AdminFarmerPlantActivity.class).putExtra("farmer_plant_id", type_id));
@@ -141,7 +141,7 @@ public class AdminRequestActivity extends AppCompatActivity {
                         }
                         if(type_id.contains("new-manager")){
                             Log.d("click requests Manager ",type_id+" "+req_id);
-                            reference.child("requests").child(req_id).child("checked").setValue(checked == 11 || checked == 10 ? checked : checked + 10);
+                            reference.child("requests").child(req_id).child("checked").setValue((checked == 11 || checked == 10 )? checked : checked + 10);
                             reference.child("users").child(sender_type).child(sender_id).child("requests").child(req_id).child("checked").setValue(checked == 11 || checked == 10 ? checked : checked + 10);
                             reference.child("users").child(sender_type).child(sender_id).child("notifications").child("noti_" + req_id).setValue(new NotificationModel("noti_" + req_id, "admin", auth.getUid(), "opened your request on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "requests", "false"));
                             //Toast.makeText(context,"View Clicked New Manager Request",Toast.LENGTH_SHORT).show();

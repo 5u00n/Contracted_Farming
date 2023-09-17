@@ -253,7 +253,7 @@ public class AdminFarmerPlantActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
 
                         reference.child("farmer_plants").child(farmer_plant_id).child("approval_admin").setValue("Approved");
-                        reference.child("users").child("farmer").child(textViewFarmer.getText().toString()).child("farmer_plants").child(farmer_plant_id).child("approval_admin").setValue("Approved");
+                        reference.child("users").child("farmer").child(farmerId.getText().toString()).child("farmer_plants").child(farmer_plant_id).child("approval_admin").setValue("Approved");
 
                         reference.child("users").child("farmer").child(farmerId.getText().toString()).child("notifications").child(noti_id).setValue(new NotificationModel(noti_id,"admin", auth.getUid(), "Approved your Plant Request on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "farmer_plant", "false"));
                         reference.child("users").child("manager").child(managerId.getText().toString()).child("notifications").child(noti_id).setValue(new NotificationModel(noti_id,"admin", auth.getUid(), "Approved a Plant Request of "+textViewFarmer.getText().toString()+"(farmer) on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "farmer_plant", "false"));
@@ -262,7 +262,7 @@ public class AdminFarmerPlantActivity extends AppCompatActivity {
                 }).setNegativeButton("Reject", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         reference.child("farmer_plants").child(farmer_plant_id).child("approval_admin").setValue("Rejected");
-                        reference.child("users").child("farmer").child(textViewFarmer.getText().toString()).child("farmer_plants").child(farmer_plant_id).child("approval_admin").setValue("Rejected");
+                        reference.child("users").child("farmer").child(farmerId.getText().toString()).child("farmer_plants").child(farmer_plant_id).child("approval_admin").setValue("Rejected");
 
                         reference.child("users").child("farmer").child(farmerId.getText().toString()).child("notifications").child(noti_id).setValue(new NotificationModel(noti_id,"admin", auth.getUid(), "Rejected your Plant Request on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "farmer_plant", "false"));
                         reference.child("users").child("manager").child(managerId.getText().toString()).child("notifications").child(noti_id).setValue(new NotificationModel(noti_id,"admin", auth.getUid(), "Rejected a Plant Request of "+textViewFarmer.getText().toString()+"(farmer) on the date : " + new SimpleDateFormat("dd MMM YYYY hh:mm a").format(Calendar.getInstance().getTime().getTime()) + " click to check ! ", String.valueOf(Calendar.getInstance().getTime().getTime() / 1000), "farmer_plant", "false"));
