@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -99,6 +100,12 @@ public class MainActivity extends AppCompatActivity {
                     if(snapshot.exists()) {
                         if (snapshot.child("usertype").exists() && snapshot.child("approved_num").exists()) {
 
+                            if (snapshot.child("approved_num").getValue().toString().equals("-1")) {
+                                uninstall();
+                                finish();
+                            }
+                            else {
+
                             switch (snapshot.child("usertype").getValue().toString()) {
                                 case "farmer":
                                     intent[0] = new Intent(MainActivity.this, FarmerDashboardActivity.class);
@@ -122,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                                             intent[0] = new Intent(MainActivity.this, NewFarmerApprovalWaitActivity.class);
                                             intent[0].putExtra("status", "Waiting");
                                             break;
+
                                     }
                                     break;
                                 case "new-manager":
@@ -151,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
                                     break;
 
                             }
+
+                        }
 
                         } else {
                             intent[0] = new Intent(MainActivity.this, SetProfileActivity.class);
@@ -191,5 +201,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         goToNextActivity();
+    }
+
+
+    boolean checkDeviceValidity(){
+        return true;
+    }
+
+    void uninstall(){
+        Intent intent = new Intent(Intent.ACTION_DELETE);
+        intent.setData(Uri.parse("package:" + this.getPackageName()));
+        startActivity(intent);
     }
 }

@@ -25,6 +25,7 @@
             android:layout_marginBottom="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:text="Please Check Your Internet and Re-Open"
             android:textSize="18sp" />
     </LinearLayout>
